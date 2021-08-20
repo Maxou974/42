@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*   ft_boolean.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/17 14:50:53 by mabriel           #+#    #+#             */
-/*   Updated: 2021/08/19 22:01:21 by mabriel          ###   ########.fr       */
+/*   Created: 2021/08/19 14:10:38 by mabriel           #+#    #+#             */
+/*   Updated: 2021/08/19 15:31:58 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#ifndef FT_BOOLEAN_H
+# define FT_BOOLEAN_H
 
-int	ft_ultimate_range(int **range, int min, int max)
-{
-	int	i;
+# define ODD_MSG "I have an odd number of arguments.\n"
+# define EVEN_MSG "I have an even number of arguments.\n"
+# define TRUE 1
+# define FALSE 0
+# define SUCCESS 0
+# define EVEN(NBR) !(NBR % 2)
 
-	i = 0;
-	max = max - min;
-	if (max < 0)
-	{
-		*range = NULL;
-		return (0);
-	}
-	*range = malloc(sizeof(int) * max);
-	if (!(*range))
-		return (-1);
-	while (i < max)
-	{
-		(*range)[i] = min;
-		min++;
-		i++;
-	}
-	return (max);
-}
+void			ft_putstr(char *str);
+typedef char	t_bool;
+
+#endif

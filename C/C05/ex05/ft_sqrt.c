@@ -6,27 +6,23 @@
 /*   By: mabriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 13:37:13 by mabriel           #+#    #+#             */
-/*   Updated: 2021/08/17 19:42:03 by mabriel          ###   ########.fr       */
+/*   Updated: 2021/08/18 11:02:40 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_sqrt(int nb)
 {
-	int	i;
+	unsigned int	i;
+	unsigned int	a;
 
 	i = 0;
+	a = nb;
 	if (nb <= 0 || nb == 2147483647)
 		return (0);
-	while (i * i != nb)
-	{
-		if (i > nb / 3)
-			return (0);
+	while (i * i < a)
 		i++;
-	}
-	return (i);
-}
-
-int main()
-{
-	printf("%d", ft_sqrt(2147483646));
+	if (i * i == a)
+		return (i);
+	else
+		return (0);
 }

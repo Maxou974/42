@@ -6,7 +6,7 @@
 /*   By: mabriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 15:32:22 by mabriel           #+#    #+#             */
-/*   Updated: 2021/08/17 14:49:48 by mabriel          ###   ########.fr       */
+/*   Updated: 2021/08/19 21:53:39 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	*ft_range(int min, int max)
 	max = max - min;
 	if (max <= 0)
 		return (NULL);
-	else
-		dest = malloc(sizeof(int) * (max + 1));
+	dest = malloc(sizeof(int) * max);
+	if (!dest)
+		return (NULL);
 	while (i < max)
 	{
 		dest[i] = min;
