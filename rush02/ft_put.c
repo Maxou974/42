@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ft.c                                            :+:      :+:    :+:   */
+/*   ft_put.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/05 15:13:05 by mabriel           #+#    #+#             */
-/*   Updated: 2021/08/20 15:03:35 by mabriel          ###   ########.fr       */
+/*   Created: 2021/08/21 13:20:40 by mabriel           #+#    #+#             */
+/*   Updated: 2021/08/21 14:39:34 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_ft(int *nbr)
+#include <unistd.h>
+
+void	ft_putchar(char c)
 {
-	*nbr = 42;
+	write(1, &c, 1);
 }
+
+void	ft_putstr(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+		ft_putchar(str[i]);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
