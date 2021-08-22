@@ -6,7 +6,7 @@
 /*   By: mabriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/21 13:26:25 by mabriel           #+#    #+#             */
-/*   Updated: 2021/08/21 22:09:45 by mabriel          ###   ########.fr       */
+/*   Updated: 2021/08/22 17:10:13 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -17,6 +17,7 @@
 #define BUFF_SIZE 4096
 
 char	*ft_atoa_key(char *str, int cmpt);
+char	*ft_atoa_value(char *str, int cmpt);
 char	*ft_strcpy_ultimate(char *src, int start, int end);
 void    ft_putstr(char *str);
 void    ft_putchar(char c);
@@ -26,9 +27,8 @@ int		ft_str_line_numbers(char *str);
 
 typedef struct dict
 {
-	char *i++;i].key = ft_atoa_key(buf,i);
- 57         i++;value;
-	char *key;
+	char	*key;
+	char	*value;
 } s_dict;
 
 int main()
@@ -55,11 +55,14 @@ int main()
 	while (i < ft_str_line_numbers(buf))
 	{
 		tab[i].key = ft_atoa_key(buf,i);
+		tab[i].value = ft_atoa_value(buf,i);
 		i++;
 	}	
 	for (int k = 0; k < ft_str_line_numbers(buf); k++)
 	{
-		printf("%s\n", tab[k].key);
+		printf("%s:", tab[k].key);
+		printf("%s\n", tab[k].value);
+
 	}
 	free(tab);
 }
@@ -80,6 +83,13 @@ int	ft_str_line_numbers(char *str)
 	return (cmp);
 }
 
+int	is_an_isspace(char c)
+{
+	if ((c >=11 && c <= 13) || c == ' ' || c == 9)
+		return (1);
+	return (0);
+}
+
 char	*ft_atoa_key(char *str, int cmpt)
 {
 	int	i;
@@ -88,14 +98,11 @@ char	*ft_atoa_key(char *str, int cmpt)
 	int	j;
 
 	i = -1;
-	start = 0;
-	end = 0;
 	j = 0;
 	while (str[++i] && j < cmpt)
 		if(str[i] == '\n')
 			j++;
-	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\n'
-			|| str[i] == '\r' || str[i] == '\t' || str[i] == '\v')
+	while (is_an_isspace(str[i]))
 			i++;
 	start = i;
 	while (str[i] >= '0' && str[i] <= '9')
@@ -103,8 +110,8 @@ char	*ft_atoa_key(char *str, int cmpt)
 	end = i;
 	return (ft_strcpy_ultimate(str,start,end));
 }
-/*
-char	*ft_atoa_key(char *str, int cmpt)
+
+char	*ft_atoa_value(char *str, int cmpt)
 {
 	int	i;
 	int	end;
@@ -112,21 +119,23 @@ char	*ft_atoa_key(char *str, int cmpt)
 	int	j;
 
 	i = -1;
-	start = 0;
-	end = 0;
 	j = 0;
 	while (str[++i] && j < cmpt)
 		if(str[i] == '\n')
 			j++;
-	while (str[i] == ' ' || str[i] == '\f' || str[i] == '\n'
-			|| str[i] == '\r' || str[i] == '\t' || str[i] == '\v')
+	if (str[i] == '\n')
+		return (ft_strcpy_ultimate("\0", 0, 1));
+	while (str[i] != ':')
+		i++;
+	i++;
+	while (is_an_isspace(str[i]))
 			i++;
 	start = i;
 	while (str[i] >= 32 && str[i] <= 126)
 		i++;
 	end = i;
 	return (ft_strcpy_ultimate(str,start,end));
-}*/
+}
 
 char *ft_strcpy_ultimate(char *src, int start, int end)
 {
