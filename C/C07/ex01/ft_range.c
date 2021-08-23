@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mabriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/16 15:32:22 by mabriel           #+#    #+#             */
-/*   Updated: 2021/08/19 21:53:39 by mabriel          ###   ########.fr       */
+/*   Created: 2021/08/23 13:13:35 by mabriel           #+#    #+#             */
+/*   Updated: 2021/08/23 16:46:59 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	*ft_range(int min, int max)
 {
-	int	*dest;
-	int	i;
+	int				*dest;
+	unsigned int	i;
+	unsigned int	size;
 
 	i = 0;
-	max = max - min;
-	if (max <= 0)
+	if (min >= max)
 		return (NULL);
-	dest = malloc(sizeof(int) * max);
+	size = max - min;
+	dest = malloc(sizeof(int) * size);
 	if (!dest)
 		return (NULL);
-	while (i < max)
+	while (i < size)
 	{
-		dest[i] = min;
-		min++;
+		dest[i] = min + i;
 		i++;
 	}
 	return (dest);

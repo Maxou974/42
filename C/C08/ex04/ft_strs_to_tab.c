@@ -6,9 +6,11 @@
 /*   By: mabriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 22:14:07 by mabriel           #+#    #+#             */
-/*   Updated: 2021/08/19 22:18:45 by mabriel          ###   ########.fr       */
+/*   Updated: 2021/08/23 11:47:37 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
 
 int	ft_strlen(char *str)
 {
@@ -20,9 +22,28 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int main()
+char	*ft_strdup(char *src)
 {
-	char *tab = "Je suis";
+	int		i;
+	int		len;
+	char	*dest;
 
-	printf("%d", ft_strlen(tab));
+	i = 0;
+	len = ft_strlen(src);
+	dest = malloc(sizeof(char) * (len + 1));
+	if (!dest)
+		return (NULL);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+struct s_stock_str *ft_strs_to_tab(int ac, char **av);
+{
+	t_stock_str	*tab;
+
 }
