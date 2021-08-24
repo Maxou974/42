@@ -6,7 +6,7 @@
 /*   By: mabriel <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 22:51:12 by mabriel           #+#    #+#             */
-/*   Updated: 2021/08/24 15:29:50 by mabriel          ###   ########.fr       */
+/*   Updated: 2021/08/24 18:16:50 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,58 @@ int	ft_nbr_of_words(char *str, char *charset)
 	nbr = 0;
 	while (str[i])
 	{
+		while(ft_is_charset(str[i], charset))
+			i++;
 		while (str[i] && !ft_is_charset(str[i], charset))
 			i++;
-		if (!ft_is_charset(str[i])
-			nbr++;
+		nbr++;
 		while (str[i] && ft_is_charset(str[i],charset))
 			i++;
 	}
+	//if (ft_is_charset(str[0], charset))
+	//	nbr--;
 	return (nbr);		
+}
+
+char **ft_make_tab(char *str, char *charset)
+{
+	char	**tab;
+	int		i;
+	int		start;
+	int		j;
+
+	i = 0;
+	j = 0;
+	tab = malloc(sizeof(char *) * (ft_nbr_of_words(str, charset) + 1));
+	while (str[i])
+	{
+		while(ft_is_charset(str[i], charset))
+			i++;
+		start = i;
+		while (str[i] && !ft_is_charset(str[i], charset))
+			i++;
+		tab[j] = malloc(sizeof(char *) * (i - start + 2));
+		tab[j] = ft_ultimate_strdup(str, start, i - 1);
+		j++;
+		while (str[i] && ft_is_charset(str[i],charset))
+			i++;
+	}
+	tab[j] = 0;
+	return (tab);
 }
 
 
 #include <stdio.h>
 int main()
 {
-	char *str = "  suis    pas   tres   beau   mais   tres con au revoir    ";
+	char *str = "   Je   suis    con    ";
 	char *charset = " ";
-	printf("%d", ft_nbr_of_words(str, charset));
+	char **tab;
+
+	tab = ft_make_tab(str, charset);
+
+	for(int i = 0; i< 10; i++)
+	{
+		printf("%s\n", tab[i]);
+	}
 }
-
-
-/*
-char **ft_split(char *str, char *charset)
-{
-	
-}*/
