@@ -1,5 +1,0 @@
-Credentials cache: API:F5F52B64-04A6-4CFA-B224-E9EECB145E67
-        Principal: mabriel@42.FR
-
-  Issued                Expires               Principal
-Aug  2 14:59:06 2021  Aug  2 17:58:58 2021  krbtgt/42.FR@42.FR
