@@ -1,0 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/12 16:35:31 by kychoi            #+#    #+#             */
+/*   Updated: 2022/05/19 09:30:23 by kyubongchoi      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+
+//must compile with -lreadline
+//=> ex) gcc readline.c -lreadline
+int main(int ac, char **av)
+{
+    char *line;
+
+    while (1)
+    {
+        line =readline("$>");
+        add_history(line); // save and able to call with `key_up`
+        printf("line:%s\n", line);
+    }
+    return (0);
+}
