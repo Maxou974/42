@@ -1,46 +1,38 @@
-# this is to manage flags for m1 architecture, we don't have to use this flag in linux
-OS_ARCH 	:= $(shell uname -m)
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: maxime <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/06/27 03:19:38 by maxime            #+#    #+#              #
+#    Updated: 2022/06/27 03:21:12 by maxime           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-HEADER_INC	:=	-I.
+NAME	= philo
 
-SRC_PATH	=	./
+SRCS	= philo.c args.c time.c watch.c init.c action.c 
+OBJS	= ${SRCS:.c=.o}
 
-SRCS		=	philo.c args.c time.c watch.c init.c action.c 
+CC		= gcc
+FLAGS	= -Werror -Wextra -Wall -pthread
+#FLAGS	= -Werror -Wextra -Wall -pthread -g3 -fsanitize=thread
 
-OBJ_PATH	=	./bin/
+.c.o:
+		${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
-OBJS		=	$(addprefix $(OBJ_PATH), $(SRCS:.c=.o))
+$(NAME): ${OBJS}
+		${CC} ${CFLAGS} -o ${NAME} ${OBJS}
 
-CC			=	gcc
-
-# CFLAGS		=	-Wall -Werror -Wextra -g3 -fsanitize=address
-CFLAGS		=	-Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
-
-NAME		=	philo
-
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-				@printf "\033[94m.\033[0m"
-				@mkdir -p $(OBJ_PATH)
-				@$(CC) $(CFLAGS) -c $< -o $@ $(HEADER_INC)
-
-
-$(NAME):		$(OBJS)
-				@echo "\033[94m\n\nObject files has been compiled! \033[0m"
-				@echo "\033[95m\nGenerating executable on $(OS_ARCH) ...\033[0m"
-				@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) 
-				@echo "\033[92m\n$(NAME) for $(OS_NAME) has been created! \033[0m"
-
-all:			$(NAME)
+all: ${NAME}
 
 clean:
-				@rm -rf $(OBJ_PATH)
-				@echo "\033[91m\nObject files has been removed.\033[0m"
+		rm ${OBJS}
 
-fclean:			clean
-				@rm -f $(NAME)
-				@echo "\033[91m\nExecutable file has been removed.\n\033[0m"
+fclean: clean
+		rm ${NAME}
 
-re: 			fclean all
+re: fclean all
 
-
-.PHONY:			all clean fclean re bonus
+.PHONY:			all clean fclean re
