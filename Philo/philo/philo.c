@@ -18,7 +18,7 @@ void	*routine(void *p)
 
 	tmp = (t_philo *)p;
 	if ((tmp->n) % 2 == 0)
-		usleep(tmp->info->t_eat * 1000);
+		ft_usleep(tmp->info->t_eat * 1000, tmp->info);
 	while (1)
 	{
 		pthread_mutex_lock(&tmp->info->print);
@@ -78,3 +78,15 @@ int	main(int argc, char **argv)
 	clear_exit(i);
 	return (0);
 }
+/*
+int main()
+{
+
+	t_info	*i = malloc(sizeof(t_info));
+	gettimeofday(&(i->start), NULL);
+
+	printf("start = %lld\n", get_time(&i->start));
+	ft_usleep(1000 * 1000, i);
+	printf("end = %lld\n", get_time(&i->start));
+}
+*/

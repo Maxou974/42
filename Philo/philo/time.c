@@ -26,3 +26,16 @@ long long int	get_time(void *arg)
 	ret -= start;
 	return (ret);
 }
+
+void	ft_usleep(long long int us_sleep, t_info *info)
+{
+	struct timeval star;
+	(void)info;
+
+	gettimeofday(&star, NULL);
+	while ((us_sleep - 100) / 1001 >= get_time(&star))
+	{
+		usleep(500);
+		gettimeofday(&star, NULL);
+	}
+}

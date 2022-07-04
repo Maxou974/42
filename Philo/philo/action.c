@@ -14,17 +14,16 @@
 
 int	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->r_fork);
-	if (philo->info->nbr_philo == 1)
+	if (philo->n % 2 == 0)
 	{
-		pthread_mutex_unlock(philo->r_fork);
-		usleep(philo->info->t_die * 1000);
-		pthread_mutex_lock(&philo->info->print);
-		printf("0 1 has taken a fork\n");
-		print_dead(philo->info, 0);
-		return (0);
+		pthread_mutex_lock(philo->l_fork);
+		pthread_mutex_lock(philo->r_fork);
 	}
-	pthread_mutex_lock(philo->l_fork);
+	else
+	{
+		pthread_mutex_lock(philo->r_fork);
+		pthread_mutex_lock(philo->l_fork);
+	}
 	pthread_mutex_lock(&philo->info->print);
 	if (philo->dead != 1)
 	{
@@ -47,7 +46,7 @@ void	eat(t_philo *phi)
 	phi->eat_times += 1;
 	phi->last_eat = get_time(&(phi->info->start));
 	pthread_mutex_unlock(&(phi->info->print));
-	usleep(phi->info->t_eat * 1000);
+	ft_usleep(phi->info->t_eat * 1000, phi->info);
 	pthread_mutex_unlock(phi->l_fork);
 	pthread_mutex_unlock(phi->r_fork);
 }
@@ -60,7 +59,7 @@ void	do_sleep(t_philo *phi)
 		printf("%lld %d is sleeping\n", get_time(&(phi->info->start)), phi->n);
 	}
 	pthread_mutex_unlock(&(phi->info->print));
-	usleep(phi->info->t_sleep * 1000);
+	ft_usleep(phi->info->t_sleep * 1000, phi->info);
 }
 
 void	think(t_philo *phi)
