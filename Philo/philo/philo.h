@@ -53,6 +53,6 @@ int				init_philos(t_info *in);
 void			philo_routine(t_philo *phi);
 void			*verify(void *in);
 char			*print_dead(t_info *info, int i);
-void	ft_usleep(long long int us_sleep, t_info *info);
+void			ft_usleep(long long int us_sleep, t_info *info);
 
 #endif

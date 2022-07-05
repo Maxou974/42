@@ -67,6 +67,7 @@ void	*verify(void *in)
 				return (print_dead(info, i));
 			else if (check_meal(&info->all[i]))
 			{
+				printf("Everybody has eaten is meal.\n");
 				pthread_mutex_unlock(&info->print);
 				return (NULL);
 			}	

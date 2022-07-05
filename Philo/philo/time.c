@@ -28,14 +28,18 @@ long long int	get_time(void *arg)
 }
 
 void	ft_usleep(long long int us_sleep, t_info *info)
-{
-	struct timeval star;
-	(void)info;
+{	
+	long long int	actual;
 
-	gettimeofday(&star, NULL);
-	while ((us_sleep - 100) / 1001 >= get_time(&star))
+	actual = get_time(&info->start);
+	while (get_time(&info->start) < actual + (us_sleep / 1000))
 	{
-		usleep(500);
-		gettimeofday(&star, NULL);
+		pthread_mutex_lock(&info->print);
+		if (info->dead)
+			break ;
+		pthread_mutex_unlock(&info->print);
+		usleep(1000);
 	}
+	if (info->dead)
+		pthread_mutex_unlock(&info->print);
 }
