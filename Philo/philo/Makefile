@@ -6,7 +6,7 @@
 #    By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/27 03:19:38 by mabriel           #+#    #+#              #
-#    Updated: 2022/07/06 20:01:45 by mabriel          ###   ########.fr        #
+#    Updated: 2022/07/07 01:51:09 by mabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,4 +35,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY:			all clean fclean re
+phi: all clean
+
+.PHONY:	all clean fclean re philo

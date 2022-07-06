@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:47:18 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/06 20:27:43 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/07 01:49:06 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	*verify(void *in)
 	info = in;
 	while (1)
 	{
+		pthread_mutex_lock(&info->print);
 		i = -1;
 		while (++i < info->nbr_philo)
 		{
-			pthread_mutex_lock(&info->print);
 			if (get_time(&info->start) - info->all[i].last_eat >= info->t_die
 				&& !info->all[i].dead && info->nbr_philo != 1)
 				return (print_dead(info, i));
@@ -71,9 +71,8 @@ void	*verify(void *in)
 				pthread_mutex_unlock(&info->print);
 				return (NULL);
 			}	
-			else
-				pthread_mutex_unlock(&info->print);
 		}
-		usleep(5000);
+		pthread_mutex_unlock(&info->print);
+		usleep(2500);
 	}
 }
