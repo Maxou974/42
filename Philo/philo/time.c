@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:47:10 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/05 15:18:14 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/06 20:23:22 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ void	ft_usleep(long long int us_sleep, t_info *info)
 	{
 		pthread_mutex_lock(&info->print);
 		if (info->dead)
+		{
+			pthread_mutex_unlock(&info->print);
 			break ;
+		}
 		pthread_mutex_unlock(&info->print);
 		usleep(1000);
 	}
-	if (info->dead)
-		pthread_mutex_unlock(&info->print);
 }

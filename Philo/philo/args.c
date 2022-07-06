@@ -6,11 +6,25 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:46:28 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/06 18:23:51 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/06 19:40:28 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	check_int_max(char *s)
+{
+	char	*tmp;
+
+	tmp = ft_itoa(ft_atoi(s));
+	if (ft_strncmp(tmp, s, ft_strlen(tmp)))
+	{
+		free(tmp);
+		return (1);
+	}
+	free(tmp);
+	return (0);
+}
 
 int	checkarg(int argc, char **argv)
 {
@@ -32,6 +46,8 @@ int	checkarg(int argc, char **argv)
 				return (1);
 			i++;
 		}
+		if (check_int_max(argv[j]))
+			return (1);
 		j++;
 	}
 	return (0);

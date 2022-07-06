@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:47:18 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/05 15:18:18 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/06 20:27:43 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*verify(void *in)
 				return (print_dead(info, i));
 			else if (check_meal(&info->all[i]))
 			{
-				printf("Everybody has eaten is meal.\n");
+				printf("Everyone ate their meal.\n");
 				pthread_mutex_unlock(&info->print);
 				return (NULL);
 			}	

@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:46:35 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/05 15:18:00 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/06 20:14:09 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	init_philos(t_info *in)
 	if (!in->all)
 		return (1);
 	i = -1;
+	pthread_mutex_lock(&in->print);
 	while (++i < in->nbr_philo)
 	{
 		in->all[i].n = i + 1;
@@ -45,5 +46,6 @@ int	init_philos(t_info *in)
 		in->all[i].r_fork = &in->forks[i];
 		in->all[i].l_fork = &in->forks[((i + 1) % in->nbr_philo)];
 	}
+	pthread_mutex_unlock(&in->print);
 	return (0);
 }

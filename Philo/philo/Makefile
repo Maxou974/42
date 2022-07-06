@@ -6,13 +6,13 @@
 #    By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/27 03:19:38 by mabriel           #+#    #+#              #
-#    Updated: 2022/07/05 15:18:04 by mabriel          ###   ########.fr        #
+#    Updated: 2022/07/06 20:01:45 by mabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
 
-SRCS	= philo.c args.c time.c watch.c init.c action.c 
+SRCS	= philo.c args.c time.c watch.c init.c action.c check.c ft_strlen.c
 OBJS	= ${SRCS:.c=.o}
 
 CC		= gcc

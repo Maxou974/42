@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:11:50 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/06 19:07:45 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/06 20:32:54 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ int	th(t_info *i)
 	{
 		if (pthread_create(&(i->all[j].th_id), NULL, &routine, &(i->all[j])))
 		{
+			pthread_mutex_lock(&i->print);
 			i->dead = 1;
+			pthread_mutex_unlock(&i->print);
 			while (++k < j)
-			{
 				pthread_join(i->all[k].th_id, NULL);
-			}
+			return (1);
 		}
 	}
 	if (pthread_create(&(i->watch_id), NULL, &verify, i))
