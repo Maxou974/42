@@ -16,8 +16,8 @@ SRCS	= philo.c args.c time.c watch.c init.c action.c
 OBJS	= ${SRCS:.c=.o}
 
 CC		= gcc
-#FLAGS	= -Werror -Wextra -Wall -pthread
-FLAGS	= -Werror -Wextra -Wall -pthread -g3 -fsanitize=thread
+FLAGS	= -Werror -Wextra -Wall -pthread
+#FLAGS	= -Werror -Wextra -Wall -pthread -g3 -fsanitize=thread
 
 .c.o:
 		${CC} ${FLAGS} -c $< -o ${<:.c=.o}

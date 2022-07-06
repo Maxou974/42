@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:46:52 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/05 15:18:10 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/06 19:20:29 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,9 @@ void			philo_routine(t_philo *phi);
 void			*verify(void *in);
 char			*print_dead(t_info *info, int i);
 void			ft_usleep(long long int us_sleep, t_info *info);
+int				ft_atoi(char *str)
+size_t			ft_strlen(const char *s);
+char			*ft_itoa(int n);
+
 
 #endif

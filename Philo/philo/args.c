@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:46:28 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/05 15:17:53 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/06 18:23:51 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	checkarg(int argc, char **argv)
 	return (0);
 }
 
-static int	ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
 	int	i;
 	int	ret;

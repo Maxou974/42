@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:11:50 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/05 15:18:08 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/06 19:07:45 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,21 @@ void	*routine(void *p)
 int	th(t_info *i)
 {
 	int	j;
+	int	k;
 
 	j = -1;
+	k = -1;
 	while (++j < i->nbr_philo)
+	{
 		if (pthread_create(&(i->all[j].th_id), NULL, &routine, &(i->all[j])))
-			return (1);
+		{
+			i->dead = 1;
+			while (++k < j)
+			{
+				pthread_join(i->all[k].th_id, NULL);
+			}
+		}
+	}
 	if (pthread_create(&(i->watch_id), NULL, &verify, i))
 		return (1);
 	j = -1;
@@ -65,6 +75,13 @@ void	clear_exit(t_info *i)
 	free(i);
 }
 
+void	one_philo(t_info *i)
+{
+	printf("%lld 1 has taken a fork\n", get_time(&i->start));
+	ft_usleep(i->t_die * 1000, i);
+	printf("%lld 1 is dead\n", get_time(&i->start));
+}
+
 int	main(int argc, char **argv)
 {
 	t_info	*i;
@@ -73,20 +90,10 @@ int	main(int argc, char **argv)
 		|| init_forks_print(i) || init_philos(i))
 		return (args_error());
 	gettimeofday(&(i->start), NULL);
-	if (th(i))
+	if (i->nbr_philo == 1)
+		one_philo(i);
+	else if (th(i))
 		write(2, "THREADS ERROR\n", 14);
 	clear_exit(i);
 	return (0);
 }
-/*
-int main()
-{
-
-	t_info	*i = malloc(sizeof(t_info));
-	gettimeofday(&(i->start), NULL);
-
-	printf("start = %lld\n", get_time(&i->start));
-	ft_usleep(1000 * 1000, i);
-	printf("end = %lld\n", get_time(&i->start));
-}
-*/
