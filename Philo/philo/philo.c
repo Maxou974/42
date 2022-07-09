@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:11:50 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/06 23:02:37 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/09 16:01:09 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ int	main(int argc, char **argv)
 	if (i->nbr_philo == 1)
 		one_philo(i);
 	else if (th(i))
+	{
 		write(2, "THREADS ERROR\n", 14);
+		return (1);
+	}
 	clear_exit(i);
 	return (0);
 }
