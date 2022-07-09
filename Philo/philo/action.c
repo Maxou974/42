@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:46:15 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/09 16:07:19 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/09 19:35:24 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	think(t_philo *phi)
 		printf("%lld %d is thinking\n", get_time(&(phi->info->start)), phi->n);
 	}
 	pthread_mutex_unlock(&(phi->info->print));
-	usleep(1000);
+	if (phi->info->nbr_philo % 2 == 1)
+		usleep(500);
 }
 
 void	philo_routine(t_philo *phi)
