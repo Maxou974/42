@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 14:27:41 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2022/07/08 23:57:31 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/09 01:36:58 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int ac, char **av)
 	init(game);
 	if (parse(av, game))
 	{
-		print_game(game);
+		//print_game(game);
 		free_game(game);
 		//mlx_hook(game->win, EVENT_EXIT_WIN, 0, close_game_win_ctrl, game);
 		//mlx_loop(game->mlx);

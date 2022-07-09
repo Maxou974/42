@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 12:15:07 by kychoi            #+#    #+#             */
-/*   Updated: 2022/07/08 23:50:14 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/09 03:17:33 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@
 
 /* Pointer size */
 # define P_SIZE 8
-# define OFFMAP -1
-# define INMAP -2
-# define OUTMAP -3 
+# define OFFMAP -16
 # define ERROR_LINE 1
 # define ERROR_MAP 2
 
@@ -68,20 +66,38 @@ typedef struct s_game {
 	char		**map;
 	t_player	*player;
 	int			count;
-	int 		line;
+	int			line;
 	int			err;
 }	t_game;
 
+/* *********************************************************************** */
+/*                               PARSING                                   */
+/* *********************************************************************** */
 /* parse.c */
 int		parse(char **av, t_game *game);
 int		check_place(t_game *game, int place);
-void	error_parsing(t_error err_code, char *msg, t_game *game);
 int		validate_line(char *line, t_game *game);
-void	exit_error_file(t_game *game, int err_code);
-int		open_file(char *s, t_game *game);
 void	init_parse(t_game *game);
-int	forest_help(t_game *game, int code);
 
+/* check_map.c */
+void	check_map(t_game *game);
+
+/* parse_error.c */
+void	error_parsing(t_error err_code, char *msg, t_game *game);
+void	exit_error_file(t_game *game, int err_code);
+int		forest_help(t_game *game, int code);
+int		open_file(char *s, t_game *game);
+
+/* tokenize_map.c */
+char	**tokenize(t_game *game, char **src);
+
+/* tokenize_map_help.c */
+int		get_horizontal_size(char **s);
+int		get_vertical_size(char **s);
+
+/* *********************************************************************** */
+/*                             RAY-CASTING                                 */
+/* *********************************************************************** */
 /* painter.c */
 void	put_header(void);
 void	print_game(t_game *game);

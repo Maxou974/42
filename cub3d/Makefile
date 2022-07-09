@@ -19,7 +19,7 @@ SRC_PATH	=	./src/
 SRCS		=	main.c \
 				painter.c \
 				free.c \
-				$(addprefix parsing/, parse.c parse_error.c init_parse.c)\
+				$(addprefix parsing/, parse.c parse_error.c init_parse.c check_map.c tokenize_map.c tokenize_map_help.c)\
 				# $(addprefix exec/, )
 
 OBJ_PATH	=	./bin/
