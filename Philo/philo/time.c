@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:47:10 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/09 19:34:52 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/15 19:33:53 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	ft_usleep(long long int us_sleep, t_info *info)
 		pthread_mutex_unlock(&info->print);
 		usleep(128);
 	}
+}
+
+int	error_threads(t_info *i, int k, int j)
+{
+	pthread_mutex_lock(&i->print);
+	i->dead = 1;
+	pthread_mutex_unlock(&i->print);
+	while (++k < j)
+		pthread_join(i->all[k].th_id, NULL);
+	return (1);
 }
