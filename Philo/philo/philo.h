@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:46:52 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/06 19:36:31 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/15 19:36:15 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int				info_init(int argc, char **argv, t_info **ptr);
 int				checkarg(int argc, char **argv);
 int				args_error(void);
 long long int	get_time(void *arg);
+int				error_threads(t_info *i, int k, int j);
 int				init_forks_print(t_info *in);
 int				init_philos(t_info *in);
 void			philo_routine(t_philo *phi);

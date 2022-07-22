@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:11:50 by mabriel           #+#    #+#             */
-/*   Updated: 2022/07/09 16:01:09 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/07/15 19:35:55 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,10 @@ int	th(t_info *i)
 	while (++j < i->nbr_philo)
 	{
 		if (pthread_create(&(i->all[j].th_id), NULL, &routine, &(i->all[j])))
-		{
-			pthread_mutex_lock(&i->print);
-			i->dead = 1;
-			pthread_mutex_unlock(&i->print);
-			while (++k < j)
-				pthread_join(i->all[k].th_id, NULL);
-			return (1);
-		}
+			return (error_threads(i, k, j));
 	}
 	if (pthread_create(&(i->watch_id), NULL, &verify, i))
-		return (1);
+		return (error_threads(i, k, j));
 	j = -1;
 	while (++j < i->nbr_philo)
 		pthread_join(i->all[j].th_id, NULL);
@@ -96,6 +89,7 @@ int	main(int argc, char **argv)
 	else if (th(i))
 	{
 		write(2, "THREADS ERROR\n", 14);
+		clear_exit(i);
 		return (1);
 	}
 	clear_exit(i);
