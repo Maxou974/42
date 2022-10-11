@@ -1,0 +1,18 @@
+0. General 
+	- fixe la struct et ses variables que l'on va utiliser principalement.
+	- Donc, celui qui va faire exec commence par une struct pre-rempli en dur.
+
+1. Parsing : Parser de maniere correct && verifier des cas stupid ou ce qui peut générer des erreurs.
+	1.1
+
+
+
+
+
+kyubong:
+- Gerer les input Arrow(gauche et droite) avec calcul math.
+- regarder aussi le deplacement(w,a,s,d) apres avoir modifié game->player->dir_y
+- Mettre en bon value player->x, player->y, player->dir_x, player->dir_y selon player->dir ('N', 'S', ...)
+- malloc protection
+- calloc -> ft_calloc
+- freeall function when exit
