@@ -6,12 +6,13 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:10:18 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/11 23:11:43 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/10/13 23:56:50 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Weapon.hpp"
 #include "HumanA.hpp"
+#include "HumanB.hpp"
 
 int main()
 {

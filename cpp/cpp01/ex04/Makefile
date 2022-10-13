@@ -5,14 +5,14 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/11 05:03:37 by mabriel           #+#    #+#              #
-#    Updated: 2022/10/12 02:07:53 by mabriel          ###   ########.fr        #
+#    Created: 2022/10/11 19:09:21 by mabriel           #+#    #+#              #
+#    Updated: 2022/10/12 03:13:33 by mabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= Zombie
+NAME	= sed
 
-SRC		= main.cpp Zombie.cpp zombieHorde.cpp
+SRC		= main.cpp 
 OBJS	= ${SRC:.cpp=.o}
 
 CC		= c++
