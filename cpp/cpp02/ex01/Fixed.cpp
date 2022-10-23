@@ -28,9 +28,8 @@ Fixed::Fixed( const int value)
 
 Fixed::Fixed( const float fvalue )
 {
-	float tmp = fvalue;
-
-	this->_value = ;
+	std::cout << "Float constructor called\n";
+	this->_value = (int)roundf(fvalue * 256);
 }
 
 Fixed::~Fixed( void ){
@@ -50,6 +49,12 @@ Fixed & Fixed::operator=(const Fixed &ref)
 	return *this;
 }
 
+std::ostream&	operator<<(std::ostream& out, const Fixed &ref)
+{
+	out << ref.toFloat();
+	return out;
+}
+
 int		Fixed::getRawBits() const
 {
 	std::cout << "getRawbits member function called\n";
@@ -60,4 +65,22 @@ void	Fixed::setRawBits(const int raw)
 {
 	std::cout << "setRawbits member function called\n";
 	this->_value = raw;
+}
+
+int	Fixed::toInt(void) const
+{
+	return this->_value >> this->_nbits;
+}
+
+int mypow(int a, int b)
+{
+	if (a==0)
+		return (1);
+	else
+		return (a * pow(a, b-1));
+}
+
+float	Fixed::toFloat(void) const
+{
+	return (float)this->_value / pow(2, this->_nbits);
 }

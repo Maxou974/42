@@ -6,14 +6,14 @@
 #    By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/11 18:18:00 by mabriel           #+#    #+#              #
-#    Updated: 2022/10/11 18:21:52 by mabriel          ###   ########.fr        #
+#    Updated: 2022/10/20 11:40:08 by mabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = main.cpp
+SRC = main.cpp Fixed.cpp
 OBJ = ${SRC:.cpp=.o}
 
-NAME = brain
+NAME = Fixed
 
 CC= c++
 FLAGS = -Wall -Werror -Wextra -std=c++98

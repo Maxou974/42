@@ -14,25 +14,41 @@
 #include <iostream>
 #include <cmath>
 #include "Fixed.hpp"
+#include "Point.hpp"
+
+bool	bsp(Point const a, Point const b, Point const c, Point const point);
 
 int main( void ) {
-	
-	
-	Fixed a;
-	Fixed const b( 10 );
-	Fixed const c( 42.42f );
-	Fixed const d( b );
-	
-	a = Fixed( 1234.4321f );
-	
-	std::cout << "a is " << a << std::endl;
-	std::cout << "b is " << b << std::endl;
-	std::cout << "c is " << c << std::endl;
-	std::cout << "d is " << d << std::endl;
-	
-	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+{
+	Point a(-1, -1);
+	Point b(-2, -2);
+	Point c(-1, -3);
+	Point point(-0.99f, -2);
+	if (bsp(a,b,c,point))
+		std::cout << "1:inside\n\n";
+	else
+		std::cout << "1:outside\n\n";
+}
+{
+	Point a(1, 1);
+	Point b(2, 2);
+	Point c(1, 3);
+	Point point(0.99f, 2);
+	if (bsp(a,b,c,point))
+		std::cout << "2:inside\n\n";
+	else
+		std::cout << "2:outside\n\n";
+}
+{
+	Point a(-1, 1);
+	Point b(2, -2);
+	Point c(-1, -3);
+	Point point(-1.1f, -1);
+	if (bsp(a,b,c,point))
+		std::cout << "3:inside\n";
+	else
+		std::cout << "3:outside\n";
+}
+
 	return 0;
 }
