@@ -1,6 +1,6 @@
 NAME = ClapTrap
 
-SRCS = main.cpp ClapTrap.cpp ScavTrap.cpp
+SRCS = main.cpp ClapTrap.cpp ScavTrap.cpp FlagTrap.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 CC = c++
