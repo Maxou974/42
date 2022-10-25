@@ -36,7 +36,7 @@ void	ScavTrap::attack(const std::string &ref)
 		set_EP(get_EP() - 1);
 	}
 	else
-		std::cout << "ClapTrap " << get_name() << " can not execute attack\n";
+		std::cout << "ScavTrap " << get_name() << " can not execute attack\n";
 	info();
 }
 

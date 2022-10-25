@@ -1,10 +1,11 @@
 #include "ClapTrap.hpp"
-#include "FlagTrap.hpp"
+#include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main()
 {
 	ClapTrap maxime("Maxime");
-	FlagTrap mathou("Mathou");
+	FragTrap mathou("Mathou");
 
 	maxime.attack("random guy in street");
 
