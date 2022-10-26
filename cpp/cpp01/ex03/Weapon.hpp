@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:10:30 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/12 02:01:10 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/10/25 19:40:41 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class Weapon{
 public:
 	Weapon( std::string );
 	Weapon();
-	std::string& getType( void );
+	const std::string& getType( void );
 	void setType( std::string name );
 };
 
