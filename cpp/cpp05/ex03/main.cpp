@@ -8,6 +8,8 @@
 
 int main()
 {
+	srand(time(NULL));
+
 	try{
 		Intern someRandomIntern;
 		Form* rrf;

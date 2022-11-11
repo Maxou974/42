@@ -10,6 +10,8 @@
 
 int main()
 {
+	srand(time(NULL));
+
 	try
 	{
 		Bureaucrat max("max", MAX_GRADE);

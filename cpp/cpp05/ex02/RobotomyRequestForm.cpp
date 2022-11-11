@@ -29,7 +29,6 @@ RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm &r
 void	RobotomyRequestForm::execute(const Bureaucrat & executor)const
 {
 	check_exec(executor);
-	srand(time(NULL));
 	std::cout << "*** LOUD DRILL NOISE ***\n";
 	if (rand() % 2)
 		std::cout << _target << " has been robotomised\n";

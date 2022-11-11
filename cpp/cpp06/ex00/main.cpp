@@ -1,11 +1,7 @@
-#include <iostream>
-#include <limits>
-#include <string>
-#include <iomanip>
-#include <cmath>
 #include <cstring>
-#include <cstdlib>
+#include <iostream>
 #include <cstdio>
+#include <cstdlib>
 
 bool	is_int;
 bool	is_char;
