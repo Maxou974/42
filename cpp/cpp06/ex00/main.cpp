@@ -1,4 +1,6 @@
 #include <cstring>
+#include <string>
+#include <string.h>
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -8,6 +10,9 @@ bool	is_char;
 bool	is_float;
 bool	is_double;
 bool	iof = 0;
+
+char *reverse(char *str);
+void itoa(int nbr, char s[]);
 
 bool	isFloat(const std::string &str)
 {
@@ -68,7 +73,7 @@ bool	isInt(const std::string &str)
 	int	tmp;
 	char buffer[13];
 	tmp = atoi(copy.c_str());
-	sprintf(buffer, "%d", tmp);
+	itoa(tmp, buffer);
 	if (!strcmp(copy.c_str(), buffer) && copy == str)
 		return true;
 	if (copy[copy.size() - 1] == 'f')
@@ -168,4 +173,45 @@ int main(int argc, char **argv)
 	}
 	else
 		std::cout << "One arguments needed\n";
+}
+
+char *reverse(char *str)
+{
+    char tmp, *src, *dst;
+    size_t len;
+    if (str != NULL)
+    {
+        len = strlen (str);
+        if (len > 1) {
+            src = str;
+            dst = src + len - 1;
+            while (src < dst) {
+                tmp = *src;
+                *src++ = *dst;
+                *dst-- = tmp;
+            }
+        }
+    }
+    return str;
+}
+
+void itoa(int nbr, char s[])
+{
+    int i, sign;
+	unsigned int n = nbr;
+
+    if ((sign = n) < 0)        /* record sign */
+        n = -nbr;                /* make n positive */
+    i = 0;
+
+    do {                       /* generate digits in reverse order */
+        s[i++] = n % 10 + '0'; /* get next digit */
+    } while ((n /= 10) > 0);   /* delete it */
+
+    if (sign < 0)
+        s[i++] = '-';
+
+    s[i] = '\0';
+    reverse(s);
+    return;
 }
