@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:11:40 by mabriel           #+#    #+#             */
-/*   Updated: 2022/11/16 18:37:54 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/16 19:07:57 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int main(int ar, char **av)
 				else
 					std::cout << av[i][j];
 			}
-			std::cout << " ";
 		}
 		std::cout << std::endl;
 	}
