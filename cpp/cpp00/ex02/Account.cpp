@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 00:14:47 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/11 02:05:57 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/15 20:43:19 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <ctime>
 #include <iomanip>
 
-int	Account::_nbAccounts =0;
+int	Account::_nbAccounts = 0;
 int	Account::_totalAmount = 0;
 int	Account::_totalNbDeposits = 0;
 int	Account::_totalNbWithdrawals = 0;
