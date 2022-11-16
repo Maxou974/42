@@ -1,14 +1,14 @@
-#ifndef SPAN_HPP
+	#ifndef SPAN_HPP
 #define SPAN_HPP
 
 #include <iostream>
 #include <utility>
 #include <algorithm>
+#include <vector>
 
 class Span {
-	unsigned int		_n;
-	unsigned int	_span_size;
-	int					*_span;
+	unsigned int		_span_size;
+	std::vector<int>	_span;
 public:
 	Span();
 	Span(unsigned int);
