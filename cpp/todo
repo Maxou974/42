@@ -1,0 +1,7 @@
+cpp00: check ex00
+
+
+cpp03: ex01 claptrap doit etre protege et pas utiliser de seter
+
+
+cpp08: ex01 utiliser std::vector au lieu de la span
