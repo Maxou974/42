@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 02:40:20 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/11 05:40:23 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 19:03:40 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define ZOMBIE_HPP
 
 #include <iostream>
+#include <string>
 
 class Zombie {
 	

@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:10:30 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/25 19:40:41 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:45:43 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define WEAPON_HPP
 
 #include <iostream>
+#include <string>
 
 class Weapon{
 	std::string _type;

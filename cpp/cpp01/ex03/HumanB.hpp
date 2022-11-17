@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 23:11:58 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/12 03:08:35 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:45:55 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define HUMAN_B_HPP
 
 #include <iostream>
+#include <string>
 #include "Weapon.hpp"
 
 class	HumanB{

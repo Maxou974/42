@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 00:02:09 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/14 05:12:44 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:57:14 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int main(int argc, char **argv)
 	if (!ofs.is_open())
 	{
 		std::cout << "Error opening output file\n";
+		ifs.close();
 		return (1);
 	}
 	
@@ -53,7 +54,9 @@ int main(int argc, char **argv)
 			buf.erase(ret + len2, len1);
 			pos = ret + len2;
 		}
-		ofs << buf << '\n';
+		ofs << buf;
+		if (!ifs.eof())
+			ofs << '\n';
 	}
 
 	ofs.close();

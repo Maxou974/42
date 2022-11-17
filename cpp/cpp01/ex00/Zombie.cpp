@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 02:42:28 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/11 05:02:57 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:27:20 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Zombie::Zombie( std::string name )
 	std::cout << "A zombie is borned\n";
 }
 
-Zombie::~Zombie( void )
+Zombie::~Zombie()
 {
 	std::cout << this->name << " is dead\n";
 }

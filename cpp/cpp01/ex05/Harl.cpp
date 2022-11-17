@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 17:02:36 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/17 17:44:04 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 19:04:29 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	Harl::info( void )
 
 void	Harl::error( void )
 {
-	std::cout << "error message\n";
+	std::cout << "Error message\n";
 }
 
 void	Harl::warning( void )
@@ -47,16 +47,13 @@ void	Harl::warning( void )
 
 void	Harl::complain(std::string level)
 {
-	int	i = 0;
+	int	i = -1;
 
-	while (i < 4)
-	{
+	while (++i < 4)
 		if (level == fct_names[i])
 		{
 			(this->*fct_ptrs[i])();
 			return;
 		}
-		i++;
-	}
 	std::cout << "level doesn't match any message\n";
 }
