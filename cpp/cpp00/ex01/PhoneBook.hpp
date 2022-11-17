@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:27:39 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/25 19:11:36 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:01:51 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define PHONEBOOK_H
 
 #include "Contact.hpp"
-#define MAX_CONTACT 8
+#define MAX_CONTACT 2
 
 class PhoneBook {
 	

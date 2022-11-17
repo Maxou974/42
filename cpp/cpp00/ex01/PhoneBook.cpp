@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:56:45 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/05 23:16:18 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:00:41 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void	head( void )
 void	PhoneBook::search_contact( void )
 {
 	int	i = 0;
+	if (_contact_nbr == 0)
+	{
+		std::cout << "No Contact to search for\n"; 
+		return;
+	}
 	head();
 	while (i < this->_contact_nbr)
 	{

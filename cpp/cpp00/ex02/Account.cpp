@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 00:14:47 by mabriel           #+#    #+#             */
-/*   Updated: 2022/11/15 20:43:19 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:09:37 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	Account::displayStatus( void ) const
 {
 	_displayTimestamp();
 	std::cout << "index:" << _accountIndex;
-	std::cout << ";total:" << _amount;
+	std::cout << ";amount:" << _amount;
 	std::cout << ";deposits:" << _nbDeposits;
 	std::cout << ";withdrawals:" << _nbWithdrawals << std::endl;
 }
