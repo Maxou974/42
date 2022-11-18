@@ -6,13 +6,10 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 11:18:52 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/20 14:25:11 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/17 22:23:55 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "Fixed.hpp"
-#include <iostream>
-#include <cmath>
 #include "Fixed.hpp"
 
 int main( void ) {

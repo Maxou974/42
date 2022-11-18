@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 11:18:46 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/20 13:50:36 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/18 01:17:07 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Fixed::Fixed( const int value)
 
 Fixed::Fixed( const float fvalue )
 {
-	this->_value = (int)roundf(fvalue * 256);
+	this->_value = (int)roundf(fvalue * pow(2, this->_nbits));
 }
 
 Fixed::~Fixed( void ){
@@ -45,10 +45,10 @@ Fixed & Fixed::operator=(const Fixed &ref)
 
 bool	Fixed::operator<(const Fixed &ref1) const
 {
-	if (ref1._value < this->_value)
-		return (false);
-	else
+	if (this->_value < ref1._value)
 		return (true);
+	else
+		return (false);
 }
 
 bool	Fixed::operator>(const Fixed &ref) const 
@@ -119,7 +119,7 @@ Fixed	Fixed::operator++()
 
 Fixed	Fixed::operator++(int)
 {
-	Fixed tmp = *this;
+	Fixed tmp(*this);
 	this->_value += 1;
 	return tmp;
 }
@@ -156,14 +156,6 @@ void	Fixed::setRawBits(const int raw)
 int	Fixed::toInt(void) const
 {
 	return this->_value >> this->_nbits;
-}
-
-int mypow(int a, int b)
-{
-	if (a==0)
-		return (1);
-	else
-		return (a * pow(a, b-1));
 }
 
 float	Fixed::toFloat(void) const

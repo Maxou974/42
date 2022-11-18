@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 11:18:52 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/20 14:25:11 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/18 02:38:19 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int main( void ) {
 	Point a(-1, 1);
 	Point b(2, -2);
 	Point c(-1, -3);
-	Point point(-1.1f, -1);
+	Point point(0, -1);
 	if (bsp(a,b,c,point))
 		std::cout << "3:inside\n";
 	else

@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 11:18:46 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/20 13:50:36 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/11/18 00:31:57 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Fixed::Fixed( const int value)
 Fixed::Fixed( const float fvalue )
 {
 	std::cout << "Float constructor called\n";
-	this->_value = (int)roundf(fvalue * 256);
+	this->_value = (int)roundf(fvalue * pow(2, this->_nbits));
 }
 
 Fixed::~Fixed( void ){
@@ -72,15 +72,8 @@ int	Fixed::toInt(void) const
 	return this->_value >> this->_nbits;
 }
 
-int mypow(int a, int b)
-{
-	if (a==0)
-		return (1);
-	else
-		return (a * pow(a, b-1));
-}
-
 float	Fixed::toFloat(void) const
 {
+	// return (float)this->_value / pow(2, this->_nbits);
 	return (float)this->_value / pow(2, this->_nbits);
 }
