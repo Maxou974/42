@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:36:21 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/26 21:50:10 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:23:35 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 
 void fct(Animal dog)
 {
+	std::cout << "Call fct Animal\n";
 	(void)dog;
 	dog.makeSound();
 }
 
 void	fct(Dog dog)
 {
-	std::cout << "Call fct\n";
+	std::cout << "Call fct Dog\n";
 	std::cout << dog.get_ideas(0);
 }
 
@@ -46,6 +47,7 @@ int main()
 	tab[1]->makeSound();
 	tab[4]->makeSound();
 	fct(*tab[4]);
+	fct(*tab[5]);
 	
 	std::cout << "\n\n";
 	for (int i = 0; i < SIZE; i++)

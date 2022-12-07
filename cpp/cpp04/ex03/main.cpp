@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 16:58:31 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/31 20:54:24 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:58:39 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,16 @@ int main()
 		AMateria* cure = copysrc.createMateria("cure");
 		me.equip(copysrc.createMateria("ice"));
 		me.equip(cure);
+		std::cout << "me.use\n";
 		me.use(0, me);
 		Character copy;
 		copy = me;
+		std::cout << "copy.use(0)\n";
 		copy.use(0, me);
+		std::cout << "copy.use(1)\n";
 		copy.use(1, me);
 		me.unequip(0);
-		delete copy.get_Materia_ptr(0);
+		//delete copy.get_Materia_ptr(0);
 		copy.unequip(0);
 		me.use(0, me);
 		copy.use(0, me);

@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:17:11 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/26 20:15:24 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:21:20 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <string>
 #include "Brain.hpp"
 
 class Animal

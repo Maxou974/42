@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 17:08:50 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/31 16:30:56 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:38:51 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #ifndef ICHARACTER_HPP
 #define ICHARACTER_HPP
 
-#include "Header.hpp"
+#include <iostream>
+#include <string>
+
 class AMateria;
 
 class ICharacter

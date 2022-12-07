@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 20:04:15 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/26 20:28:03 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:21:31 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define BRAIN_HPP
 
 #include "Animal.hpp"
+#include <string>
 
 class Brain{
 	private:

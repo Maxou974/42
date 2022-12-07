@@ -6,14 +6,15 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:29:27 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/31 16:32:25 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:38:46 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IMATERIASOURCE_HPP
-#define IMATERIASOURCER_HPP
+#define IMATERIASOURCE_HPP
 
-#include "Header.hpp"
+#include <iostream>
+#include <string>
 #include "AMateria.hpp"
 
 class IMateriaSource

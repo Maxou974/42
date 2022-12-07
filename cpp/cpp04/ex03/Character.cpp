@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 17:41:36 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/31 20:51:57 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/07 17:45:30 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	Character::use(int idx, ICharacter& target)
 	(void)target;
 	if (power[idx])
 		power[idx]->use(target);
+	else
+		std::cout << "nothing to use\n";
 }
 
 AMateria*	Character::get_Materia_ptr(int idx)
