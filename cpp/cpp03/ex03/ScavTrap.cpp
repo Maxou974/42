@@ -45,7 +45,7 @@ void	ScavTrap::attack(const std::string &ref)
 	}
 	else
 		std::cout << "ClapTrap " << get_name() << " can not execute attack\n";
-	info();
+	//info();
 }
 
 void	ScavTrap::guardGate()

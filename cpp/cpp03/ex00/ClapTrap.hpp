@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 15:47:54 by mabriel           #+#    #+#             */
+/*   Updated: 2022/12/07 15:49:58 by mabriel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CLAPTRAP_HPP
 #define	CLAPTRAP_HPP
 
@@ -17,9 +29,9 @@ public:
 	ClapTrap(const ClapTrap &);
 	ClapTrap&	operator=(const ClapTrap &);
 	std::string	get_name();
-	void		attack(const std::string &);
-	void		takeDamage(unsigned int);
-	void		beRepaired(unsigned int);
+	void		attack(const std::string& target);
+	void		takeDamage(unsigned int amount);
+	void		beRepaired(unsigned int amount);
 	void		info( void );
 };
 

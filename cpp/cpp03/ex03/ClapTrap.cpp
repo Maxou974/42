@@ -52,7 +52,7 @@ void	ClapTrap::attack(const std::string &target)
 	}
 	else
 		std::cout << "ClapTrap " << _Name << " can not execute attack\n";
-	this->info();
+	//this->info();
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
@@ -60,12 +60,12 @@ void	ClapTrap::takeDamage(unsigned int amount)
 	std::cout << "takeDamage call: ";
 	if (_Hit_Points > 0)
 	{
-		std::cout << "ClapTrap " << _Name << "take " << amount << " damage in his face\n";
+		std::cout << "ClapTrap " << _Name << " take " << amount << " damage in his face\n";
 		_Hit_Points -= (int)amount;
 	}
 	else
 		std::cout << "ClapTrap " << _Name << " can not take more damage, he is dead ;(\n";
-	this->info();
+	//this->info();
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
@@ -80,7 +80,7 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	}
 	else
 		std::cout << "ClapTrap " << _Name << " can not execute beRepaired\n";
-	this->info();
+	//this->info();
 }
 
 void	ClapTrap::info()

@@ -46,15 +46,15 @@ void	FragTrap::attack(const std::string &ref)
 	}
 	else
 		std::cout << "FragTrap " << get_name() << " can not execute attack\n";
-	info();
+	//info();
 }
 
 void	FragTrap::highFiveGuys( void )
 {
 	if (get_HP() > 0)
-		std::cout << "FragTrap " << get_name() << " wants a high five with u\n\n";
+		std::cout << "FragTrap " << get_name() << " wants a high five with u\n";
 	else
-		std::cout << "How can " << get_name() << " high five if he is dead\n\n";
+		std::cout << "How can " << get_name() << " high five if he is dead\n";
 }
 
 void	FragTrap::info()

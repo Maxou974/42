@@ -4,12 +4,18 @@
 int main()
 {
 	ClapTrap maxime("Maxime");
-	ScavTrap mathou("Mathou");
+	ScavTrap mathou("mathou");
+
+	std::cout << "\n\n";
 
 	maxime.attack("random guy in street");
 
-	mathou.attack("BITCH");
-	mathou.beRepaired(-101);
+	mathou.attack("random girl");
 	mathou.beRepaired(10);
 	mathou.guardGate();
+	mathou.takeDamage(23324);
+	mathou.beRepaired(10);
+	mathou.guardGate();
+
+	std::cout << "\n\n";
 }

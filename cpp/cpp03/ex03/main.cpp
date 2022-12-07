@@ -7,11 +7,11 @@ int main()
 {
 	DiamondTrap zaz("zaz");
 	std::cout << '\n';
-	zaz.info();
+	//zaz.info();
 	zaz.attack("random");
 	zaz.beRepaired(100);
 	zaz.guardGate();
 	zaz.highFiveGuys();
-	zaz.info();
+	//zaz.info();
 	zaz.whoAmI();
 }
