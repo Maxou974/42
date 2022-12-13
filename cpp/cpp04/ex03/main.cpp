@@ -90,12 +90,12 @@ int main()
 		copy.use(0, me);
 		std::cout << "copy.use(1)\n";
 		copy.use(1, me);
+		delete cure;
 		me.unequip(0);
-		//delete copy.get_Materia_ptr(0);
+		delete copy.get_Materia_ptr(0);
 		copy.unequip(0);
 		me.use(0, me);
 		copy.use(0, me);
-		delete cure;
 	}
 	return 0;
 }
