@@ -6,51 +6,50 @@
 // #include "cont/containers/vector.hpp"
 // #include "contt/includes/vector.hpp"
 
-#define NL ft::cout << '\n';
+#define NL std::cout << '\n';
 
 template<typename T>
 void fct(ft::vector<T>& vect)
 {
 	using namespace std;
-	for (typename ft::vector<T>::size_type i = 0; i < vect.size(); i++)
-		cout << vect[i] << " | ";
+	for (typename std::vector<T>::size_type i = 0; i < vect.size(); i++)
+		std::cout << vect[i] << " | ";
 	cout << '\n';
 	cout << "ft::capacity: " << vect.capacity() << "  ft::size: " << vect.size() << '\n';
 }
 
-// template<typename T>
-// void fct(ft::vector<T>& vect)
-// {
-// 	using namespace std;
-// 	for (typename ft::vector<T>::size_type i = 0; i < vect.size(); i++)
-// 		ft::cout << vect[i] << " | ";
-// 	cout << '\n';
-// 	cout << "ft::capacity: " << vect.capacity() << "  ft::size: " << vect.size() << '\n';
-// }
+template<typename T>
+void fct(std::vector<T>& vect)
+{
+	for (typename std::vector<T>::size_type i = 0; i < vect.size(); i++)
+		std::cout << vect[i] << " | ";
+	std::cout << '\n';
+	std::cout << "std::capacity: " << vect.capacity() << "  std::size: " << vect.size() << '\n';
+}
 
 
 int main()
 {
-	ft::vector<ft::string> ve;
+	ft::vector<std::string> ve;
 	ve.push_back("1");
 	ve.push_back("2");
 	ve.push_back("3");
 	ve.push_back("4");
 	ve.push_back("5");
-//	ft::vector<ft::string>::iterator it = ve.begin() + 1;
-	//ft::vector<ft::string>::iterator beg = ve.begin();
-	//ft::vector<ft::string>::iterator end = ve.end();
-	// ft::vector<ft::string> vee(5);
+	//std::vector<std::string>::iterator it = ve.begin();
+	ft::vector<std::string>::iterator beg = ve.begin();
+	ft::vector<std::string>::iterator end = ve.end();
 
-	ve.insert(ve.begin() + 2, 1, "f");
-	ve.clear();
+	ft::vector<std::string> vee;
+
+	vee.assign(beg, end);
 
 	fct(ve);
-	// fct(vee);
+	fct(vee);
 
-// 	ft::vector<ft::string> ss(3, "bye");
-	// ft::vector<ft::string> ve(5, "hello");
-// 	ft::vector<ft::string> vee(5, "hello");
+// 	ft::vector<std::string> ss(3, "bye");
+	// ft::vector<std::string> ve(5, "hello");
+// 	std::vector<std::string> vee(5, "hello");
 // NL;
 // 	fct(ve);
 // 	fct(vee);

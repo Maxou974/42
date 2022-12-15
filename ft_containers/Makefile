@@ -22,3 +22,20 @@ fclean: clean
 
 re: fclean all
 	valgrind ./${NAME}
+
+std:
+	./sed main.cpp "ft::" "std::"
+	rm main.cpp
+	mv main.cpp.replace main.cpp
+
+ft:
+	./sed main.cpp "std::" "ft::"
+	rm main.cpp
+	mv main.cpp.replace main.cpp
+
+reft: ft re
+
+restd: std re
+	 
+
+.PHONY: all fclean clean re 

@@ -46,7 +46,14 @@ namespace ft{
 				alloc_.construct(&vect_[i], val);
 		}
 
-		//todo constructor with iterator range
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) : alloc_(alloc)
+		{
+			typename ft::iterator_traits<InputIterator>::difference_type n = last - first;
+			vect_ = alloc_.allocate(size_ = capacity_ = n);
+			for (size_type i = 0; first < last; first++, i++)
+				alloc_.construct(&vect_[i], *first);
+		}
 
 		vector(const vector& ref) : alloc_(ref.alloc_)
 		{
@@ -104,7 +111,7 @@ namespace ft{
 		{
 			if (n > allocator_type().max_size())
 				throw(std::length_error("ft::vector::resize"));
-			if (n < size_)
+			if (n <= size_)
 			{
 				for (; size_ > n; size_--)
 					alloc_.destroy(&vect_[size_ - 1]);
@@ -192,15 +199,55 @@ namespace ft{
 
 
 		//Modifiers
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last)
+		{
+			typename	ft::iterator_traits<InputIterator>::difference_type n = last - first;
+			if (static_cast<size_type>(n) > capacity_)
+				resize(n);
+			clear();
+			for (; first < last;)
+				alloc_.construct(&vect_[size_++], *(first++));
+		}
+
+
+		void assign (size_type n, const value_type& val)
+		{ clear(); resize(n, val); }
+
+
+		// iterator insert (iterator position, const value_type& val)
+		// {	}
+
+
+		void insert (iterator position, size_type n, const value_type& val)
+		{
+			//reserve(n + size_);
+			for (size_type i = size_ - 1; &vect_[i] >= position.ret_ptr(); i--)
+			{
+				value_type tmp = vect_[i];
+				alloc_.destroy(&vect_[i]);
+				alloc_.construct(&vect_[i + n], tmp);
+			}
+			alloc_.destroy(&vect_[0]);
+			vect_[0].~basic_string();
+			// alloc_.construct(position.ret_ptr(), val);
+			size_++;
+			(void)n;
+			(void)val;
+			(void)position;
+
+		}
+
 		void	clear()
 		{
 			for (; size_ > 0; size_--)
 				alloc_.destroy(&vect_[size_ - 1]);
+			
 		}
 
 		
 		void	push_back(const value_type& val)
-		{(void)val;
+		{
 			if (size_ == capacity_)
 				reserve(capacity_ + 1);
 			alloc_.construct(&vect_[size_++], val);

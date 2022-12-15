@@ -202,7 +202,7 @@ random_access_iterator<T>& operator-=(random_access_iterator<T>& a,
 }
 
 
-
+typedef std::string string;
 
 }
 
