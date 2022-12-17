@@ -68,7 +68,8 @@ template <class T>
 		typedef typename iterator<random_access_iterator_tag, T>::iterator_category	iterator_category;
 		typedef random_access_iterator			rai;
 
-		private:
+		// private:
+		public:
 		pointer	ptr;
 
 		public:

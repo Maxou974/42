@@ -3,6 +3,9 @@
 #include <memory>
 #include "vector.hpp"
 #include "iterator.hpp"
+#include <string>
+#include <string.h>
+#include <cstdlib>
 // #include "cont/containers/vector.hpp"
 // #include "contt/includes/vector.hpp"
 
@@ -18,70 +21,206 @@ void fct(ft::vector<T>& vect)
 	cout << "ft::capacity: " << vect.capacity() << "  ft::size: " << vect.size() << '\n';
 }
 
-// template<typename T>
-// void fct(ft::vector<T>& vect)
-// {
-// 	using namespace std;
-// 	for (typename ft::vector<T>::size_type i = 0; i < vect.size(); i++)
-// 		ft::cout << vect[i] << " | ";
-// 	cout << '\n';
-// 	cout << "ft::capacity: " << vect.capacity() << "  ft::size: " << vect.size() << '\n';
-// }
+void	header_test(ft::string msg)
+{
+	using namespace std;
+	cout << "\n__________";
+	cout << msg;
+	cout << "__________\n\n";
+}
 
+class	test{
+	public:
+	char *tab;
+	int n;
+
+
+	test(){
+		tab = strdup("random");
+	}
+
+	~test(){ free(tab); }
+	
+	test	(const test& ref){
+		tab = strdup(ref.tab);
+	}
+
+	test(char* y){
+		tab = strdup(y);
+	}
+
+	test&	operator=(const test& ref)
+	{
+		if (&ref == this)
+			return *this;
+		char* tmp = strdup(ref.tab);
+		free(tab);
+		tab = tmp;
+		return *this;
+	}
+
+};
+using namespace std;
+ostream& operator<<(ostream& out, const test& ref)
+{
+	out << ref.tab; return out;
+}
 
 int main()
 {
-	ft::vector<ft::string> ve;
-	ve.push_back("1");
-	ve.push_back("2");
-	ve.push_back("3");
-	ve.push_back("4");
-	ve.push_back("5");
-//	ft::vector<ft::string>::iterator it = ve.begin() + 1;
-	//ft::vector<ft::string>::iterator beg = ve.begin();
-	//ft::vector<ft::string>::iterator end = ve.end();
-	// ft::vector<ft::string> vee(5);
+	char *tm = strdup("hello");
+	char *tm2 = strdup("bye");
+	char *tm3 = strdup("ok");
+	char *tm4 = strdup("ahah");
+	test	tmp(tm);
+	using namespace std;
 
-	ve.insert(ve.begin() + 2, 1, "f");
+	header_test("CONSTRUCTOR OPERATOR=");
+
+	ft::vector<test> ve;
+	ft::vector<test> vee(1, tm);
+	ft::vector<test> veee(5, tm);
+	ft::vector<test> veeee(5);
+	ft::vector<test> veeeee(1);
+
+	veee = ve = veeee;
+	ve = ve = ve;
+
+	header_test("RESIZE RESERVE");
+
+	veee.resize(1, tmp);
+	veee.resize(2);
+	veee.resize(1);
+	veee.resize(2);
+	veee.reserve(5);
+	veee.reserve(3);
+	veee.resize(2);
+	veee.resize(3);
+	veee.resize(4); 
+	veee.reserve(3);
+	veee.resize(10, tmp);
+	veee.resize(0, tmp);
+
+	header_test("EMPTY CLEAR");
+
+	cout << ve.empty() << " " << veee.empty() << '\n';
+
 	ve.clear();
 
+	cout << ve.empty() << " " << veee.empty() << '\n';
+
+	header_test("PUSH_BACK POP_BACK");
+
+	ve.push_back(tm);
+	ve.push_back(tm3);	
+	ve.push_back(tm3);
+	ve.push_back(tm2);	
+	ve.push_back(tm3);
+	ve.push_back(tm2);
+	ve.push_back(tm2);
+	ve.push_back(tm4);
+	ve.pop_back();
+
+	cout << ve[2] << '\n';
+	
+	
+	header_test("OPERATOR[]");
+	
+	test& non = ve[1];
+	
+	const test& t = ve[1];
+	
+	cout << "const ref ve[1]: " << t << '\n';
+	cout << "ref ve[1]: " << non << '\n';
+
+	header_test("FRONT");
+
+	const test& te = non = ve.front();
+	cout <<  "const ref front: " << te << '\n';
+	cout <<  "ref front: " << non << '\n';
+	
+	header_test("BACK");
+
+	const test& tee = non = ve.back();
+	cout << "const ref back: " << tee << '\n';
+	cout << "ref back: " << non << '\n';
+
+	header_test("DATA");
+
+	ft::vector<test>::value_type *vect = ve.data();
+	cout << "ve.data[0]: " << vect[0] << "\nve.data[2]: " << vect[2] << '\n';
+
+	const ft::vector<test>::value_type *vectt = ve.data();
+	cout << "const ve.data[0]: " << vectt[0];
+	cout << "\nconst ve.data[2]: " << vectt[2] << '\n';
+
+
+	header_test("ASSIGN");
+
+	ft::vector<test>::iterator beg = ve.begin();
+	ft::vector<test>::iterator end = ve.end();
+	
+	cout << "ve before:" << '\n'; fct(ve);
+	cout << "vee before:" << '\n'; fct(vee);
+
+	vee.assign(beg + 1, end - 1);
+	cout << "\nvee.assign(beg + 1, end - 1)\n";
+
+	cout << "\nvee after:" << '\n'; fct(vee);
+
+	cout << "veee before:" << '\n'; fct(veee);
+	veee.assign(5, tm3);
+	cout << "veee.assign(5, tm3)\n";
+	cout << "veee after:" << '\n'; fct(veee);
+	veee.assign(0, tm4);
+	cout << "veee after:" << '\n'; fct(veee);
+
+
+
+	header_test("SWAP");
+
+	cout << "ve before:" << '\n'; fct(ve);
+	cout << "vee before:" << '\n'; fct(vee);
+	ve.swap(vee);
+	cout << "ve.swap(vee)\n";
+	cout << "ve before:" << '\n'; fct(ve);
+	cout << "vee before:" << '\n'; fct(vee);
+
+
+	header_test("INSERT");
+	cout << "ve before:" << '\n'; fct(ve);
+	ve.insert(ve.begin() + 1, 3, tm4);
+	cout << "ve after:" << '\n'; fct(ve);
+	ve.insert(ve.begin() + 4, tm4);
+	cout << "ve after:" << '\n'; fct(ve);
+	beg = ve.insert(ve.begin() + 1, tm4);
+	cout << "ve after:" << '\n'; fct(ve);
+	cout << *beg;
+
+	cout << "vee before:" << '\n'; fct(vee);
+	vee.insert(vee.begin() + 1, ve.begin()+1, ve.begin()+5);
+	cout << "vee after:" << '\n'; fct(vee);
+	vee.insert(vee.begin(), ve.begin()+1, ve.begin()+5);
+	vee.insert(vee.begin()+2, ve.begin()+1, ve.end());
+	ve.insert(ve.end() - 2, 6, tm4);
+	cout << "ve before:" << '\n'; fct(ve);
+	ve.insert(ve.end(), 4, tm4);
+	cout << "ve after:" << '\n'; fct(ve);
+
+	cout << "\n\n\nve\n";
 	fct(ve);
-	// fct(vee);
+	cout << "\nvee\n";
+	fct(vee);
+	cout << "\nveee";
+	fct(veee);
+	cout << "\nveeee\n";
+	fct(veeee);
+	cout << "\nveeeee\n";
+	fct(veeeee);
 
-// 	ft::vector<ft::string> ss(3, "bye");
-	// ft::vector<ft::string> ve(5, "hello");
-// 	ft::vector<ft::string> vee(5, "hello");
-// NL;
-// 	fct(ve);
-// 	fct(vee);
-// NL;
-// 	ve.resize(11, "ello");
-// 	vee.resize(11, "ello");
-// 	fct(ve);
-// 	fct(vee);
-// NL;
-// 	ve.resize(20);
-// 	vee.resize(20);
-// 	fct(ve);
-// 	fct(vee);
-// NL;
-// 	ve.reserve(11);
-// 	vee.reserve(11);
-// 	fct(ve);
-// 	fct(vee);
-
-// NL;
-// 	vee.pop_back();
-// 	ve.pop_back();
-// 	vee.pop_back();
-// 	ve.pop_back();
-// 	fct(vee);
-// 	fct(ve);
-// NL;
-
-// 	ve.swap(ve);
-// 	fct(ve);
-// 	fct(ss);
-
+	free(tm);
+	free(tm2);
+	free(tm3);
+	free(tm4);
 	return 0;
 }

@@ -19,10 +19,13 @@ namespace ft{
 		typedef typename allocator_type::const_pointer		const_pointer;
 		typedef ft::random_access_iterator<value_type> 			iterator;
 		typedef ft::random_access_iterator<const value_type>	const_iterator;
+		typedef ft::random_access_iterator_tag					iterator_category;
+		typedef	typename ft::iterator<random_access_iterator_tag, value_type>::difference_type	difference_type;
+
+
 		/*todo
 		reverse_iterator
 		const_reverse_iterator
-		difference_type
 		*/
 		typedef	size_t	size_type;
 
@@ -35,7 +38,8 @@ namespace ft{
 		public:
 		//Constructor
 		explicit vector(const allocator_type& alloc = allocator_type())
-		: vect_(0), size_(capacity_ = 0), alloc_(alloc) {}
+		: vect_(0), size_(capacity_ = 0), alloc_(alloc)
+		{}
 		
 		explicit vector(size_type n, const value_type& val = value_type(),
 				const allocator_type& alloc = allocator_type())
@@ -83,9 +87,9 @@ namespace ft{
 
 		//Iterator
 		iterator	begin()
-		{ return (vect_); }
+		{ return (&vect_[0]); }
 		const_iterator	begin() const
-		{ return (vect_); }
+		{ return (&vect_[0]); }
 
 		iterator	end()
 		{ return (&vect_[size_]); }
@@ -143,9 +147,12 @@ namespace ft{
 				throw(std::length_error("ft::vector::reserve"));
 			else if (n > capacity_)
 			{
-				size_type tmp = size_;
-				resize(n);
-				size_ = tmp;
+				vector tmp = *this;
+				if (n < 2 * size_)
+					tmp.capacity_ = 2 * size_;
+				else
+					tmp.capacity_ = n;
+				*this = tmp;
 			}
 		}
 
@@ -215,27 +222,67 @@ namespace ft{
 		{ clear(); resize(n, val); }
 
 
-		// iterator insert (iterator position, const value_type& val)
-		// {	}
+		iterator insert (iterator position, const value_type& val)
+		{ 
+			size_type nbr = 0;
+			iterator beg = begin();
+			while (nbr < size_ && beg.ret_ptr() < position.ret_ptr())
+			{ beg++; nbr++; }
+
+			
+			insert(position, 1, val);
+			
+			position = &vect_[nbr]; 
+			return (position);
+		}
 
 
 		void insert (iterator position, size_type n, const value_type& val)
 		{
-			//reserve(n + size_);
+			size_type nbr = 0;
+			iterator beg = begin();
+			while (nbr < size_ && beg.ret_ptr() < position.ret_ptr())
+			{ beg++; nbr++; }
+			
+			reserve(n + size_);
+
+			position = &vect_[nbr];
+			
 			for (size_type i = size_ - 1; &vect_[i] >= position.ret_ptr(); i--)
 			{
 				value_type tmp = vect_[i];
-				alloc_.destroy(&vect_[i]);
+				if (i + n <= size_ - 1)
+					alloc_.destroy(&vect_[i + n]);
 				alloc_.construct(&vect_[i + n], tmp);
+				if (i == 0)
+					break;
 			}
-			alloc_.destroy(&vect_[0]);
-			vect_[0].~basic_string();
-			// alloc_.construct(position.ret_ptr(), val);
-			size_++;
-			(void)n;
-			(void)val;
-			(void)position;
 
+			for (size_type i = 0; i < n; i++, position++)
+			{
+				if (position.ret_ptr() < end().ret_ptr())
+					alloc_.destroy(position.ret_ptr());
+				alloc_.construct(position.ret_ptr(), val);
+			}
+			size_ += n;
+		}
+
+		template <class InputIterator>
+		void	insert(iterator position, InputIterator first, InputIterator last)
+		{
+			difference_type n = last - first;
+
+			size_type nbr = 0;
+			iterator beg = begin();
+			while (beg.ret_ptr() < position.ret_ptr())
+			{ beg++; nbr++; }
+			
+			reserve(n + size_);
+
+			position = &vect_[nbr];
+
+			for (; first < last; first++, position++)
+			{ insert(position, 1, *first); }
 		}
 
 		void	clear()

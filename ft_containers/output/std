@@ -1,0 +1,126 @@
+
+__________CONSTRUCTOR OPERATOR=__________
+
+
+__________RESIZE RESERVE__________
+
+
+__________EMPTY CLEAR__________
+
+0 1
+1 1
+
+__________PUSH_BACK POP_BACK__________
+
+ok
+
+__________OPERATOR[]__________
+
+const ref ve[1]: ok
+ref ve[1]: ok
+
+__________FRONT__________
+
+const ref front: hello
+ref front: hello
+
+__________BACK__________
+
+const ref back: bye
+ref back: bye
+
+__________DATA__________
+
+ve.data[0]: hello
+ve.data[2]: ok
+const ve.data[0]: hello
+const ve.data[2]: ok
+
+__________ASSIGN__________
+
+ve before:
+hello | bye | ok | bye | ok | bye | bye | 
+capacity: 10  size: 7
+vee before:
+hello | 
+capacity: 1  size: 1
+
+vee.assign(beg + 1, end - 1)
+
+vee after:
+bye | ok | bye | ok | bye | 
+capacity: 5  size: 5
+veee before:
+
+capacity: 10  size: 0
+veee.assign(5, tm3)
+veee after:
+ok | ok | ok | ok | ok | 
+capacity: 10  size: 5
+veee after:
+
+capacity: 10  size: 0
+
+__________SWAP__________
+
+ve before:
+hello | bye | ok | bye | ok | bye | bye | 
+capacity: 10  size: 7
+vee before:
+bye | ok | bye | ok | bye | 
+capacity: 5  size: 5
+ve.swap(vee)
+ve before:
+bye | ok | bye | ok | bye | 
+capacity: 5  size: 5
+vee before:
+hello | bye | ok | bye | ok | bye | bye | 
+capacity: 10  size: 7
+
+__________INSERT__________
+
+ve before:
+bye | ok | bye | ok | bye | 
+capacity: 5  size: 5
+ve after:
+bye | ahah | ahah | ahah | ok | bye | ok | bye | 
+capacity: 10  size: 8
+ve after:
+bye | ahah | ahah | ahah | ahah | ok | bye | ok | bye | 
+capacity: 10  size: 9
+ve after:
+bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | 
+capacity: 10  size: 10
+ahahvee before:
+hello | bye | ok | bye | ok | bye | bye | 
+capacity: 10  size: 7
+vee after:
+hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 14  size: 11
+ve before:
+bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | bye | 
+capacity: 20  size: 16
+ve after:
+bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 20
+
+
+
+ve
+bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 20
+
+vee
+ahah | ahah | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 30  size: 24
+
+veee
+capacity: 10  size: 0
+
+veeee
+random | random | random | random | random | 
+capacity: 5  size: 5
+
+veeeee
+random | 
+capacity: 1  size: 1
