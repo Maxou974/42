@@ -97,22 +97,74 @@ capacity: 10  size: 7
 vee after:
 hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
 capacity: 14  size: 11
+vee after:
+ahah | ahah | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 22  size: 15
+vee after:
+ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 30  size: 25
 ve before:
 bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | bye | 
 capacity: 20  size: 16
 ve after:
-bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | 
+bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | bye | 
 capacity: 20  size: 20
+ve after:
+bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 19
+ve after:
+bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | 
+capacity: 20  size: 18
+ve after:
+ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | 
+capacity: 20  size: 17
+ve after:
+ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | 
+capacity: 20  size: 16
+vee before:
+ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 30  size: 25
+vee after:
+ahah | ahah | ok | bye | ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 30  size: 29
+vee after:
+ahah | ok | bye | ahah | ahah | ahah | ok | bye | ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 58  size: 33
+vee after:
+ahah | ok | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | bye | ahah | ahah | ahah | ok | bye | ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 58  size: 47
+ve after:
+ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | ahah | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 20
+ve after:
+ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 19
+ve after:
+ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 18
+ve after:
+ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 17
+ve after:
+ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 16
+vee before:
+ahah | ok | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | bye | ahah | ahah | ahah | ok | bye | ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 58  size: 47
+vee after:
+ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | bye | ahah | ahah | ahah | ok | bye | ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 58  size: 51
+max size:576460752303423487
 
 
 
 ve
-bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | 
-capacity: 20  size: 20
+ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | ahah | ahah | ahah | 
+capacity: 20  size: 14
 
 vee
-ahah | ahah | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
-capacity: 30  size: 24
+ahah | ahah | ahah | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | bye | ahah | ahah | ahah | ok | bye | ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 
+capacity: 58  size: 55
 
 veee
 capacity: 10  size: 0

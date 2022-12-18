@@ -21,8 +21,6 @@ namespace ft{
 		typedef ft::random_access_iterator<const value_type>	const_iterator;
 		typedef ft::random_access_iterator_tag					iterator_category;
 		typedef	typename ft::iterator<random_access_iterator_tag, value_type>::difference_type	difference_type;
-
-
 		/*todo
 		reverse_iterator
 		const_reverse_iterator
@@ -206,6 +204,50 @@ namespace ft{
 
 
 		//Modifiers
+		iterator erase (iterator position)
+		{
+			while (position >= end())
+				position--;
+			alloc_.destroy(&(*position));
+			for (iterator pos = position+1; pos < end(); pos++)
+			{
+				value_type	tmp = *pos;
+				alloc_.destroy(&(*(pos)));
+				alloc_.construct(&(*(pos - 1)), tmp);
+			}
+			size_--;
+			if (position == end())
+				return position - 1;
+			return position;
+		}
+
+
+		iterator	erase(iterator first, iterator last)
+		{
+			if (first >= last)
+				return last;
+
+			size_type nbr = 0;
+			iterator beg = first;
+			while (nbr < size_ && beg < last)
+			{ beg++; nbr++; }
+
+			for (iterator pos = first; pos < last; pos++)
+			{
+				alloc_.destroy(&(*pos));
+				alloc_.construct(&(*pos), *(pos + nbr));
+				alloc_.destroy(&(*(pos + nbr)));
+			}
+			for (iterator pos = first + nbr; pos < end() - nbr; pos++)
+			{
+				alloc_.construct(&(*pos), *(pos + nbr));
+				alloc_.destroy(&(*(pos + nbr)));
+			}
+			size_ -= nbr;
+			return last;
+		}
+
+
 		template <class InputIterator>
 		void assign (InputIterator first, InputIterator last)
 		{
@@ -216,7 +258,6 @@ namespace ft{
 			for (; first < last;)
 				alloc_.construct(&vect_[size_++], *(first++));
 		}
-
 
 		void assign (size_type n, const value_type& val)
 		{ clear(); resize(n, val); }
@@ -235,7 +276,6 @@ namespace ft{
 			position = &vect_[nbr]; 
 			return (position);
 		}
-
 
 		void insert (iterator position, size_type n, const value_type& val)
 		{
@@ -281,15 +321,30 @@ namespace ft{
 
 			position = &vect_[nbr];
 
+			for (size_type i = size_ - 1; &vect_[i] >= position.ret_ptr(); i--)
+			{
+				value_type tmp = vect_[i];
+				if (i + n <= size_ - 1)
+					alloc_.destroy(&vect_[i + n]);
+				alloc_.construct(&vect_[i + n], tmp);
+				if (i == 0)
+					break;
+			}
+
 			for (; first < last; first++, position++)
-			{ insert(position, 1, *first); }
+			{
+				if (position.ret_ptr() < end().ret_ptr())
+					alloc_.destroy(position.ret_ptr());
+				alloc_.construct(position.ret_ptr(), *first);
+			}
+			size_ += n;
 		}
+
 
 		void	clear()
 		{
 			for (; size_ > 0; size_--)
 				alloc_.destroy(&vect_[size_ - 1]);
-			
 		}
 
 		
@@ -325,6 +380,10 @@ namespace ft{
 			vect_ = tmp_vect;
 			alloc_ = tmp_alloc;
 		}
+
+
+		allocator_type get_allocator() const
+		{ return alloc_; }
 	};
 }
 
