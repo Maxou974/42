@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:47:49 by mabriel           #+#    #+#             */
-/*   Updated: 2022/12/07 16:08:26 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/19 15:05:39 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ ClapTrap::~ClapTrap()
 
 ClapTrap::ClapTrap(const ClapTrap &ref)
 {
+	if (this == &ref)
 	std::cout << "Copy constructor called\n";
 	_Name = ref._Name;
 	_Hit_Points = ref._Hit_Points;
@@ -37,6 +38,7 @@ ClapTrap::ClapTrap(const ClapTrap &ref)
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap &ref)
 {
+	
 	_Name = ref._Name;
 	_Hit_Points = ref._Hit_Points;
 	_Energy_Points = ref._Energy_Points;
