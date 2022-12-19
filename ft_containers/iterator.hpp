@@ -8,10 +8,8 @@
 
 namespace	ft{
 
-struct random_access_iterator_tag	{};
-struct forward_iterator_tag			{};
-struct input_iterator_tag			{};
-struct output_iterator_tag			{};
+struct	random_access_iterator_tag	{};
+struct	reverse_iterator_tag	{};
 
 template <typename Iterator>
 struct iterator_traits
@@ -136,8 +134,6 @@ template <class T>
 		{ return ptr; }
 };
 
-
-
 template<typename T>
 random_access_iterator<T> operator+(const typename iterator<random_access_iterator_tag, T>::difference_type &n,
 									const ft::random_access_iterator<T> &a)
@@ -202,6 +198,27 @@ random_access_iterator<T>& operator-=(random_access_iterator<T>& a,
 	return (a = a - b);
 }
 
+
+
+/* Reverse_iterator */
+template <class Iterator>
+class reverse_iterator
+{
+	public:
+	typedef Iterator										iterator_type;
+	typedef typename iterator_traits<Iterator>::iterator_category	iterator_category;
+	typedef typename iterator_traits<Iterator>::value_type			value_type;
+	typedef typename iterator_traits<Iterator>::difference_type		difference_type;
+	typedef typename iterator_traits<Iterator>::pointer				pointer;
+	typedef typename iterator_traits<Iterator>::reference			reference;
+	typedef	reverse_iterator ri;
+
+	private:
+	iterator_type	it;
+
+	public:
+	ri(){it(0);}
+};
 
 typedef std::string string;
 

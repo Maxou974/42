@@ -84,7 +84,7 @@ int main()
 	ft::vector<test> veeeee(1);
 
 	veee = ve = veeee;
-	ve = ve = ve;
+	//ve = ve = ve;
 
 	header_test("RESIZE RESERVE");
 
@@ -183,8 +183,8 @@ int main()
 	cout << "vee before:" << '\n'; fct(vee);
 	ve.swap(vee);
 	cout << "ve.swap(vee)\n";
-	cout << "ve before:" << '\n'; fct(ve);
-	cout << "vee before:" << '\n'; fct(vee);
+	cout << "ve after:" << '\n'; fct(ve);
+	cout << "vee after:" << '\n'; fct(vee);
 
 
 	header_test("INSERT");

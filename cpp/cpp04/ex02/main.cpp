@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:36:21 by mabriel           #+#    #+#             */
-/*   Updated: 2022/12/07 17:31:17 by mabriel          ###   ########.fr       */
+/*   Updated: 2022/12/19 15:29:27 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,15 @@ int main()
 	woof.makeSound();
 	miaou.makeSound();
 	std::cout << '\n';
+	Animal *cat = &miaou;
+
 	//Animal oiseau;
+	
+	cat->makeSound();
+	std::cout << cat->get_ideas(0);
+	std::string id("wewejfwf");
+	cat->set_brain(id);
+	std::cout << cat->get_ideas(0) << '\n';
 	
 	std::cout << woof.get_ideas(0) << '\n';
 	std::string t="Booooooooonne";

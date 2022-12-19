@@ -70,10 +70,10 @@ vee before:
 bye | ok | bye | ok | bye | 
 capacity: 5  size: 5
 ve.swap(vee)
-ve before:
+ve after:
 bye | ok | bye | ok | bye | 
 capacity: 5  size: 5
-vee before:
+vee after:
 hello | bye | ok | bye | ok | bye | bye | 
 capacity: 10  size: 7
 
