@@ -10,20 +10,19 @@
 // #include "contt/includes/vector.hpp"
 
 #define NL ft::cout << '\n';
+using namespace std;
 
 template<typename T>
 void fct(ft::vector<T>& vect)
 {
-	using namespace std;
 	for (typename ft::vector<T>::size_type i = 0; i < vect.size(); i++)
 		cout << vect[i] << " | ";
 	cout << '\n';
 	cout << "ft::capacity: " << vect.capacity() << "  ft::size: " << vect.size() << '\n';
 }
 
-void	header_test(ft::string msg)
+void	header_test(string msg)
 {
-	using namespace std;
 	cout << "\n__________";
 	cout << msg;
 	cout << "__________\n\n";
@@ -60,7 +59,7 @@ class	test{
 	}
 
 };
-using namespace std;
+
 ostream& operator<<(ostream& out, const test& ref)
 {
 	out << ref.tab; return out;
@@ -73,7 +72,6 @@ int main()
 	char *tm3 = strdup("ok");
 	char *tm4 = strdup("ahah");
 	test	tmp(tm);
-	using namespace std;
 
 	header_test("CONSTRUCTOR OPERATOR=");
 
@@ -84,7 +82,7 @@ int main()
 	ft::vector<test> veeeee(1);
 
 	veee = ve = veeee;
-	//ve = ve = ve;
+	ve = ve = ve;
 
 	header_test("RESIZE RESERVE");
 

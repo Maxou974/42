@@ -4,7 +4,7 @@ SRCS = main.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 CC = c++
-FLAGS = -g -Wall  -Wextra -Werror -std=c++98
+FLAGS = -g -Wall  -Wextra -Werror -Wshadow -std=c++98
 
 .cpp.o:
 	@${CC} ${FLAGS} -c $< -o ${OBJS}
@@ -23,17 +23,17 @@ fclean: clean
 re: fclean all
 
 stdd:
-	./sed main.cpp "ft::" "std::"
-	mv main.cpp.replace main.cpp
+	@sed -i 's/ft::/std::/g' ./main.cpp
+	@make re > /dev/null
 
 ftt:
-	./sed main.cpp "std::" "ft::"
-	mv main.cpp.replace main.cpp
+	@sed -i 's/std::/ft::/g' ./main.cpp
+	@make re > /dev/null
 
 testre: fclean all
-		valgrind ./a.out
+		@valgrind ./a.out
 
 test:
 	@./script.sh
 
-.PHONY: all fclean clean re std ft
+.PHONY: all fclean clean re stdd ftt

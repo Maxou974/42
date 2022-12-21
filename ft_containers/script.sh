@@ -3,19 +3,14 @@ RED="\033[1;31m"
 GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 
-make stdd > /dev/null || exit 1
-make re > /dev/null || exit 1
+make stdd  || exit 1
 valgrind --leak-check=full --track-origins=yes --log-file="output/std.valgrind" ./a.out > output/std
 
-make ftt > /dev/null || exit 1
-make re > /dev/null || exit 1
+make ftt || exit 1
 valgrind --leak-check=full --track-origins=yes --log-file="output/ft.valgrind" ./a.out > output/ft
 
-./sed output/std "std::" ""
-./sed output/ft "ft::" ""
-
-mv output/std.replace output/std
-mv output/ft.replace output/ft
+sed -i 's/std:://g' output/std
+sed -i 's/ft:://g' output/ft
 
 if grep -e "no leaks are possible" -e "0 errors" output/std.valgrind > /dev/null
 then echo "${GREEN}std.No errors\nstd.No leaks${NOCOLOR}\n"
