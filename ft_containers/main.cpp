@@ -242,6 +242,108 @@ int main()
 
 	cout << "max size:" << ve.max_size() << '\n';
 
+	header_test("REVERSE_ITERATOR");
+	ve.clear();
+	ve.push_back(tm);
+	ve.push_back(tm2);
+	ve.push_back(tm3);
+	ve.push_back(tm4);
+	ve.push_back(tm);
+	ve.push_back(tm2);
+	ve.push_back(tm3);
+	ve.push_back(tm4);
+	{
+	ft::vector<test>::reverse_iterator rit = ve.rbegin();
+	ft::vector<test>::reverse_iterator ritt(rit);
+
+	cout << *(rit++) << '\n';
+	cout << *rit << '\n';
+	cout << *(++rit) << '\n';
+	cout << *rit << '\n';
+	cout << *(rit--) << '\n';
+	cout << *rit << '\n';
+	cout << *(--rit) << '\n';
+	cout << *rit << '\n';
+	rit += 4;
+	cout << *rit << '\n';
+	rit -= 2;
+	cout << *rit << '\n';
+	rit = rit + 2;
+	cout << *rit << '\n';
+	rit = rit - 2;
+	cout << *rit << '\n';
+	rit = 1 + rit;
+	cout << *rit << '\n';
+
+	cout << ritt - rit << '\n';
+	cout << rit - ritt << '\n';
+	
+	cout << "rit[3]:" << rit[3] << '\n';
+	cout << rit->tab << '\n';
+	cout << "==  " << (rit == ritt) << '\n';
+	rit++;
+	rit++;
+	rit++;
+	ritt++;
+	cout << "!=  " << (rit != ritt) << '\n';
+	cout << "<=  " << (rit <= ritt) << '\n';
+	cout << ">=  " << (rit >= ritt) << '\n';
+	cout << "<  " << (rit < ritt) << '\n';
+	cout << ">  " << (rit > ritt) << '\n';
+	rit = ve.rbegin();
+	test g;
+	*rit = g;
+	}
+	header_test("ITERATOR");
+	{
+	ft::vector<test>::iterator rit = ve.begin();
+	ft::vector<test>::iterator ritt = ve.begin();
+	ft::vector<test>::reverse_iterator rittt(rit + 2);
+	cout  << *rit << "  " << *rittt << '\n';
+	fct(ve);
+
+	cout << *(rit++) << '\n';
+	cout << *rit << '\n';
+	cout << *(++rit) << '\n';
+	cout << *rit << '\n';
+	cout << *(rit--) << '\n';
+	cout << *rit << '\n';
+	cout << *(--rit) << '\n';
+	cout << *rit << '\n';
+
+	rit += 4;
+	cout << *rit << '\n';
+	rit -= 2;
+	cout << *rit << '\n';
+
+	rit = rit + 2;
+	cout << *rit << '\n';
+	rit = 2 + rit;
+	cout << *rit << '\n';
+	rit = rit - 2;
+	cout << *rit << '\n';
+
+	cout << ritt - rit << '\n';
+	cout << rit - ritt << '\n';
+
+	cout << "rit[3]:" << rit[3] << '\n';
+	cout << rit->tab << '\n';
+	cout << (rit == ritt) << '\n';
+	rit++;
+	rit++;
+	rit++;
+	ritt++;
+	cout << "!=  " << (rit != ritt) << '\n';
+	cout << "<=  " << (rit <= ritt) << '\n';
+	cout << ">=  " << (rit >= ritt) << '\n';
+	cout << "<  " << (rit < ritt) << '\n';
+	cout << ">  " << (rit > ritt) << '\n';
+	test g;
+	*rit = g;
+
+	}
+
+	
 	cout << "\n\n\nve\n";
 	fct(ve);
 	cout << "\nvee\n";

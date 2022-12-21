@@ -98,6 +98,9 @@ template <class T>
 		value_type&	operator*()
 		{ return *ptr; }
 
+		value_type&	operator*() const
+		{ return *ptr; }
+
 		value_type*	operator->()
 		{ return ptr; }
 
@@ -127,9 +130,6 @@ template <class T>
 		value_type&	operator[](const difference_type i)
 		{ return *(ptr + i);}
 
-		void	print_ptr()
-		{ std::cout << ptr << '\n'; }
-
 		pointer	ret_ptr() const
 		{ return ptr; }
 };
@@ -139,14 +139,6 @@ random_access_iterator<T> operator+(const typename iterator<random_access_iterat
 									const ft::random_access_iterator<T> &a)
 {
 	random_access_iterator<T> tmp(a.ret_ptr() + n);
-	return tmp;
-}
-
-template<typename T>
-random_access_iterator<T> operator-(const typename iterator<random_access_iterator_tag, T>::difference_type &n,
-									const ft::random_access_iterator<T> &a)
-{
-	random_access_iterator<T> tmp(a.ret_ptr() - n); 
 	return tmp;
 }
 
@@ -211,14 +203,109 @@ class reverse_iterator
 	typedef typename iterator_traits<Iterator>::difference_type		difference_type;
 	typedef typename iterator_traits<Iterator>::pointer				pointer;
 	typedef typename iterator_traits<Iterator>::reference			reference;
-	typedef	reverse_iterator ri;
 
 	private:
 	iterator_type	it;
 
 	public:
-	ri(){it(0);}
+	reverse_iterator(){it(0);}
+
+	explicit reverse_iterator(iterator_type itt) : it(itt - 1) {}
+
+	template <class Iter>
+	reverse_iterator(const reverse_iterator<Iter>& rev_it): it(rev_it) {}
+
+	reverse_iterator(const pointer& pointe)
+	{ it = pointe; }
+
+	iterator_type	base() const{ return it; }
+
+	reverse_iterator operator+ (difference_type n) const
+	{ iterator_type tmp = it ; return (reverse_iterator(tmp - n + 1)); }
+
+	reverse_iterator& operator+= (difference_type n)
+	{ it -= n; return *this; }
+
+
+	reverse_iterator operator- (difference_type n) const
+	{ iterator_type tmp = it + n; return reverse_iterator(tmp + 1); }
+
+	reverse_iterator& operator-= (difference_type n)
+	{ it += n; return *this; }
+
+
+	reverse_iterator& operator++()
+	{ it--; return *this; }
+
+	reverse_iterator operator++(int)
+	{ reverse_iterator tmp = *this; it--; return tmp; }
+
+	reverse_iterator& operator--()
+	{ it++; return *this; }
+
+	reverse_iterator operator--(int)
+	{ reverse_iterator tmp = *this; it++; return tmp; }
+
+
+	reference	operator*() { iterator_type i = it; return *i; }
+
+	pointer operator->() const
+	{ return &(*it); }
+
+	reference operator[] (difference_type n) const
+	{ return (*(it - n));}
 };
+
+template <class Iterator>
+bool operator== (const reverse_iterator<Iterator>& lhs
+				,const reverse_iterator<Iterator>& rhs)
+{ return lhs.base() == rhs.base(); }
+
+template <class Iterator>
+bool operator!= (const reverse_iterator<Iterator>& lhs
+				,const reverse_iterator<Iterator>& rhs)
+{ return !(lhs == rhs); }
+
+template <class Iterator>
+bool operator<  (const reverse_iterator<Iterator>& lhs
+				,const reverse_iterator<Iterator>& rhs)
+{ return !(lhs.base() < rhs.base()); }
+
+template <class Iterator>
+bool operator>=  (const reverse_iterator<Iterator>& lhs
+				,const reverse_iterator<Iterator>& rhs)
+{ return !(lhs.base() >= rhs.base()); }
+
+template <class Iterator>
+bool operator>  (const reverse_iterator<Iterator>& lhs
+				,const reverse_iterator<Iterator>& rhs)
+{ return !(lhs.base() > rhs.base()); }
+
+template <class Iterator>
+bool operator<=  (const reverse_iterator<Iterator>& lhs
+				,const reverse_iterator<Iterator>& rhs)
+{ return !(lhs.base() <= rhs.base()); }
+
+template <class Iterator>
+reverse_iterator<Iterator>operator+(typename reverse_iterator<Iterator>::difference_type n
+									,const reverse_iterator<Iterator>& rev_it)
+
+{
+	return reverse_iterator<Iterator>(rev_it + n);
+}
+
+template <class Iterator>
+reverse_iterator<Iterator>operator-(typename reverse_iterator<Iterator>::difference_type n
+									,const reverse_iterator<Iterator>& rev_it)
+
+{
+	return reverse_iterator<Iterator>(rev_it - n);
+}
+
+template <class Iterator>  typename reverse_iterator<Iterator>::difference_type operator-
+(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
+{ return  rhs.base() - lhs.base(); }
+
 
 typedef std::string string;
 

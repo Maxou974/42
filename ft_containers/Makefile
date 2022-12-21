@@ -31,8 +31,6 @@ ftt:
 	mv main.cpp.replace main.cpp
 
 testre: fclean all
-
-tere: fclean all
 		valgrind ./a.out
 
 test:

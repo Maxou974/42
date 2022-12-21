@@ -21,10 +21,9 @@ namespace ft{
 		typedef ft::random_access_iterator<const value_type>	const_iterator;
 		typedef ft::random_access_iterator_tag					iterator_category;
 		typedef	typename ft::iterator<random_access_iterator_tag, value_type>::difference_type	difference_type;
-		/*todo
-		reverse_iterator
-		const_reverse_iterator
-		*/
+		typedef ft::reverse_iterator<iterator>	reverse_iterator;
+		//const_reverse_iterator
+
 		typedef	size_t	size_type;
 
 		private:
@@ -91,9 +90,18 @@ namespace ft{
 
 		iterator	end()
 		{ return (&vect_[size_]); }
-
 		const_iterator	end() const
 		{ return (&vect_[size_]); }
+
+		reverse_iterator	rbegin()
+		{ return (&vect_[size_ - 1]); }
+		const_iterator	rbegin() const
+		{ return (&vect_[size_ - 1]); }
+
+		reverse_iterator	rend()
+		{ return (&vect_[0] - 1); }
+		const reverse_iterator	rend() const
+		{ return (&vect_[0] - 1); }
 
 
 		//Capacity

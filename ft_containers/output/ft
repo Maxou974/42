@@ -156,11 +156,66 @@ ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ok | bye | ahah | ahah | a
 capacity: 58  size: 51
 max size:576460752303423487
 
+__________REVERSE_ITERATOR__________
+
+ahah
+ok
+bye
+bye
+bye
+ok
+ahah
+ahah
+ahah
+bye
+ahah
+bye
+hello
+-3
+3
+rit[3]:bye
+hello
+==  0
+!=  1
+<=  0
+>=  1
+<  0
+>  1
+
+__________ITERATOR__________
+
+hello  bye
+hello | bye | ok | ahah | hello | bye | ok | random | 
+capacity: 20  size: 8
+hello
+bye
+ok
+ok
+ok
+bye
+hello
+hello
+hello
+ok
+hello
+ok
+hello
+-4
+4
+rit[3]:random
+hello
+0
+!=  1
+<=  0
+>=  1
+<  0
+>  1
+
 
 
 ve
-ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | ahah | ahah | ahah | ahah | 
-capacity: 20  size: 14
+hello | bye | ok | ahah | hello | bye | ok | random | 
+capacity: 20  size: 8
 
 vee
 ahah | ahah | ahah | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ok | bye | ahah | ahah | ahah | ahah | ahah | ahah | ok | ahah | ahah | ahah | bye | ahah | ahah | ahah | ok | bye | ahah | ahah | bye | ahah | ahah | ahah | ahah | ahah | ok | bye | ok | bye | ahah | ahah | hello | ahah | ahah | ahah | ahah | bye | ok | bye | ok | bye | bye | 

@@ -4,37 +4,26 @@ GREEN="\033[1;32m"
 NOCOLOR="\033[0m"
 
 make stdd > /dev/null || exit 1
-make testre > /dev/null || exit 1
-valgrind --leak-check=full --track-origins=yes --log-file="output/std.valgrind" ./a.out > std
+make re > /dev/null || exit 1
+valgrind --leak-check=full --track-origins=yes --log-file="output/std.valgrind" ./a.out > output/std
 
 make ftt > /dev/null || exit 1
-make testre > /dev/null || exit 1
-valgrind --leak-check=full --track-origins=yes --log-file="output/ft.valgrind" ./a.out > ft
+make re > /dev/null || exit 1
+valgrind --leak-check=full --track-origins=yes --log-file="output/ft.valgrind" ./a.out > output/ft
 
-./sed std "std::" ""
-./sed ft "ft::" ""
+./sed output/std "std::" ""
+./sed output/ft "ft::" ""
 
-mv std.replace output/std
-mv ft.replace output/ft
+mv output/std.replace output/std
+mv output/ft.replace output/ft
 
-if cat output/std.valgrind | grep "no leaks are possible" > /dev/null
-then echo "${GREEN}std.leaks are OKAY${NOCOLOR}"
-else echo "${RED}std.valgrind" ; sed -e '1,7d' output/std.valgrind ; echo "${NOCOLOR}"
-fi
-
-if cat output/std.valgrind | grep "0 errors" > /dev/null
-then echo "${GREEN}std.No errors${NOCOLOR}\n"
+if grep -e "no leaks are possible" -e "0 errors" output/std.valgrind > /dev/null
+then echo "${GREEN}std.No errors\nstd.No leaks${NOCOLOR}\n"
 else echo "${RED}std.errors" ; sed -e '1,6d' output/std.valgrind ; echo "${NOCOLOR}\n"
-echo "\n"
 fi
 
-if cat output/ft.valgrind | grep "no leaks are possible" > /dev/null
-then echo "${GREEN}ft.leaks are OKAY${NOCOLOR}"
-else echo "${RED}ft.valgrind" ; sed -e '1,7d' output/ft.valgrind ; echo "${NOCOLOR}"
-fi
-
-if cat output/ft.valgrind | grep "0 errors" > /dev/null
-then echo "${GREEN}ft.No errors${NOCOLOR}\n"
+if grep -e "no leaks are possible" -e "0 errors" output/ft.valgrind > /dev/null
+then echo "${GREEN}ft.No errors\nft.No leaks${NOCOLOR}\n"
 else echo "${RED}ft.errors" ; sed -e '1,6d' output/ft.valgrind ; echo "${NOCOLOR}\n"
 fi
 
@@ -44,4 +33,3 @@ else echo "${NOCOLOR}"
 fi
 
 make fclean
-rm std ft
