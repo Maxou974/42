@@ -12,12 +12,12 @@ valgrind --leak-check=full --track-origins=yes --log-file="output/ft.valgrind" .
 sed -i 's/std:://g' output/std
 sed -i 's/ft:://g' output/ft
 
-if grep -e "no leaks are possible" -e "0 errors" output/std.valgrind > /dev/null
+if grep "no leaks are possible" output/std.valgrind > /dev/null && grep "0 errors" output/std.valgrind > /dev/null
 then echo "${GREEN}std.No errors\nstd.No leaks${NOCOLOR}\n"
 else echo "${RED}std.errors" ; sed -e '1,6d' output/std.valgrind ; echo "${NOCOLOR}\n"
 fi
 
-if grep -e "no leaks are possible" -e "0 errors" output/ft.valgrind > /dev/null
+if grep "no leaks are possible" output/ft.valgrind > /dev/null && grep "0 errors" output/ft.valgrind > /dev/null
 then echo "${GREEN}ft.No errors\nft.No leaks${NOCOLOR}\n"
 else echo "${RED}ft.errors" ; sed -e '1,6d' output/ft.valgrind ; echo "${NOCOLOR}\n"
 fi

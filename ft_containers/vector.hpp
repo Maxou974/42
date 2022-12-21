@@ -2,8 +2,8 @@
 #define FT_VECTOR_HPP
 
 #include <memory>
-#include <vector>
 #include "iterator.hpp"
+#include "type_traits.hpp"
 
 namespace ft{
 	template < typename T, typename Alloc = std::allocator<T> >
@@ -316,7 +316,8 @@ namespace ft{
 		}
 
 		template <class InputIterator>
-		void	insert(iterator position, InputIterator first, InputIterator last)
+		void	insert(iterator position, InputIterator first, InputIterator last,
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 		{
 			difference_type n = last - first;
 
@@ -325,6 +326,9 @@ namespace ft{
 			while (beg.ret_ptr() < position.ret_ptr())
 			{ beg++; nbr++; }
 			
+			vector<value_type>	tmp_vec;
+			tmp_vec.assign(first, last);
+
 			reserve(n + size_);
 
 			position = &vect_[nbr];
@@ -339,6 +343,8 @@ namespace ft{
 					break;
 			}
 
+			first = tmp_vec.begin();
+			last = tmp_vec.end() ;
 			for (; first < last; first++, position++)
 			{
 				if (position.ret_ptr() < end().ret_ptr())

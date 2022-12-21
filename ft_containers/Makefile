@@ -1,6 +1,6 @@
 NAME = a.out
 
-SRCS = main.cpp
+SRCS = main.cpp vector.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 CC = c++
@@ -23,11 +23,13 @@ fclean: clean
 re: fclean all
 
 stdd:
-	@sed -i 's/ft::/std::/g' ./main.cpp
+	@sed -i 's/ft::/std::/g' ./vector.cpp
+	@sed -i 's/ft::/std::/g' ./type_traits.cpp
 	@make re > /dev/null
 
 ftt:
-	@sed -i 's/std::/ft::/g' ./main.cpp
+	@sed -i 's/std::/ft::/g' ./vector.cpp
+	@sed -i 's/std::/ft::/g' ./type_traits.cpp
 	@make re > /dev/null
 
 testre: fclean all
