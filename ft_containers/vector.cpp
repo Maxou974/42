@@ -9,16 +9,16 @@
 // #include "cont/containers/vector.hpp"
 // #include "contt/includes/vector.hpp"
 
-#define NL std::cout << '\n';
+#define NL ft::cout << '\n';
 using namespace std;
 
 template<typename T>
-void fct(std::vector<T>& vect)
+void fct(ft::vector<T>& vect)
 {
-	for (typename std::vector<T>::size_type i = 0; i < vect.size(); i++)
+	for (typename ft::vector<T>::size_type i = 0; i < vect.size(); i++)
 		cout << vect[i] << " | ";
 	cout << '\n';
-	cout << "std::capacity: " << vect.capacity() << "  std::size: " << vect.size() << '\n';
+	cout << "ft::capacity: " << vect.capacity() << "  ft::size: " << vect.size() << '\n';
 }
 
 void	header_test(string msg)
@@ -63,6 +63,8 @@ ostream& operator<<(ostream& out, const test& ref)
 	out << ref.tab; return out;
 }
 
+void	vector_test();
+
 void vector_test()
 {
 	char *tm = strdup("hello");
@@ -73,11 +75,11 @@ void vector_test()
 
 	header_test("CONSTRUCTOR OPERATOR=");
 
-	std::vector<test> ve; fct(ve);
-	std::vector<test> vee(1, tm); fct(vee);
-	std::vector<test> veee(5, tm); fct(veee);
-	std::vector<test> veeee(5); fct(veeee);
-	std::vector<test> veeeee(1); fct(veeeee);
+	ft::vector<test> ve; fct(ve);
+	ft::vector<test> vee(1, tm); fct(vee);
+	ft::vector<test> veee(5, tm); fct(veee);
+	ft::vector<test> veeee(5); fct(veeee);
+	ft::vector<test> veeeee(1); fct(veeeee);
 
 	veee = ve = veeee;
 	fct(veee);
@@ -146,18 +148,18 @@ void vector_test()
 
 	header_test("DATA");
 
-	std::vector<test>::value_type *vect = ve.data();
+	ft::vector<test>::value_type *vect = ve.data();
 	cout << "ve.data[0]: " << vect[0] << "\nve.data[2]: " << vect[2] << '\n';
 
-	const std::vector<test>::value_type *vectt = ve.data();
+	const ft::vector<test>::value_type *vectt = ve.data();
 	cout << "const ve.data[0]: " << vectt[0];
 	cout << "\nconst ve.data[2]: " << vectt[2] << '\n';
 
 
 	header_test("ASSIGN");
 
-	std::vector<test>::iterator beg = ve.begin();
-	std::vector<test>::iterator end = ve.end();
+	ft::vector<test>::iterator beg = ve.begin();
+	ft::vector<test>::iterator end = ve.end();
 	
 	cout << "ve before:" << '\n'; fct(ve);
 	cout << "vee before:" << '\n'; fct(vee);
@@ -244,8 +246,8 @@ void vector_test()
 
 
 
-	std::vector<int> v;
-	std::vector<int> vv;
+	ft::vector<int> v;
+	ft::vector<int> vv;
 
 	for (int i = 0; i < 9999; i++)
 		vv.push_back(i+1);
@@ -270,8 +272,8 @@ void vector_test()
 	ve.push_back(tm3);
 	ve.push_back(tm4);
 	{
-	std::vector<test>::reverse_iterator rit = ve.rbegin();
-	std::vector<test>::reverse_iterator ritt(rit);
+	ft::vector<test>::reverse_iterator rit = ve.rbegin();
+	ft::vector<test>::reverse_iterator ritt(rit);
 
 	fct(ve);
 	cout << *(rit++) << '\n';
@@ -314,9 +316,9 @@ void vector_test()
 	}
 	header_test("ITERATOR");
 	{
-	std::vector<test>::iterator rit = ve.begin();
-	std::vector<test>::iterator ritt = ve.begin();
-	std::vector<test>::reverse_iterator rittt(rit + 2);
+	ft::vector<test>::iterator rit = ve.begin();
+	ft::vector<test>::iterator ritt = ve.begin();
+	ft::vector<test>::reverse_iterator rittt(rit + 2);
 	cout  << *rit << "  " << *rittt << '\n';
 	fct(ve);
 

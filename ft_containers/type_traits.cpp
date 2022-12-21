@@ -1,14 +1,16 @@
 #include "type_traits.hpp"
-#include <type_traits>
+//#include <type_traits>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-int main()
+
+void type_traits_test()
 {
-	std::is_integral<float> t;
-	if(std::is_integral<float>())
+{
+	ft::is_integral<float> t;
+	if(ft::is_integral<float>())
 		cout << "is integral\n";
 	else
 		cout << "not\n";
@@ -28,16 +30,16 @@ int main()
 	else
 		cout << "not\n";
 
-	cout << std::is_integral<float>::type::value << '\n';
+	cout << ft::is_integral<float>::type::value << '\n';
 
-	if (std::is_integral<float>::value)
+	if (ft::is_integral<float>::value)
 		cout << "is integral\n";
 	else
 		cout << "not\n";
-
+}
 {
-	std::is_integral<int> t;
-	if(std::is_integral<int>())
+	ft::is_integral<int> t;
+	if(ft::is_integral<int>())
 		cout << "is integral\n";
 	else
 		cout << "not\n";
@@ -57,9 +59,9 @@ int main()
 	else
 		cout << "not\n";
 
-	cout << std::is_integral<int>::type::value << '\n';
+	cout << ft::is_integral<int>::type::value << '\n';
 
-	if (std::is_integral<int>::value)
+	if (ft::is_integral<int>::value)
 		cout << "is integral\n";
 	else
 		cout << "not\n";

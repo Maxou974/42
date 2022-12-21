@@ -1,13 +1,13 @@
 NAME = a.out
 
-SRCS = main.cpp vector.cpp
+SRCS = main.cpp vector.cpp type_traits.cpp alphabet.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 CC = c++
-FLAGS = -g -Wall  -Wextra -Werror -Wshadow -std=c++98
+FLAGS = -g -Wall  -Wextra -Werror -Wshadow #-std=c++98
 
 .cpp.o:
-	@${CC} ${FLAGS} -c $< -o ${OBJS}
+	@${CC} ${FLAGS} -c $< -o ${<:.cpp=.o}
 
 all: ${OBJS}
 	@${CC} ${FLAGS} -o ${NAME} ${OBJS}
