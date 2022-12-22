@@ -194,6 +194,7 @@ __________REVERSE_ITERATOR__________
 hello | bye | ok | ahah | hello | bye | ok | ahah | 
 capacity: 20  size: 8
 ahah
+ahah
 ok
 bye
 bye
@@ -246,6 +247,51 @@ hello
 <  0
 >  1
 
+__________COMPARE__________
+
+1
+0
+0
+1
+1
+0
+0
+1
+0
+1
+0
+1
+0
+0
+1
+0
+1
+1
+0
+0
+1
+0
+1
+1
+0
+1
+0
+1
+0
+1
+0
+1
+0
+1
+0
+1
+0
+1
+0
+1
+0
+1
+
 
 
 ve
@@ -271,3 +317,15 @@ capacity: 1  size: 1
   #    #####  #####  #####    #    #####  #####    #      #    #####  
   #      #    #      #        #    # #    #   #    #      #        #  
   #      #    #      #####    #    #  #   #   #  #####    #    #####  
+not
+not
+not
+not
+0
+not
+is integral
+is integral
+is integral
+is integral
+1
+is integral

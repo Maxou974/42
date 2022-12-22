@@ -32,10 +32,7 @@ ftt:
 	@sed -i 's/std::/ft::/g' test/type_traits.cpp
 	@make re > /dev/null
 
-testre: fclean all
-		@valgrind ./a.out
+test: 
+	@./.script.sh
 
-test:
-	@./script.sh
-
-.PHONY: all fclean clean re stdd ftt
+.PHONY: all fclean clean re stdd ftt test
