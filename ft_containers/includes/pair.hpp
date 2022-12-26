@@ -16,7 +16,7 @@ struct pair
 	pair()
 	{ first(); second(); }
 
-	template < typename T1, typename T2 >
+	template < typename U, typename V >
 	pair(const pair<U, V>& pr) : first(pr.first), second(pr.second)
 	{}
 
@@ -26,7 +26,7 @@ struct pair
 
 	pair&	operator=(const pair& pr)
 	{
-		if (*this == ref)
+		if (*this == pr)
 			return *this;
 		first(pr.first);
 		second(pr.second);

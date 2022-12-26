@@ -22,7 +22,7 @@ make ftt > /dev/null || exit 1
 valgrind --leak-check=full --track-origins=yes --log-file="output/ft.valgrind" ./a.out > output/ft
 
 if grep "no leaks are possible" output/ft.valgrind > /dev/null && grep "0 errors" output/ft.valgrind > /dev/null
-then echo "${GREEN}No errors\nleaks${NOCOLOR}\n"
+then echo "${GREEN}No errors\nNo leaks${NOCOLOR}\n"
 else echo "${RED}Errors" ; sed -e '1,6d' output/ft.valgrind ; echo "${NOCOLOR}\n"
 fi
 sed -i 's/ft:://g' output/ft
