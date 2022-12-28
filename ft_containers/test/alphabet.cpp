@@ -194,7 +194,7 @@ Z[5] = {
 	alphabet.push_back(Z);
 
 	std::vector<int> word;
-
+	std::cout << '\n';
 	for (size_t i = 0; i < str.size(); i++)
 	{
 		str[i] = toupper(str[i]);
@@ -206,6 +206,7 @@ Z[5] = {
 			cout << alphabet[word[j]][i] << "  ";
 		cout << '\n';
 	}
+	std::cout << '\n';
 }
 
 

@@ -1,27 +1,64 @@
-#include "BST.hpp"
+#include "map.hpp"
+#include "pair.hpp"
+#include <vector>
 #include <string>
 #include <map>
+#include <iostream>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h> 
+
+void	shuffle(int *tab)
+{
+	srand(time(NULL));
+
+	int tmp, a;
+
+	for (int i = 0; i < 100000; i++)
+	{
+		a = rand() % 100000;
+		tmp  = tab[i];
+		tab[i] = tab[a];
+		tab[a] = tmp;
+	}
+}
+
 
 int main()
 {
-	std::pair<std::string, std::string>* tab;
+	ft::bst< int, std::string, std::less<int> > bst;
+	ft::pair<int, std::string> a;
+	a.first = 4;
+	a.second = "un";
+	// ft::pair<int, std::string> b;
+	// b = ft::make_pair(2, "deux");
+	// bst.insert(a);
+	// bst.insert(b);
+	// bst.insert(ft::make_pair(3, "3"));
+	// bst.insert(ft::make_pair(1, "3"));
+	// bst.insert(ft::make_pair(9, "3"));
+	// bst.insert(ft::make_pair(6, "3"));
+	// bst.insert(ft::make_pair(7, "3"));
+	// bst.insert(ft::make_pair(8, "3"));
+	// bst.insert(ft::make_pair(5, "3"));
+	bst.show();
 
-	tab = new std::pair<std::string, std::string>[5];
-	tab[0].first = "0";
-	tab[0].second = "Zero";
-	tab[1].first = "1";
-	tab[1].second = "Un";
-	tab[2].first = "2";
-	tab[2].second = "Deux";
-	tab[3].first = "3";
-	tab[3].second = "Trois";
-	tab[4].first = "4";
-	tab[4].second = "Quatre";
+	int tab[100000];
 
-	std::map<std::string,std::string> m_map(tab, tab + 5);
+	for (int i = 0; i < 100000; i++)
+		tab[i] = i;
 
-	m_map.insert(tab, tab + 5);
-	std::cout << m_map.size() << '\n';
- 
-	delete [] tab;
+	shuffle(tab);
+
+	for (int i = 0; i < 100000; i++)
+		bst.insert(ft::make_pair(tab[i], "ewfwe"));
+
+	bst.show();
+
+	for(int i = 99999; i >= 0; i--)
+		bst.erase(tab[i]);
+
+	bst.show();
+
+
 }

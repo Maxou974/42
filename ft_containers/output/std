@@ -1,8 +1,10 @@
+
 #   #  #####   ####  #####  #####  #####  
 #   #  #      #        #    #   #  #   #  
 #   #  #####  #        #    #   #  #####  
  # #   #      #        #    #   #  # #    
   #    #####   ####    #    #####  #  #   
+
 
 __________CONSTRUCTOR OPERATOR=__________
 
@@ -312,11 +314,13 @@ capacity: 5  size: 5
 veeeee
 random | 
 capacity: 1  size: 1
+
 #####  #   #  #####  #####  #####  #####  #####  #####  #####  #####  
   #    #   #  #   #  #        #    #   #  #   #    #      #    #      
   #    #####  #####  #####    #    #####  #####    #      #    #####  
   #      #    #      #        #    # #    #   #    #      #        #  
   #      #    #      #####    #    #  #   #   #  #####    #    #####  
+
 not
 not
 not
@@ -329,3 +333,18 @@ is integral
 is integral
 1
 is integral
+
+#####  #####  #####  #####  
+#   #  #   #    #    #   #  
+#####  #####    #    #####  
+#      #   #    #    # #    
+#      #   #  #####  #  #   
+
+first: a  second: A
+first: a  second: A
+first: a  second: A
+first: a  second: A
+first: wef  second: woeufb
+first: wfeoifw  second: woiefhowefo
+first: 1  second: 2
+first: 1  second: 2

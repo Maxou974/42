@@ -10,12 +10,14 @@
 #include "includes/iterator.hpp"
 #include "includes/type_traits.hpp"
 #include "includes/BST.hpp"
+#include "includes/pair.hpp"
 
 using namespace std;
 
 void	printascii(string str);
 void	type_traits_test();
 void	vector_test();
+void	pair_test();
 
 template<typename T>
 void fctt(ft::vector<T>& vect)
@@ -49,4 +51,6 @@ int main()
 	vector_test();
 	printascii("TYPETRAITS");
 	type_traits_test();
+	printascii("PAIR");
+	pair_test();
 }

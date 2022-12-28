@@ -14,7 +14,10 @@ struct pair
 	second_type	second;
 
 	pair()
-	{ first(); second(); }
+	{}
+
+	pair(const pair& pr) : first(pr.first), second(pr.second)
+	{}
 
 	template < typename U, typename V >
 	pair(const pair<U, V>& pr) : first(pr.first), second(pr.second)
@@ -26,10 +29,10 @@ struct pair
 
 	pair&	operator=(const pair& pr)
 	{
-		if (*this == pr)
+		if (this == &pr)
 			return *this;
-		first(pr.first);
-		second(pr.second);
+		first = pr.first;
+		second = pr.second;
 		return *this;
 	}
 };

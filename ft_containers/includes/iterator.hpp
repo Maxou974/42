@@ -8,7 +8,8 @@
 namespace	ft{
 
 struct	random_access_iterator_tag	{};
-struct	reverse_iterator_tag	{};
+struct	reverse_iterator_tag		{};
+struct	bidirectional_iterator_tag	{};
 
 template <typename Iterator>
 struct iterator_traits
@@ -66,8 +67,7 @@ template <class T>
 		typedef typename iterator<random_access_iterator_tag, T>::iterator_category	iterator_category;
 		typedef random_access_iterator			rai;
 
-		// private:
-		public:
+		private:
 		pointer	ptr;
 
 		public:
@@ -129,10 +129,8 @@ template <class T>
 		{ rai tmp(*this); tmp.ptr -= n; return tmp; }
 
 
-		// rai&	operator=(const difference_type n)
-		// { ptr+=n; return *this; }
 		value_type&	operator[](const difference_type i)
-		{ return *(ptr + i);}
+		{ return *(ptr + i); }
 
 		pointer	base() const
 		{ return ptr; }
@@ -319,6 +317,86 @@ reverse_iterator<Iterator>operator-(typename reverse_iterator<Iterator>::differe
 template <class Iterator>  typename reverse_iterator<Iterator>::difference_type operator-
 (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs)
 { return  rhs.base() - lhs.base(); }
+
+
+template<class T>
+class bidirectional_iterator
+{
+	public:
+	typedef typename iterator<bidirectional_iterator_tag, T>::value_type		value_type;
+	typedef typename iterator<bidirectional_iterator_tag, T>::difference_type	difference_type;
+	typedef typename iterator<bidirectional_iterator_tag, T>::pointer			pointer;
+	typedef typename iterator<bidirectional_iterator_tag, T>::reference			reference;
+	typedef typename iterator<bidirectional_iterator_tag, T>::iterator_category	iterator_category;
+	
+	private:
+	pointer	ptr;
+
+	public:
+	bidirectional_iterator() : ptr(0)
+	{}
+
+	bidirectional_iterator(const bidirectional_iterator& ref) : ptr(ref.ptr)
+	{}
+
+	bidirectional_iterator(const pointer& pointe) : ptr(pointe)
+	{}
+
+	template<class Iter>
+	bidirectional_iterator (const bidirectional_iterator<Iter>& ref): ptr(ref.ptr){}
+
+	bidirectional_iterator&	operator=(const bidirectional_iterator& ref)
+	{
+		if (*this == ref)
+			return *this;
+		ptr = ref.ptr; return *this; 
+	}
+
+			~bidirectional_iterator(){}
+
+		bool	operator==(const bidirectional_iterator& rhs)
+		{ return (ptr == rhs.ptr); }
+
+		bool	operator!=(const bidirectional_iterator& rhs)
+		{ return !(ptr == rhs.ptr); }
+
+		value_type&	operator*()
+		{ return *ptr; }
+
+		value_type&	operator*() const
+		{ return *ptr; }
+
+		value_type*	operator->()
+		{ return ptr; }
+
+		value_type*	operator->() const
+		{ return ptr; }
+
+		bidirectional_iterator&	operator++()
+		{ ptr++; return *this; }
+
+		bidirectional_iterator&	operator--()
+		{ ptr--; return *this; }
+
+		bidirectional_iterator	operator++(int)
+		{ bidirectional_iterator tmp = *this; ptr++; return tmp; }
+		
+		bidirectional_iterator	operator--(int)
+		{ bidirectional_iterator tmp = *this; ptr--; return tmp; }
+
+		pointer	base() const
+		{ return ptr; }
+};
+
+template <class Iterator>
+bool operator== (const bidirectional_iterator<Iterator>& lhs
+				,const bidirectional_iterator<Iterator>& rhs)
+{ return lhs.base() == rhs.base(); }
+
+template <class Iterator>
+bool operator!= (const bidirectional_iterator<Iterator>& lhs
+				,const bidirectional_iterator<Iterator>& rhs)
+{ return !(lhs == rhs); }
 
 }
 
