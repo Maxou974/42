@@ -132,12 +132,7 @@ namespace ft{
 			{
 				if (n > capacity_)
 				{
-					vector tmp = *this;
-					if (n < 2 * size_)
-						tmp.capacity_ = 2 * size_;
-					else
-						tmp.capacity_ = n;
-					*this = tmp;
+					reserve(n);
 				}
 				for (; size_ < n; size_++)
 					alloc_.construct(&vect_[size_], val);
@@ -155,12 +150,24 @@ namespace ft{
 				throw(std::length_error("ft::vector::reserve"));
 			else if (n > capacity_)
 			{
-				vector tmp = *this;
-				if (n < 2 * size_)
-					tmp.capacity_ = 2 * size_;
+				pointer	ptr;
+				size_type	si = size_, ca = capacity_;
+				if (n < 2 * si)
+					ptr = alloc_.allocate(capacity_ = 2 * si);
 				else
-					tmp.capacity_ = n;
-				*this = tmp;
+					ptr = alloc_.allocate(capacity_ = n);
+				for (size_type i = 0; i < si; i++)
+					alloc_.construct(&ptr[i], vect_[i]);
+
+				clear(); alloc_.deallocate(vect_, ca);
+	
+				vect_ = ptr;
+				size_ = si;
+
+				if (n < 2 * si)
+					capacity_ = 2 * si;
+				else
+					capacity_ = n;
 			}
 		}
 
@@ -327,38 +334,34 @@ namespace ft{
 		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 		{
 			difference_type n = last - first;
-
-			size_type nbr = 0;
-			iterator beg = begin();
-			while (beg.base() < position.base())
-			{ beg++; nbr++; }
+			size_type nbr = position - begin();
 			
 			vector<value_type>	tmp_vec;
-			iterator	f;
-			iterator	l;
-			tmp_vec.assign(first, last);
-
-			reserve(n + size_);
-
-			position = &vect_[nbr];
-
-			for (size_type i = size_ - 1; &vect_[i] >= position.base(); i--)
+			iterator	f = first;
+			iterator	l = last;
+			if (n + size_ > capacity_)
 			{
-				value_type tmp = vect_[i];
-				if (i + n <= size_ - 1)
-					alloc_.destroy(&vect_[i + n]);
-				alloc_.construct(&vect_[i + n], tmp);
-				if (i == 0)
-					break;
+				tmp_vec.assign(first, last);
+				f = tmp_vec.begin();
+				l = tmp_vec.end();
+				reserve(n + size_);
+				position = &vect_[nbr];
+				//std::cout << "here\n";
 			}
 
-			f = tmp_vec.begin();
-			l = tmp_vec.end() ;
+			for (size_type i = size_ - 1; &vect_[i] >= &(*position); i--)
+			{
+				if (i + n <= size_ - 1)
+					alloc_.destroy(&vect_[i + n]);
+				alloc_.construct(&vect_[i + n], vect_[i]);
+			}
+
+			iterator en = end();
 			for (; f < l; f++, position++)
 			{
-				if (position.base() < end().base())
-					alloc_.destroy(position.base());
-				alloc_.construct(position.base(), *(f));
+				if (position < en)
+					alloc_.destroy(&(*position));
+				alloc_.construct(&(*position), *(f));
 			}
 			size_ += n;
 		}

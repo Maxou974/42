@@ -26,10 +26,7 @@ void	shuffle(int *tab)
 
 int main()
 {
-	ft::bst< int, std::string, std::less<int> > bst;
-	ft::pair<int, std::string> a;
-	a.first = 4;
-	a.second = "un";
+	ft::bst< int, std::string, std::greater<int> > bst;
 	// ft::pair<int, std::string> b;
 	// b = ft::make_pair(2, "deux");
 	// bst.insert(a);
@@ -41,7 +38,7 @@ int main()
 	// bst.insert(ft::make_pair(7, "3"));
 	// bst.insert(ft::make_pair(8, "3"));
 	// bst.insert(ft::make_pair(5, "3"));
-	bst.show();
+	//bst.show();
 
 	int tab[100000];
 
@@ -51,14 +48,16 @@ int main()
 	shuffle(tab);
 
 	for (int i = 0; i < 100000; i++)
+	{
 		bst.insert(ft::make_pair(tab[i], "ewfwe"));
+	}
 
 	bst.show();
 
 	for(int i = 99999; i >= 0; i--)
 		bst.erase(tab[i]);
 
-	bst.show();
+	//bst.show();
 
 
 }

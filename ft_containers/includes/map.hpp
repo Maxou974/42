@@ -240,8 +240,6 @@ class bst
 				else
 					x->parent->left = y;
 				x->left->parent = y;
-				if (x == root_)
-					root_ = y;
 			}
 			else
 			{
@@ -254,14 +252,17 @@ class bst
 				y->right = x->right;
 				if (y->left)
 				y->left->parent  = y->left;
-				if (x == root_)
-					root_ = y;
 			}
-			//change root;
+			if (x == root_)
+				root_ = y;
 		}
 		alloc_.deallocate(x, 1);
 		size_--;
 	}
+
+	size_t	get_size() const { return size_; }
+
+	node*	get_root() const { return root_;}
 
 	void	s(node* x, int i) const
 	{
