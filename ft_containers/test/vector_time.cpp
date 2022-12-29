@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <ostream>
 #include <memory>
 #include "../includes/vector.hpp"
 #include "../includes/iterator.hpp"
@@ -20,37 +21,19 @@ void fct(std::vector<T>& vect)
 
 #define SIZE 1000000
 
-
 int main()
 {
-	std::vector<int> a;
 
-	a.reserve(SIZE+1);
-	// for(int i = 0; i < SIZE; i++)
-	// 	a.push_back(i);
-	
-	// //fct(a);
-	// cout << "1\n";
-	 
-	// a.clear();
+	// a.push_back(2);
+	// a.push_back(3);
+	// a.push_back(4);
 
-	int tab[SIZE];
+	// a.insert(a.begin() + 1, 4);
 
-	for(int i = 0; i < SIZE; i++)
-		tab[i] = i;
-	
-	for(int i = 0; i < SIZE; i += 10000)
-		a.insert(a.begin(), &tab[i], &tab[i+10000]);
-	
-	// a.insert(a.begin(), &tab[0], &tab[SIZE]);
-	// a.clear();
-
-	// a.assign(&tab[0], &tab[SIZE]);
-
-	cout << "2\n";
-
-	// a.clear();
-	// ft::vector<int> b(a.begin(), a.end());
-
-	// swap(a,b);
+	// ft::vector<int>::iterator it;
+	// for (it = a.begin(); it < a.end(); it++)
+	// {
+	// 	std::cout << *it << " ";
+	// }
+	std::cout << " hello" << '\n';
 }

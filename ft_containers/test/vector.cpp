@@ -249,14 +249,15 @@ void vector_test()
 	ft::vector<int> v;
 	ft::vector<int> vv;
 
-	for (int i = 0; i < 9999; i++)
+	for (int i = 0; i < 999999; i++)
 		vv.push_back(i+1);
 
 	fct(vv);
 
 	v.insert(v.begin(), vv.begin(), vv.end());
 	
-	v.insert(v.begin() + 124, v.begin(), v.end());
+	v.insert(v.begin() + 124, vv.begin(), vv.end());
+	v.insert(v.end(), vv.begin(), vv.end());
 
 	v.insert(v.begin() + 2363, 30000, 234);
 	fct(v);
@@ -421,6 +422,7 @@ void vector_test()
 		cout << (un <= deux) << '\n';
 		cout << (un >= deux) << '\n';
 
+		un.clear(); deux.clear();
 
 		un.push_back(3);
 		un.push_back(2);
@@ -435,9 +437,27 @@ void vector_test()
 		cout << (un <= deux) << '\n';
 		cout << (un >= deux) << '\n';
 
+		un.clear(); deux.clear();
+
 		un.push_back(3);
 		un.push_back(3);
 		un.push_back(3);
+		deux.push_back(3);
+		deux.push_back(3);
+
+		cout << (un < deux) << '\n';
+		cout << (un > deux) << '\n';
+		cout << (un == deux) << '\n';
+		cout << (un != deux) << '\n';
+		cout << (un <= deux) << '\n';
+		cout << (un >= deux) << '\n';
+
+		un.clear(); deux.clear();
+
+		un.push_back(3);
+		un.push_back(3);
+		un.push_back(3);
+		deux.push_back(3);
 		deux.push_back(3);
 		deux.push_back(3);
 

@@ -322,9 +322,9 @@ namespace ft{
 
 			for (size_type i = 0; i < n; i++, position++)
 			{
-				if (position.base() < end().base())
-					alloc_.destroy(position.base());
-				alloc_.construct(position.base(), val);
+				if (&(*position) < end().base())
+					alloc_.destroy(&(*position));
+				alloc_.construct(&(*position), val);
 			}
 			size_ += n;
 		}
@@ -334,35 +334,32 @@ namespace ft{
 		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0)
 		{
 			difference_type n = last - first;
-			size_type nbr = position - begin();
-			
-			vector<value_type>	tmp_vec;
-			iterator	f = first;
-			iterator	l = last;
+			difference_type nbr = position - begin();
+
+			// std::cout << first_dist << " " << last_dist << '\n'; 
+		//	vector<value_type>	tmp_vec;
+			// iterator	f = first;
+			// iterator	l = last;
 			if (n + size_ > capacity_)
 			{
-				tmp_vec.assign(first, last);
-				f = tmp_vec.begin();
-				l = tmp_vec.end();
+				// tmp_vec.assign(first, last);
+				// f = tmp_vec.begin();
+				// l = tmp_vec.end();
 				reserve(n + size_);
-				position = &vect_[nbr];
-				//std::cout << "here\n";
+			 	position = &vect_[nbr];
 			}
 
 			for (size_type i = size_ - 1; &vect_[i] >= &(*position); i--)
 			{
-				if (i + n <= size_ - 1)
-					alloc_.destroy(&vect_[i + n]);
-				alloc_.construct(&vect_[i + n], vect_[i]);
+				if (i + n >= size_)
+					alloc_.construct(&vect_[i + n], vect_[i]);
+				else
+					vect_[i + n] = vect_[i];	
 			}
 
 			iterator en = end();
-			for (; f < l; f++, position++)
-			{
-				if (position < en)
-					alloc_.destroy(&(*position));
-				alloc_.construct(&(*position), *(f));
-			}
+			for (; first < last; first++, position++)
+				*position = *first;
 			size_ += n;
 		}
 
