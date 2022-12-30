@@ -9,7 +9,6 @@
 #include "includes/vector.hpp"
 #include "includes/iterator.hpp"
 #include "includes/type_traits.hpp"
-#include "includes/BST.hpp"
 #include "includes/pair.hpp"
 
 using namespace std;
