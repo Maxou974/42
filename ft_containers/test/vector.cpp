@@ -249,7 +249,7 @@ void vector_test()
 	ft::vector<int> v;
 	ft::vector<int> vv;
 
-	for (int i = 0; i < 999999; i++)
+	for (int i = 0; i < 999; i++)
 		vv.push_back(i+1);
 
 	fct(vv);

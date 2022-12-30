@@ -53,7 +53,7 @@ struct nodee
 	~nodee(){};
 };
 
-template<class Key, class T, class Compare>
+template<class Key, class T, class Compare = std::less<Key> >
 class bst
 {
 	public:
@@ -72,22 +72,24 @@ class bst
 	public:
 	bst() : root_(0), size_(0), alloc_(std::allocator<node>()) {}
 
-	~bst()
+
+
+	void	clear()
 	{
-		// node* x = min();
-		// node* y = successor(x);
-		// while (y)
-		// {
-		// 	alloc_.deallocate(x, 1);
-		// 	x = y;
-		// 	y = successor(x);
-		// }
+		recursive_clear(root_);
+		size_ = 0;
+		root_ = 0;
 	}
 
-	void insert(const value_type pairr)
+	~bst()
 	{
-		if (search(pairr.first))
-			return;
+		clear();
+	}
+
+	node* insert(const value_type pairr)
+	{
+		// if (search(pairr.first))
+		// 	return;
 		node*	y = 0;
 		node*	x = root_;
 		node*	z = alloc_.allocate(1);
@@ -108,6 +110,7 @@ class bst
 		else
 			y->right = z;
 		size_++;
+		return z;
 	}
 
 	node*	search(const key_type& keyy) const
@@ -162,17 +165,17 @@ class bst
 		}
 		return y;
 	}
-	void	shiftnode(node* u, node *v)
-	{
-		if (u->parent == 0)
-			root_ = v;
-		else if (u == u->parent->left)
-			u->parent->left = v;
-		else
-			u->parent->right = v;
-		if (v != 0)
-			v.parent = u.parent;
-	}
+	// void	shiftnode(node* u, node *v)
+	// {
+	// 	if (u->parent == 0)
+	// 		root_ = v;
+	// 	else if (u == u->parent->left)
+	// 		u->parent->left = v;
+	// 	else
+	// 		u->parent->right = v;
+	// 	if (v != 0)
+	// 		v.parent = u.parent;
+	// }
 
 	bool	is_leaf(node* x)const
 	{
@@ -256,6 +259,7 @@ class bst
 			if (x == root_)
 				root_ = y;
 		}
+		// alloc_.destroy(x);
 		alloc_.deallocate(x, 1);
 		size_--;
 	}
@@ -298,6 +302,17 @@ class bst
 		std::cout << '\n';
 	}
 
+	private:
+	void	recursive_clear(node* ptr)
+	{
+		if (ptr == 0)
+			return ;
+		node* save = ptr->right;
+		recursive_clear(ptr->left);
+		alloc_.deallocate(ptr, 1);
+		recursive_clear(save);
+	}
+
 };
 
 
@@ -321,27 +336,101 @@ template<
 	typedef typename allocator_type::pointer			pointer;
 	typedef typename allocator_type::const_reference	const_reference;
 	typedef typename allocator_type::const_pointer		const_pointer;
-	// typedef ft::bidirectional_iterator<value_type>		iterator;
 	
 
 	typedef ptrdiff_t				difference_type;
 	typedef size_t					size_type;
 
-	private:
-	typedef	struct nodee<key_type, mapped_type>		node;
-	node*		root_;
-	size_type	size_;
+		private:
+		typedef	struct nodee<key_type, mapped_type>		node;
+		typedef	node*	node_ptr;
+		class map_iterator
+		{
+			private:
+			node* ptr;
+			bst<key_type, mapped_type> tree;
 	
+			public:
+			map_iterator() : ptr(0)
+			{}
+	
+			map_iterator(const map_iterator& ref) : ptr(ref.ptr)
+			{}
+	
+			map_iterator(const node_ptr& ptr) : ptr(ptr)
+			{}
+	
+			map_iterator&	operator=(const map_iterator& ref)
+			{
+				if (this == &ref)
+					return *this;
+				ptr = ref.ptr;
+				return *this;
+			}
+	
+			~map_iterator(){}
+	
+			value_type&	operator*()
+			{
+				return ptr->pair;
+			}
+	
+			map_iterator& operator++()
+			{
+				ptr = tree.successor(ptr); return *this;
+			}
+			map_iterator operator++(int)
+			{
+				map_iterator tmp = *this;
+				ptr = tree.successor(ptr); 
+				return tmp;
+			}
+		};
+	public:
+	typedef map_iterator		iterator;
+
+
+	private:
+	bst<key_type, mapped_type, key_compare>	tree_;
+	allocator_type									alloc_;
+	
+	public:
+	map() : tree_(), alloc_(allocator_type())
+	{}
+	
+	
+	ft::pair<map_iterator, bool> insert(const value_type& val)
+	{
+		node *x;
+		if ( (x = tree_.search(val.first)) )
+			return ft::make_pair<iterator, bool>(iterator(x), false);
+		return ft::make_pair<iterator, bool>(iterator(tree_.insert(val)), true);
+	}
+
+	void show(){tree_.show();};
+	void clear(){tree_.clear();};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
-
-
-
-
-
-
-
-
-
 
 
 }
