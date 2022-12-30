@@ -5,9 +5,12 @@ WHITE="\033[1;37m"
 PURPLE="\033[1;35m"
 NOCOLOR="\033[0m"
 
+mkdir output
+
 echo "${WHITE}Running std:"
 
 make stdd > /dev/null || exit 1
+touch output/std.valgrind
 echo -n ${PURPLE} ; /usr/bin/time --format="time: %es  CPU: %P" valgrind --leak-check=full --track-origins=yes --log-file="output/std.valgrind" ./a.out > output/std
 
 if grep "no leaks are possible" output/std.valgrind > /dev/null && grep "0 errors" output/std.valgrind > /dev/null
@@ -20,6 +23,7 @@ sed -i 's/std:://g' output/std
 echo "${WHITE}Running ft:"
 
 make ftt > /dev/null || exit 1
+touch output/ft.valgrind
 echo -n ${PURPLE} ; /usr/bin/time --format="time with output: %es  CPU: %P" valgrind --leak-check=full --track-origins=yes --log-file="output/ft.valgrind" ./a.out > output/ft
 
 if grep "no leaks are possible" output/ft.valgrind > /dev/null && grep "0 errors" output/ft.valgrind > /dev/null
