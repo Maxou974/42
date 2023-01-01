@@ -1,6 +1,7 @@
 #ifndef	FT_PAIR_HPP
 #define	FT_PAIR_HPP
 
+#include <iostream>
 namespace ft
 {
 
@@ -13,7 +14,7 @@ struct pair
 	first_type	first;
 	second_type	second;
 
-	pair()
+	pair() : first(), second()
 	{}
 
 	pair(const pair& pr) : first(pr.first), second(pr.second)
@@ -25,6 +26,8 @@ struct pair
 
 	pair(const first_type& a, const second_type& b) : first(a), second(b)
 	{}
+
+	//~pair(){ ~first(); ~second(); }
 
 
 	pair&	operator=(const pair& pr)

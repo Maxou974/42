@@ -212,5 +212,8 @@ Z[5] = {
 
 // int main()
 // {
-// 	printascii("VECTOR");
+// 	printascii("ITERATOR");
+// 	printascii("MAP");
+// 	printascii("BST");
+
 // }

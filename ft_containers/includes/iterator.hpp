@@ -74,14 +74,14 @@ template <class T>
 		random_access_iterator() : ptr(0)
 		{}
 
-		random_access_iterator(const rai& ref) : ptr(ref.ptr)
+		random_access_iterator(const rai& ref) : ptr(ref.base())
 		{}
 
 		random_access_iterator(const pointer& pointe) : ptr(pointe)
 		{}
 
 		template<class Iter>
-		random_access_iterator (const random_access_iterator<Iter>& ref): ptr(ref.ptr){}
+		random_access_iterator (const random_access_iterator<Iter>& ref): ptr(ref.base()){}
 
 		rai&	operator=(const rai& ref)
 		{
@@ -213,37 +213,39 @@ class reverse_iterator
 	reverse_iterator() : it()
 	{}
 
-	explicit reverse_iterator(const iterator_type itt) : it(itt - 1) {}
+	explicit reverse_iterator(const iterator_type itt)
+	: it(itt)
+	{}
 
 	template <class Iter>
 	reverse_iterator(const reverse_iterator<Iter>& rev_it): it(rev_it.base()) {}
 
 	reverse_iterator(const pointer& pointe)
-	{ it = pointe;}
+	{ it = pointe; }
 
 	// template<class Iter>
-	// reverse_iterator&	operator=(const reverse_iterator<Iter>& ref)
-	// {
-	// 	// if (&ref == this)
-	// 	// 	return *this;
-	// 	it = ref.it;
-	// 	return *this;
-	// }
+	reverse_iterator&	operator=(const reverse_iterator& ref)
+	{
+		if (&ref == this)
+			return *this;
+		it = ref.it;
+		return *this;
+	}
 
 	iterator_type	base() const{ return it; }
 
 	reverse_iterator operator+ (difference_type n) const
-	{ iterator_type tmp = it ; return (reverse_iterator(tmp - n + 1)); }
+	{ iterator_type tmp = it ; return (reverse_iterator(tmp - n)); }
 
 	reverse_iterator& operator+= (difference_type n)
 	{ it -= n; return *this; }
 
 
 	reverse_iterator operator- (difference_type n) const
-	{ iterator_type tmp = it + n; return reverse_iterator(tmp + 1); }
+	{ iterator_type tmp = it + n; return reverse_iterator(tmp); }
 
 	reverse_iterator& operator-= (difference_type n)
-	{ it += n; return *this; }
+	{ it = it + n; return *this; }
 
 
 	reverse_iterator& operator++()
@@ -259,13 +261,15 @@ class reverse_iterator
 	{ reverse_iterator tmp = *this; it++; return tmp; }
 
 
-	reference	operator*() { iterator_type i = it; return *i; }
+	reference	operator*() const { iterator_type i = it; return *(--i); }
 
 	pointer operator->() const
-	{ return &(*it); }
+	{
+		iterator_type tmp = it;
+		return &(*--tmp); }
 
 	reference operator[] (difference_type n) const
-	{ return (*(it - n));}
+	{ return (*(it - n - 1));}
 };
 
 template <class Iterator>

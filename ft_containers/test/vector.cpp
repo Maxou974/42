@@ -157,10 +157,15 @@ void vector_test()
 
 
 	header_test("ASSIGN");
+	ft::vector<test>::const_iterator begg;
 
 	ft::vector<test>::iterator beg = ve.begin();
 	ft::vector<test>::iterator end = ve.end();
 	
+	begg = beg;
+
+	cout << *begg << '\n';
+
 	cout << "ve before:" << '\n'; fct(ve);
 	cout << "vee before:" << '\n'; fct(vee);
 
@@ -273,11 +278,14 @@ void vector_test()
 	ve.push_back(tm3);
 	ve.push_back(tm4);
 	{
-	ft::vector<test>::reverse_iterator rit = ve.rbegin();
+	ft::vector<test>::reverse_iterator rit = ve.rbegin() ;
+
+	// rit += 100;
 	ft::vector<test>::reverse_iterator ritt(rit);
 
 	fct(ve);
 	cout << *ritt << '\n';
+	cout << *rit << '\n';
 	cout << *(rit++) << '\n';
 	cout << *rit << '\n';
 	cout << *(++rit) << '\n';
@@ -315,13 +323,15 @@ void vector_test()
 	rit = ve.rbegin();
 	test g;
 	*rit = g;
+	cout << *rit << '\n';
 	}
 	header_test("ITERATOR");
 	{
 	ft::vector<test>::iterator rit = ve.begin();
-	ft::vector<test>::iterator ritt = ve.begin();
-	ft::vector<test>::reverse_iterator rittt(rit + 2);
-	cout  << *rit << "  " << *rittt << '\n';
+	ft::vector<test>::iterator ritt = ve.begin() + 3;
+	ft::vector<test>::reverse_iterator rittt(ritt);
+	cout << *rit << *(rit + 3)<< '\n';
+	cout  << *rit << "  " << *ritt << "  " << *rittt << '\n';
 	fct(ve);
 
 	cout << *(rit++) << '\n';

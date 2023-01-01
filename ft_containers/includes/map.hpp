@@ -12,6 +12,8 @@
 namespace ft
 {
 
+template<class Key, class T, class Value_Type>
+class map_iterator;
 
 
 template<class Key, class T>
@@ -44,16 +46,20 @@ struct nodee
 	}
 
 	nodee(const ft::pair<const Key, T>& ref) : pair(ref), left(0), right(0), parent(0)
-	{
-		// pair.first = ref.first;
-		// pair.second = ref.second;
-	}
-
+	{}
 
 	~nodee(){};
 };
 
-template<class Key, class T, class Compare = std::less<Key> >
+
+// #####  #####  #####  
+// #   #  #        #    
+// #####  #####    #    
+// #   #      #    #    
+// #####  #####    #    
+
+
+template<class Key, class T, class Compare, class Allocator>
 class bst
 {
 	public:
@@ -62,17 +68,51 @@ class bst
 
 	private:
 	typedef	struct nodee<Key, T>		node;
-	typedef ft::pair<const Key, T>	value_type;
+	typedef ft::pair<const Key, T>		value_type;
+	typedef	Compare						key_compare;
+	typedef	Allocator					allocator_type;
 
-	Compare					comp;
+
+	key_compare					comp;
 	node*					root_;
+	node*					end;
+	node*					rend;
 	size_t					size_;
 	std::allocator<node>	alloc_;
 
 	public:
-	bst() : root_(0), size_(0), alloc_(std::allocator<node>()) {}
+	explicit bst(const key_compare& com = key_compare(), const allocator_type &alloc = allocator_type())
+	: comp(com), root_(0), end(0), rend(0), size_(0), alloc_(alloc)
+	{
+		alloc_ = typename allocator_type::rebind<node>::other();
+		end = alloc_.allocate(1);
+		alloc_.construct(end, node());
+		rend = alloc_.allocate(1);
+	}
 
 
+
+
+	bst(const bst& ref) : root_(0), size_(0), alloc_(ref.alloc_)
+	{
+		end = alloc_.allocate(1);
+		alloc_.construct(end, node());
+		rend = alloc_.allocate(1);
+		recursive_insert(ref.root_);
+	}
+
+	bst&	operator=(const bst& ref)
+	{
+		if (this == &ref)
+			return *this;
+		clear();
+		alloc_ = ref.alloc_;
+		// end = alloc_.allocate(1);
+		// rend = alloc_.allocate(1);
+		recursive_insert(ref.root_);
+		end->right = root_;
+		return *this;
+	}
 
 	void	clear()
 	{
@@ -84,12 +124,17 @@ class bst
 	~bst()
 	{
 		clear();
+		// alloc_.destroy(end);
+		alloc_.deallocate(end, 1);
+		// alloc_.destroy(rend);
+		alloc_.deallocate(rend, 1);
 	}
 
 	node* insert(const value_type pairr)
 	{
-		// if (search(pairr.first))
-		// 	return;
+		node* tmp;
+		if ( (tmp = search(pairr.first)) )
+			return tmp;
 		node*	y = 0;
 		node*	x = root_;
 		node*	z = alloc_.allocate(1);
@@ -110,6 +155,7 @@ class bst
 		else
 			y->right = z;
 		size_++;
+		end->right = root_;
 		return z;
 	}
 
@@ -128,14 +174,14 @@ class bst
 
 	node*	max(node* x) const
 	{
-		while (x->right != 0)
+		while (x && x->right != 0)
 			x = x->right;
 		return x;
 	} node*	max() const { return max(root_); }
 
 	node*	min(node* x) const
 	{
-		while (x->left != 0)
+		while (x && x->left != 0)
 			x = x->left;
 		return x;
 	} node*	min() const { return min(root_); }
@@ -155,6 +201,7 @@ class bst
 
 	node*	predecessor(node*	x) const
 	{
+
 		if (x->left)
 			return max(x->left);
 		node*	y = x->parent;
@@ -165,17 +212,6 @@ class bst
 		}
 		return y;
 	}
-	// void	shiftnode(node* u, node *v)
-	// {
-	// 	if (u->parent == 0)
-	// 		root_ = v;
-	// 	else if (u == u->parent->left)
-	// 		u->parent->left = v;
-	// 	else
-	// 		u->parent->right = v;
-	// 	if (v != 0)
-	// 		v.parent = u.parent;
-	// }
 
 	bool	is_leaf(node* x)const
 	{
@@ -203,19 +239,19 @@ class bst
 			if (x == root_)
 				root_ = 0;
 			else if (x->parent->left == x)
-				x->parent->left = NULL;
+				x->parent->left = 0;
 			else
-				x->parent->right = NULL;
+				x->parent->right = 0;
 		}
 		else if (as_only_one_child(x))
 		{
-			if (x->parent == NULL)
+			if (x->parent == 0)
 			{
 				if (x->right)
 					root_ = x->right;
 				else
 					root_ = x->left;
-				root_->parent = NULL;
+				root_->parent = 0;
 			}
 			else if(x->parent->left == x)
 			{
@@ -259,8 +295,12 @@ class bst
 			if (x == root_)
 				root_ = y;
 		}
-		// alloc_.destroy(x);
+		// x->parent = 0;
+		// x->left = 0;
+		// x->right = 0;
+		alloc_.destroy(x);
 		alloc_.deallocate(x, 1);
+		end->right = root_;
 		size_--;
 	}
 
@@ -302,6 +342,21 @@ class bst
 		std::cout << '\n';
 	}
 
+	node* get_root_from_ptr(node* x) const
+	{
+		while (x->parent)
+			x = x->parent;
+		return x;
+	}
+
+	node*	get_end() const
+	{return end;}
+	node*	get_rend() const
+	{return rend;}
+
+	size_t max_size() const
+	{ return alloc_.max_size(); }
+
 	private:
 	void	recursive_clear(node* ptr)
 	{
@@ -309,11 +364,29 @@ class bst
 			return ;
 		node* save = ptr->right;
 		recursive_clear(ptr->left);
+		alloc_.destroy(ptr);
 		alloc_.deallocate(ptr, 1);
 		recursive_clear(save);
 	}
 
+	void	recursive_insert(node* ptr)
+	{
+		if (ptr == 0)
+			return ;
+		insert(ptr->pair);
+		recursive_insert(ptr->left);
+		recursive_insert(ptr->right);
+	}
+
 };
+
+
+
+// ##   ##  #####  #####  
+// # ### #  #   #  #   #  
+// #  #  #  #####  #####  
+// #     #  #   #  #      
+// #     #  #   #  #   
 
 
 
@@ -337,106 +410,325 @@ template<
 	typedef typename allocator_type::const_reference	const_reference;
 	typedef typename allocator_type::const_pointer		const_pointer;
 	
-
 	typedef ptrdiff_t				difference_type;
 	typedef size_t					size_type;
-
-		private:
-		typedef	struct nodee<key_type, mapped_type>		node;
-		typedef	node*	node_ptr;
-		class map_iterator
-		{
-			private:
-			node* ptr;
-			bst<key_type, mapped_type> tree;
-	
-			public:
-			map_iterator() : ptr(0)
-			{}
-	
-			map_iterator(const map_iterator& ref) : ptr(ref.ptr)
-			{}
-	
-			map_iterator(const node_ptr& ptr) : ptr(ptr)
-			{}
-	
-			map_iterator&	operator=(const map_iterator& ref)
-			{
-				if (this == &ref)
-					return *this;
-				ptr = ref.ptr;
-				return *this;
-			}
-	
-			~map_iterator(){}
-	
-			value_type&	operator*()
-			{
-				return ptr->pair;
-			}
-	
-			map_iterator& operator++()
-			{
-				ptr = tree.successor(ptr); return *this;
-			}
-			map_iterator operator++(int)
-			{
-				map_iterator tmp = *this;
-				ptr = tree.successor(ptr); 
-				return tmp;
-			}
-		};
-	public:
-	typedef map_iterator		iterator;
-
+	typedef ft::map_iterator<key_type, mapped_type, value_type>		iterator;
+	typedef ft::map_iterator<key_type, mapped_type, const value_type>		const_iterator;
+	typedef	ft::reverse_iterator<iterator>		reverse_iterator;
+	typedef	ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
 	private:
-	bst<key_type, mapped_type, key_compare>	tree_;
+	typedef	struct nodee<key_type, mapped_type>		node;
+	typedef	node*	node_ptr;
+	
+	bst<key_type, mapped_type, key_compare, allocator_type>		tree_;
 	allocator_type									alloc_;
 	
 	public:
-	map() : tree_(), alloc_(allocator_type())
+	//Constructor
+	explicit map(const key_compare& comp = key_compare(), const allocator_type &alloc = allocator_type())
+	: tree_(comp, alloc), alloc_(alloc)
 	{}
+
+	template<class InputIterator>
+	map(InputIterator first, InputIterator last, const key_compare& com = key_compare(), const allocator_type &alloc = allocator_type())
+	: tree_(com, alloc), alloc_(alloc)
+	{
+		for (; first != last; first++)
+			tree_.insert(*first);
+	}
+	
+	map(const map& ref) : tree_(ref.tree_), alloc_(ref.alloc_)
+	{}
+
+	map&	operator=(const map& ref)
+	{
+		if (this == &ref)
+			return *this;
+		tree_ = ref.tree_;
+		alloc_ = ref.alloc_;
+		return *this;
+	}
+
+
+	//Destructor
+	~map(){}
 	
 	
-	ft::pair<map_iterator, bool> insert(const value_type& val)
+	//Iterator
+	iterator begin()
+	{
+		node* x;
+		if ( (x = tree_.min()) )
+			return iterator(x, tree_.get_end());
+		return iterator(tree_.get_end(), tree_.get_end());
+	}
+	const_iterator begin() const
+	{
+		node* x;
+		if ( (x = tree_.min()) )
+			return const_iterator(x, tree_.get_end());
+		return const_iterator(tree_.get_end(), tree_.get_end());
+	}
+
+	iterator end()
+	{
+		return iterator(tree_.get_end(), tree_.get_end());
+	}
+	const_iterator end() const
+	{
+		return const_iterator(tree_.get_end(), tree_.get_end());
+	}
+
+
+	//Reverse Iterator
+	reverse_iterator rbegin()
+	{
+		return reverse_iterator(iterator(end()));
+	}
+	reverse_iterator rend()
+	{
+		return reverse_iterator(begin());
+	}
+
+	const_reverse_iterator rbegin() const
+	{
+		return const_reverse_iterator(iterator(end()));
+	}
+	const_reverse_iterator rend() const
+	{
+		return const_reverse_iterator(begin());
+	}
+
+
+	//Capacity
+	bool empty() const
+	{ return size() == 0; }
+
+	size_type	size() const
+	{ return tree_.get_size(); }
+
+	size_type	max_size() const
+	{ return tree_.max_size(); }
+
+
+	//Access
+	mapped_type&	operator[](const key_type& k)
+	{
+		node* x;
+		if ( (x = tree_.search(k)) )
+			return x->pair.second;
+		else
+		{
+			ft::pair<key_type, mapped_type> pairr;
+			pairr.first = k;
+			return (tree_.insert(pairr))->pair.second;
+		}
+	}
+
+	mapped_type&	at(const key_type& k)
+	{
+		node* x;
+		if ( (x = tree_.search(k)) )
+			return x->pair.second;
+		else
+			throw(std::out_of_range("ft::map::at"));
+	}
+
+
+	//Modifiers
+	ft::pair<iterator, bool> insert(const value_type& val)
 	{
 		node *x;
+
 		if ( (x = tree_.search(val.first)) )
-			return ft::make_pair<iterator, bool>(iterator(x), false);
-		return ft::make_pair<iterator, bool>(iterator(tree_.insert(val)), true);
+			return ft::make_pair<iterator, bool>(iterator(x, tree_.get_end()), false);
+		return ft::make_pair<iterator, bool>(iterator(tree_.insert(val), tree_.get_end()), true);
+	}
+
+	iterator	insert(iterator position, const value_type& val)
+	{
+		(void)position;
+		return iterator(tree_.insert(val), tree_.get_end());
+	}
+
+	template<class InputIterator>
+	void	insert(InputIterator first, InputIterator last)
+	{
+		for(; first != last; first++)
+			tree_.insert(*first);
+	}
+
+
+	void	erase(iterator position)
+	{
+		tree_.erase((*position).first);
+	}
+
+	size_type	erase(const key_type& k)
+	{
+		size_type i = size();
+		tree_.erase(k);
+		return i - size();
+	}
+
+	void	erase(iterator first, iterator last)
+	{
+		while (first != last)
+			erase((*(first++)).first);
 	}
 
 	void show(){tree_.show();};
 	void clear(){tree_.clear();};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 };
 
 
+
+
+
+// #####  #####  #####  #####  #####  #####  #####  #####  
+//   #      #    #      #   #  #   #    #    #   #  #   #  
+//   #      #    #####  #####  #####    #    #   #  #####  
+//   #      #    #      # #    #   #    #    #   #  # #    
+// #####    #    #####  #  #   #   #    #    #####  #  # 
+
+
+template<class Key, class T, class Value_Type>
+class map_iterator
+{
+	public:
+	typedef typename iterator<bidirectional_iterator_tag, Value_Type>::value_type			value_type;
+	typedef typename iterator<bidirectional_iterator_tag, Value_Type>::difference_type		difference_type;
+	typedef typename iterator<bidirectional_iterator_tag, Value_Type>::pointer				pointer;
+	typedef typename iterator<bidirectional_iterator_tag, Value_Type>::reference			reference;
+	typedef typename iterator<bidirectional_iterator_tag, Value_Type>::iterator_category	iterator_category;
+	
+	private:
+	typedef	struct nodee<Key, T>		node;
+	typedef	node*	node_ptr;
+	
+	node*	ptr;
+	node*	end;
+	bst<Key, T, std::less<Key>, std::allocator<Key> > tree;
+	
+	public:
+	map_iterator() : ptr(0), end(0)
+	{}
+
+	map_iterator(const map_iterator& ref) : ptr(ref.ptr), end(ref.end)
+	{}
+
+	map_iterator(const node_ptr& p, const node_ptr& en) 
+	: ptr(p), end(en)
+	{}
+
+	template<class K, class M, class V>
+	map_iterator(const map_iterator<K, M, V>& ref) : ptr(ref.base()), end(ref.get_end())
+	{}
+
+	map_iterator&	operator=(const map_iterator& ref)
+	{
+		if (this == &ref)
+			return *this;
+		ptr = ref.ptr;
+		end = ref.end;
+		return *this;
+	}
+
+	~map_iterator(){}
+
+	value_type&	operator*() const
+	{
+		return ptr->pair;
+	}
+
+	map_iterator& operator++()
+	{
+		node* tmp;
+		if ( ptr != end && (tmp = tree.successor(ptr)) )
+			ptr = tmp;
+		// else if (ptr == end)
+		// 	ptr = tree.max(end->right);
+		else
+			ptr = end;
+		return *this;
+	}
+
+	map_iterator operator++(int)
+	{
+		map_iterator tmp = *this;
+		operator++();
+		return tmp;
+	}
+
+	map_iterator& operator--()
+	{
+		node* tmp;
+		if ( ptr != end && (tmp = tree.predecessor(ptr)) )
+			ptr = tmp;
+		else if (ptr == end)
+			ptr = tree.max(end->right);
+		else
+			ptr = tree.max(tree.get_root_from_ptr(ptr));
+		return *this;
+	}
+
+	map_iterator operator--(int)
+	{
+		map_iterator tmp = *this;
+		operator--();
+		return tmp;
+	}
+
+	node*	base() const
+	{ return ptr; }
+	node*	get_end() const
+	{ return end; }
+};
+
+template<class Key, class T> 
+bool operator!=(const map_iterator<Key, T, ft::pair<const Key, T> >&a, const map_iterator<Key, T, ft::pair<const Key, T> >&b)
+{
+	return a.base() != b.base();
+}
+
+template<class Key, class T> 
+bool operator==(const map_iterator<Key, T, ft::pair<const Key, T> >&a, const map_iterator<Key, T, ft::pair<const Key, T> >&b)
+{
+	return a.base() == b.base();
+}
+
+template<class Key, class T> 
+bool operator!=(const map_iterator<Key, T, const ft::pair<const Key, T> >&a, const map_iterator<Key, T, ft::pair<const Key, T> >&b)
+{
+	return a.base() != b.base();
+}
+
+template<class Key, class T> 
+bool operator==(const map_iterator<Key, T, const ft::pair<const Key, T> >&a, const map_iterator<Key, T, ft::pair<const Key, T> >&b)
+{
+	return a.base() == b.base();
+}
+
+template<class Key, class T> 
+bool operator!=(const map_iterator<Key, T, ft::pair<const Key, T> >&a, const map_iterator<Key, T, const ft::pair<const Key, T> >&b)
+{
+	return a.base() != b.base();
+}
+
+template<class Key, class T> 
+bool operator==(const map_iterator<Key, T, ft::pair<const Key, T> >&a, const map_iterator<Key, T, const ft::pair<const Key, T> >&b)
+{
+	return a.base() == b.base();
 }
 
 
 
+
+
+
+
+}
 
 
 #endif

@@ -4,12 +4,14 @@
 #include <string>
 #include <string.h>
 #include <cstdlib>
+#include <map>
 
 
 #include "includes/vector.hpp"
 #include "includes/iterator.hpp"
 #include "includes/type_traits.hpp"
 #include "includes/pair.hpp"
+#include "includes/map.hpp"
 
 using namespace std;
 
@@ -17,6 +19,8 @@ void	printascii(string str);
 void	type_traits_test();
 void	vector_test();
 void	pair_test();
+void	map_test();
+
 
 template<typename T>
 void fctt(ft::vector<T>& vect)
@@ -46,10 +50,17 @@ bool eq(int a, int b)
 
 int main()
 {
-	printascii("VECTOR");
-	vector_test();
-	printascii("TYPETRAITS");
-	type_traits_test();
-	printascii("PAIR");
-	pair_test();
+	// printascii("VECTOR");
+	// vector_test();
+
+	// Can't test type_traits with std=c++98 change the makefile
+	// printascii("TYPETRAITS");
+	// type_traits_test();
+	
+	// printascii("PAIR");
+	// pair_test();
+	
+	printascii("MAP");
+	map_test();
+
 }
