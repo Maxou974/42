@@ -3,9 +3,18 @@
 ScavTrap::ScavTrap(const std::string &name) : ClapTrap(name)
 {
 	std::cout << "constructor called for ScavTrap\n";
-	this->set_HP(100);
-	this->set_EP(50);
-	this->set_AD(20);
+	_Hit_Points = 100;
+	_Energy_Points = 50;
+	_Attack_Damage = 20;
+}
+
+ScavTrap::ScavTrap()
+{
+	std::cout << "Default constructor called for ScavTrap\n";
+	_Name = "random";
+	_Hit_Points = 100;
+	_Energy_Points = 50;
+	_Attack_Damage = 20;
 }
 
 ScavTrap::~ScavTrap(){
@@ -19,10 +28,10 @@ ScavTrap::ScavTrap(const ScavTrap &ref) : ClapTrap(ref)
 
 ScavTrap&	ScavTrap::operator=(const ScavTrap &ref)
 {
-	this->set_name(ref.get_name());
-	this->set_HP(ref.get_HP());
-	this->set_EP(ref.get_EP());
-	this->set_AD(ref.get_AD());
+	_Name = ref._Name;
+	_Hit_Points = ref._Hit_Points;
+	_Energy_Points = ref._Energy_Points;
+	_Attack_Damage = ref._Attack_Damage;
 	return *this;
 }
 
@@ -33,7 +42,7 @@ void	ScavTrap::attack(const std::string &ref)
 	{
 		std::cout << "ScavTrap " << get_name() << " attacks " << ref;
 		std::cout << ", causing " << get_AD() << " points of damage\n";
-		set_EP(get_EP() - 1);
+		_Energy_Points--;
 	}
 	else
 		std::cout << "ScavTrap " << get_name() << " can not execute attack\n";

@@ -10,6 +10,7 @@ int main()
 	//zaz.info();
 	zaz.attack("random");
 	zaz.beRepaired(100);
+	zaz.takeDamage(1);
 	zaz.guardGate();
 	zaz.highFiveGuys();
 	//zaz.info();

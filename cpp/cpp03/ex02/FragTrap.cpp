@@ -3,13 +3,22 @@
 FragTrap::FragTrap(const std::string &name) : ClapTrap(name)
 {
 	std::cout << "constructor called for FragTrap\n";
-	this->set_HP(100);
-	this->set_EP(100);
-	this->set_AD(30);
+	_Hit_Points = 100;
+	_Energy_Points = 100;
+	_Attack_Damage = 30;
+}
+
+FragTrap::FragTrap()
+{
+	std::cout << "default constructor called for FragTrap\n";
+	_Name = "Random FragTrap";
+	_Hit_Points = 100;
+	_Energy_Points = 100;
+	_Attack_Damage = 30;
 }
 
 FragTrap::~FragTrap(){
-	std::cout << "Destructor called fo FragTrap\n";
+	std::cout << "Destructor called for FragTrap\n";
 }
 
 FragTrap::FragTrap(const FragTrap &ref) : ClapTrap(ref)
@@ -19,10 +28,10 @@ FragTrap::FragTrap(const FragTrap &ref) : ClapTrap(ref)
 
 FragTrap&	FragTrap::operator=(const FragTrap &ref)
 {
-	this->set_name(ref.get_name());
-	this->set_HP(ref.get_HP());
-	this->set_EP(ref.get_EP());
-	this->set_AD(ref.get_AD());
+	_Hit_Points = ref._Hit_Points;
+	_Energy_Points = ref._Energy_Points;
+	_Attack_Damage = ref._Attack_Damage;
+	_Name = ref._Name;
 	return *this;
 }
 
@@ -33,7 +42,7 @@ void	FragTrap::attack(const std::string &ref)
 	{
 		std::cout << "FragTrap " << get_name() << " attacks " << ref;
 		std::cout << ", causing " << get_AD() << " points of damage\n";
-		set_EP(get_EP() - 1);
+		_Energy_Points--;
 	}
 	else
 		std::cout << "FragTrap " << get_name() << " can not execute attack\n";

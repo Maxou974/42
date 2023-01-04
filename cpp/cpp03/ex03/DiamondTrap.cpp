@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 16:32:00 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/25 17:54:46 by mabriel          ###   ########.fr       */
+/*   Updated: 2023/01/05 00:08:52 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ DiamondTrap::DiamondTrap(const std::string &ref) : ClapTrap(ref + "_clap_name")
 {
 	std::cout << "Constructor called for DiamondTrap\n";
 	_Name = ref;
+	set_HP(100);
+	set_AD(30);
+	set_EP(50);
+}
+
+DiamondTrap::DiamondTrap() : ClapTrap("Random DiamondTrap Name_clap_name")
+{
+	std::cout << "Default Constructor called for DiamondTrap\n";
+	_Name = "Random DiamondTrap Name";
 	set_HP(100);
 	set_AD(30);
 	set_EP(50);

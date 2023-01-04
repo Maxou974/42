@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:47:54 by mabriel           #+#    #+#             */
-/*   Updated: 2022/12/07 15:49:58 by mabriel          ###   ########.fr       */
+/*   Updated: 2023/01/04 23:41:54 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ private:
 	int			_Attack_Damage;
 public:
 	ClapTrap(std::string);
+	ClapTrap();
 	~ClapTrap();
 	ClapTrap(const ClapTrap &);
 	ClapTrap&	operator=(const ClapTrap &);

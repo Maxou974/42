@@ -9,6 +9,15 @@ ClapTrap::ClapTrap(std::string name)
 	_Attack_Damage = 0;
 }
 
+ClapTrap::ClapTrap()
+{
+	std::cout << "Default constructor called for ClapTrap\n";
+	_Name = "random";
+	_Hit_Points = 10;
+	_Energy_Points = 10;
+	_Attack_Damage = 0;
+}
+
 ClapTrap::~ClapTrap()
 {
 	std::cout << "Destructor called  for ClapTrap\n";
@@ -78,26 +87,6 @@ void	ClapTrap::info()
 {
 	std::cout << "INFO: ClapTrap " << _Name << ": " << _Hit_Points << " Hp   ";
 	std::cout << _Energy_Points << " Ep   " << _Attack_Damage << " Ad\n\n";
-}
-
-void	ClapTrap::set_HP(const int HP)
-{
-	_Hit_Points = HP;
-}
-
-void	ClapTrap::set_EP(const int EP)
-{
-	_Energy_Points = EP;
-}
-
-void	ClapTrap::set_AD(const int AD)
-{
-	_Attack_Damage = AD;
-}
-
-void	ClapTrap::set_name(std::string ref)
-{
-	_Name = ref;
 }
 
 std::string	ClapTrap::get_name() const
