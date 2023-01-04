@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:24:48 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/30 15:51:04 by mabriel          ###   ########.fr       */
+/*   Updated: 2023/01/05 00:48:41 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ Dog&	Dog::operator=(const Dog &ref)
 {
 	std::cout << "Class Dog: Operator = called\n";
 	type = ref.type;
+	if (_Brain)
+		delete _Brain;
+	_Brain = new Brain();
 	for (int i = 0; i < 100; i++)
 		_Brain->set_ideas(i, ref._Brain->get_ideas(i));
 	return *this;

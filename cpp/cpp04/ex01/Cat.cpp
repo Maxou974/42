@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:28:14 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/26 21:42:47 by mabriel          ###   ########.fr       */
+/*   Updated: 2023/01/05 00:44:48 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ Cat&	Cat::operator=(const Cat &ref)
 {
 	std::cout << "Class Cat: Operator = called\n";
 	type = ref.type;
+	if (_Brain)
+		delete _Brain;
+	_Brain = new Brain();
 	for (int i = 0; i < 100; i++)
 		_Brain->set_ideas(i, ref._Brain->get_ideas(i));
 	return *this;

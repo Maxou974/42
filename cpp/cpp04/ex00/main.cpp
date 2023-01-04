@@ -6,7 +6,7 @@
 /*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 20:36:21 by mabriel           #+#    #+#             */
-/*   Updated: 2022/10/26 16:50:24 by mabriel          ###   ########.fr       */
+/*   Updated: 2023/01/05 00:25:58 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,29 @@
 
 int main()
 {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+{
+	const Animal* ani = new Animal();
+	const Animal* dog = new Dog();
+	const Animal* cat = new Cat();
 	
 	std::cout << "\n";
 
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
+	std::cout << dog->getType() << " " << std::endl;
+	std::cout << cat->getType() << " " << std::endl;
 
 	std::cout << "\n";
 
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
-	meta->makeSound();
+	cat->makeSound(); //will output the cat sound!
+	dog->makeSound();
+	ani->makeSound();
 
 	std::cout << "\n";
 
-	delete meta;
-	delete i;
-	delete j;
-
+	delete ani;
+	delete cat;
+	delete dog;
+}
+{
 	std::cout << "\n";
 
 	WrongAnimal* ani = new WrongAnimal();
@@ -46,13 +48,17 @@ int main()
 	
 	std::cout << "\n";
 	
+	std::cout << ani->getType() << '\n';
 	ani->makeSound();
+	std::cout << cat->getType() << '\n';
 	cat->makeSound();
 
 	std::cout << "\n";
 
 	delete ani;
 	delete cat;
+}
 
 	return 0;
+
 }
