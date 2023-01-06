@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Intern.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyubongchoi <kyubongchoi@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 16:52:46 by kyubongchoi       #+#    #+#             */
-/*   Updated: 2022/09/02 18:19:35 by kyubongchoi      ###   ########.fr       */
+/*   Updated: 2023/01/06 15:02:16 by mabriel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,12 @@
 # define INTERN
 
 # include "Bureaucrat.hpp"
-# include "Form.hpp"
+# include "AForm.hpp"
 # include "ShrubberyCreationForm.hpp"
 # include "RobotomyRequestForm.hpp"
 # include "PresidentialPardonForm.hpp"
 
 class Intern {
-	private:
-		typedef Form* (*func)(const std::string target);
-		typedef struct {
-			std::string _name;
-			func _func;
-		} FormList;
 	public:
 		Intern();
 		Intern(const Intern &inst);
@@ -37,7 +31,7 @@ class Intern {
 			virtual const char* what() const throw();
 		};
 
-		Form *makeForm(const std::string name, const std::string target);
+		AForm *makeForm(const std::string name, const std::string target);
 };
 
 #endif

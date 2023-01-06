@@ -1,6 +1,6 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm() : Form("robotomy", 45, 72)
+RobotomyRequestForm::RobotomyRequestForm() : AForm("robotomy", 45, 72)
 {
 	_target = "target";
 }
@@ -9,19 +9,20 @@ RobotomyRequestForm::~RobotomyRequestForm()
 {
 }
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : Form(target, 45, 72)
+RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm(target, 45, 72)
 {
 	_target = target;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &ref) : Form(ref)
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &ref) : AForm(ref)
 {
 	_target = ref._target;
+
 }
 
 RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm &ref)
 {
-	Form::operator=(ref);
+	AForm::operator=(ref);
 	_target = ref._target;
 	return *this;
 }

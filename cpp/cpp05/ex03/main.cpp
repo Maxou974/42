@@ -1,4 +1,4 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
@@ -12,9 +12,9 @@ int main()
 
 	try{
 		Intern someRandomIntern;
-		Form* rrf;
+		AForm* rrf;
 
-		rrf = someRandomIntern.makeForm("shruberry creationm", "Bender");
+		rrf = someRandomIntern.makeForm("shrubbery creation", "Bender");
 		Bureaucrat max("max", 1);
 		if (rrf)
 		{
@@ -27,4 +27,73 @@ int main()
 	{
 		std::cerr << e.what() << '\n';
 	}
+
+	std::cout << "\n\n";
+
+	try{
+		Intern someRandomIntern;
+		AForm* rrf;
+
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		Bureaucrat max("max", 1);
+		if (rrf)
+		{
+			rrf->beSigned(max);
+			rrf->execute(max);
+			delete rrf;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+
+	std::cout << "\n\n";
+
+	try{
+		Intern someRandomIntern;
+		AForm* rrf;
+
+		rrf = someRandomIntern.makeForm("presidential pardon", "Bender");
+		Bureaucrat max("max", 1);
+		if (rrf)
+		{
+			rrf->beSigned(max);
+			rrf->execute(max);
+			delete rrf;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+
+
+	std::cout << "\n\n";
+
+	try{
+		Intern someRandomIntern;
+		AForm* rrf;
+
+		rrf = someRandomIntern.makeForm("shrubberyation", "Bender");
+		Bureaucrat max("max", 1);
+		if (rrf)
+		{
+			rrf->beSigned(max);
+			rrf->execute(max);
+			delete rrf;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+
+
+
+
+
+
+
+
 }

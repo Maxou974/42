@@ -1,25 +1,25 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : Form("tree", 137, 145)
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("tree", 137, 145)
 {
 	_target = "target";
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm(){}
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : Form(target, 137, 145)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm(target, 137, 145)
 {
 	_target = target;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &ref) : Form(ref)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &ref) : AForm(ref)
 {
 	_target = ref._target;
 }
 
 ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationForm &ref)
 {
-	Form::operator=(ref);
+	AForm::operator=(ref);
 	_target = ref._target;
 	return *this;
 }

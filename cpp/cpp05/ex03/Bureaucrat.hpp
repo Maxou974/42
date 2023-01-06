@@ -7,7 +7,7 @@
 #include <fstream>
 #include <cstdlib>
 
-class Form;
+class AForm;
 
 class Bureaucrat{
 	const std::string _name;
@@ -18,21 +18,21 @@ public:
 	~Bureaucrat();
 	Bureaucrat(const Bureaucrat &);
 	Bureaucrat& operator=(const Bureaucrat &);
+
+	class GradeTooHighException : public std::exception{
+	char const * what()const throw();
+};
+
+	class GradeTooLowException : public std::exception{
+	char const * what()const throw();
+};
+
 	int	getGrade()const;
 	std::string	getName()const;
 	void	increment();
 	void	decrement();
-	void	signForm(Form &);
-	void	executeForm(Form const &form);
-};
-
-class BureaucratException : public std::exception{
-	std::string _msg;
-public:
-	BureaucratException();
-	BureaucratException(int grade);
-	~BureaucratException() throw();
-	char const * what()const throw();
+	void	signForm(AForm &);
+	void	executeForm(AForm const &form);
 };
 
 std::ostream&	operator<<(std::ostream&, const Bureaucrat &);
