@@ -48,7 +48,6 @@ int main()
 	
 	Bureaucrat maxime("maxime", 140);
 	Bureaucrat mathou = maxime;
-	mathou = mathou;
 
 	std::cout << mathou;
 
