@@ -6,13 +6,13 @@
 #    By: mabriel <mabriel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 20:08:35 by mabriel           #+#    #+#              #
-#    Updated: 2022/10/26 16:28:40 by mabriel          ###   ########.fr        #
+#    Updated: 2023/01/06 14:29:24 by mabriel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = youneedform
 
-SRCS = main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+SRCS = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 CC = c++

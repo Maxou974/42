@@ -16,6 +16,16 @@ public:
 	~Bureaucrat();
 	Bureaucrat(const Bureaucrat &);
 	Bureaucrat& operator=(const Bureaucrat &);
+
+
+	class GradeTooHighException : public std::exception{
+	char const * what()const throw();
+};
+
+	class GradeTooLowException : public std::exception{
+	char const * what()const throw();
+};
+
 	int	getGrade()const;
 	std::string	getName()const;
 	void	increment();
@@ -23,14 +33,6 @@ public:
 	void	signForm(Form &);
 };
 
-class BureaucratException : public std::exception{
-	std::string _msg;
-public:
-	BureaucratException();
-	BureaucratException(int grade);
-	~BureaucratException() throw();
-	char const * what()const throw();
-};
 
 std::ostream&	operator<<(std::ostream&, const Bureaucrat &);
 

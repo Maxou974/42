@@ -1,6 +1,6 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() : Form("robotomy", 5, 25)
+PresidentialPardonForm::PresidentialPardonForm() : AForm("robotomy", 5, 25)
 {
 	_target = "target";
 }
@@ -9,19 +9,19 @@ PresidentialPardonForm::~PresidentialPardonForm()
 {
 }
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target) : Form(target, 5, 25)
+PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm(target, 5, 25)
 {
 	_target = target;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &ref) : Form(ref)
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &ref) : AForm(ref)
 {
 	_target = ref._target;
 }
 
 PresidentialPardonForm&	PresidentialPardonForm::operator=(const PresidentialPardonForm &ref)
 {
-	Form::operator=(ref);
+	AForm::operator=(ref);
 	_target = ref._target;
 	return *this;
 }

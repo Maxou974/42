@@ -9,12 +9,11 @@ Bureaucrat::~Bureaucrat(){}
 
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name)
 {
+	if (grade < 1)
+		throw(Bureaucrat::GradeTooHighException());
+	if (grade > 150)
+		throw(Bureaucrat::GradeTooLowException());
 	_grade = grade;
-	if (grade > 150 || grade < 1)
-	{
-		BureaucratException l(grade);
-		throw(l);
-	}
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &ref) : _name(ref._name)
@@ -38,22 +37,16 @@ std::string Bureaucrat::getName()const{
 
 void	Bureaucrat::increment()
 {
+	if (_grade == 1)
+		throw(Bureaucrat::GradeTooHighException());
 	_grade--;
-	if (_grade > 150 || _grade < 1)
-	{
-		BureaucratException l(_grade);
-		throw(l);
-	}
 }
 
 void	Bureaucrat::decrement()
 {
+	if (_grade == 150)
+		throw(Bureaucrat::GradeTooLowException());
 	_grade++;
-	if (_grade > 150 || _grade < 1)
-	{
-		BureaucratException l(_grade);
-		throw(l);
-	}
 }
 
 std::ostream&	operator<<(std::ostream &os, const Bureaucrat &ref)
@@ -62,23 +55,10 @@ std::ostream&	operator<<(std::ostream &os, const Bureaucrat &ref)
 	return os;
 }
 
-BureaucratException::BureaucratException()
-{
-	_msg = "Bureaucrat::DefaultException";
+const char * Bureaucrat::GradeTooHighException::what() const throw(){
+	return "Bureaucrat::GradeTooHighException";
 }
 
-BureaucratException::BureaucratException(int grade)
-{
-	if (grade > 150)
-		_msg = "Bureaucrat::GradeToLowException";
-	else if (grade < 1)
-		_msg = "Bureaucrat::GradeToHighException";
-}
-
-const char * BureaucratException::what() const throw(){
-	return _msg.c_str();
-}
-
-BureaucratException::~BureaucratException() throw()
-{
+const char * Bureaucrat::GradeTooLowException::what() const throw(){
+	return	"Bureaucrat::GradeTooLowException";
 }

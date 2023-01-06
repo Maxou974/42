@@ -12,6 +12,29 @@ int main()
 	{
 		std::cout << e.what() << '\n';
 	}
+
+	try
+	{
+		Bureaucrat maxime("maxime", 1545);
+		maxime.decrement();
+		std::cout << maxime;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << e.what() << '\n';
+	}
+
+	try
+	{
+		Bureaucrat maxime("maxime", -1243);
+		maxime.decrement();
+		std::cout << maxime;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << e.what() << '\n';
+	}
+
 	try
 	{
 		Bureaucrat maxime("maxime", 1);
@@ -22,17 +45,7 @@ int main()
 	{
 		std::cout << e.what() << '\n';
 	}
-	try
-	{
-		Bureaucrat maxime("maxime", 0);
-		maxime.increment();
-		std::cout << maxime;
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << e.what() << '\n';
-	}
-
+	
 	Bureaucrat maxime("maxime", 140);
 	Bureaucrat mathou = maxime;
 	mathou = mathou;

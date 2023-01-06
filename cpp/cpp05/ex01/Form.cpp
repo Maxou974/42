@@ -1,22 +1,19 @@
 #include "Form.hpp"
 
-Form::Form() : _name("Default Form"), _execute(1), _sign(1)
+Form::Form() : _name("Default Form"), _execute(1), _sign(1), _is_signed(0)
 {
-	_is_signed = 0;
+	// _is_signed = 0;
 }
 
-Form::Form(std::string name, int exec, int sign) :_name(name), _execute(exec), _sign(sign)
+Form::Form(std::string name, int exec, int sign) :_name(name), _execute(exec), _sign(sign), _is_signed(0)
 {
-	_is_signed = 0;
-	if (_execute > 150 || _execute < 1
-		|| _sign > 150 || _sign < 1)
-	{
-		FormException l(_execute, _sign);
-		throw (l);
-	}
+	if (_execute > 150 || _sign > 150)
+		throw Form::GradeTooLowException();
+	if (_execute < 1 || _sign < 1)
+		throw Form::GradeTooHighException();
 }
 
-Form::Form(const Form &ref) : _name(ref._name), _is_signed(ref._is_signed), _execute(ref._execute), _sign(ref._sign)
+Form::Form(const Form &ref) : _name(ref._name), _execute(ref._execute), _sign(ref._sign), _is_signed(ref._is_signed)
 {}
 
 Form::~Form()
@@ -25,12 +22,17 @@ Form::~Form()
 
 void	Form::beSigned(Bureaucrat &ref)
 {
+	if (_is_signed)
+	{
+		std::cout << "already signed\n";
+	// 	return ;
+	}
+
 	if (ref.getGrade()<= _sign)
 		_is_signed = 1;
 	else
 	{
-		FormException l(151, 151);
-		throw l;
+		throw Form::GradeTooLowException();
 	}
 }
 
@@ -56,27 +58,13 @@ Form&	Form::operator=(const Form &ref)
 	return *this;
 }
 
-FormException::FormException()
-{
-	_msg = "Form::DefaultException";
+const char * Form::GradeTooHighException::what() const throw(){
+	return "Form::GradeTooHighException";
 }
 
-FormException::FormException(int gr1, int gr2)
-{
-	if (gr1 > 150 || gr2 > 150)
-		_msg = "Form::GradeTooLowException";
-	else if (gr1 < 1|| gr2 < 1)
-		_msg = "Form::GradeTooHighException";
+const char * Form::GradeTooLowException::what() const throw(){
+	return	"Form::GradeTooLowException";
 }
-
-FormException::~FormException() throw()
-{}
-
-const char * FormException::what() const throw()
-{
-	return _msg.c_str();
-}
-
 std::ostream&	operator<<(std::ostream& os, const Form &r)
 {
 	os << "Form: " << r.getName() << " have an exec grade of " << r.getExecute() << " a sign grade of " << r.getSign();
