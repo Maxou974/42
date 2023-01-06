@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "pair.hpp"
+#include "compare.hpp"
 #include "iterator.hpp"
 #include <memory>
 
@@ -388,6 +389,8 @@ class bst
 
 
 
+
+
 // ##   ##  #####  #####  
 // # ### #  #   #  #   #  
 // #  #  #  #####  #####  
@@ -399,7 +402,7 @@ class bst
 template<
     class Key,
     class T,
-    class Compare = std::less<Key>,
+    class Compare = ft::less<Key>,
     class Allocator = std::allocator< ft::pair<const Key, T> >
 > class map
 {
@@ -433,7 +436,21 @@ template<
 	key_compare										comp;
 	
 	public:
-
+	class value_compare : binary_function<value_type, value_type, bool>
+	{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+	  friend class map<Key, T, Compare, Allocator>;
+	protected:
+	  Compare comp;
+	  value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+	public:
+	  typedef bool result_type;
+	  typedef value_type first_argument_type;
+	  typedef value_type second_argument_type;
+	  bool operator() (const value_type& x, const value_type& y) const
+	  {
+	    return comp(x.first, y.first);
+	  }
+	};
 
 	//Constructor
 	explicit map(const key_compare& comp = key_compare(), const allocator_type &alloc = allocator_type())
@@ -619,9 +636,7 @@ template<
 
 	value_compare	value_comp()
 	{
-		value_comp com;
-
-		return com;
+		return value_compare(comp);
 	}
 
 	// Operations
@@ -718,23 +733,6 @@ template<
 	allocator_type	get_allocator()
 	{ return alloc_; }
 };
-
-template <class Key, class T, class Compare, class Alloc>
-class map<Key,T,Compare,Alloc>::value_compare
-{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
-  friend class map;
-protected:
-  Compare comp;
-  value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
-public:
-  typedef bool result_type;
-  typedef value_type first_argument_type;
-  typedef value_type second_argument_type;
-  bool operator() (const value_type& x, const value_type& y) const
-  {
-    return comp(x.first, y.first);
-  }
-}
 
 
 

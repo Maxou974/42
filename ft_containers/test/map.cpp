@@ -533,6 +533,7 @@ void	map_test()
 	cout << '\n';
 }
 {
+	header_test("VALUE_COMPARE");
 	std::map<char,int> mymap;
 
 	mymap['x']=1001;
@@ -547,9 +548,13 @@ void	map_test()
 	do {
 		cout << ite->first << " => " << ite->second << '\n';
 	} while ( mymap.value_comp()(*ite++, highest) );
-
 }
+{
+	header_test("KEY_COMPARE");
+	std::map<char,int>::key_compare l;
 
+	cout << l('a','b') << '\n';
+}
 
 
 
