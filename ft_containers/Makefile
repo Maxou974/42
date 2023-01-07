@@ -1,6 +1,7 @@
 NAME = a.out
 
-SRCS = main.cpp test/vector.cpp test/map.cpp test/alphabet.cpp test/pair.cpp
+SRCS = main.cpp test/stack.cpp test/vector.cpp test/map.cpp test/alphabet.cpp test/pair.cpp
+TESTFCT = test/stack.cpp test/vector.cpp test/map.cpp test/pair.cpp #test/type_traits.cpp
 OBJS = ${SRCS:.cpp=.o}
 
 CC = c++
@@ -23,10 +24,13 @@ fclean: clean
 re: fclean all
 
 stdd:
-	sed -i 's/ft::/std::/g' test/vector.cpp
-	sed -i 's/ft::/std::/g' test/type_traits.cpp
-	sed -i 's/ft::/std::/g' test/pair.cpp
-	sed -i 's/ft::/std::/g' test/map.cpp
+	# sed -i 's/ft::/std::/g' test/vector.cpp
+	# sed -i 's/ft::/std::/g' test/type_traits.cpp
+	# sed -i 's/ft::/std::/g' test/pair.cpp
+	# sed -i 's/ft::/std::/g' test/map.cpp
+	# sed -i 's/ft::/std::/g' test/stack.cpp
+	  sed -i 's/ft::/std::/g' ${TESTFCT}
+	
 	make re
 
 ftt:
@@ -34,6 +38,7 @@ ftt:
 	@sed -i 's/std::/ft::/g' test/type_traits.cpp
 	@sed -i 's/std::/ft::/g' test/pair.cpp
 	@sed -i 's/std::/ft::/g' test/map.cpp
+	@sed -i 's/std::/ft::/g' test/stack.cpp
 	@make re
 
 test: 

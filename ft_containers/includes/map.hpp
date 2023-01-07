@@ -453,8 +453,8 @@ template<
 	};
 
 	//Constructor
-	explicit map(const key_compare& comp = key_compare(), const allocator_type &alloc = allocator_type())
-	: tree_(comp, alloc), alloc_(alloc), comp(key_compare())
+	explicit map(const key_compare& com = key_compare(), const allocator_type &alloc = allocator_type())
+	: tree_(com, alloc), alloc_(alloc), comp(key_compare())
 	{}
 
 	template<class InputIterator>
