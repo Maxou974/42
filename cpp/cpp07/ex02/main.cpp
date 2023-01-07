@@ -35,10 +35,33 @@ int main()
 	print(str);
 
 	Array<char> co = str;
-	Array<char> c(str);
+	const Array<char> c(str);
 
 	print(co);
 	print(c);
+
+	Array<std::string> lala(3);
+	// Array<std::string> lala(4);
+
+	lala[0] = "hELLO";
+	lala[1] = " iM ";
+	lala[2] = " mAXIME";
+
+	print(lala);
+	const Array<std::string> c_lala(lala);
+
+	try
+	{
+		std::cout << c_lala[1] << '\n';
+		std::cout << c_lala[3] << '\n';
+		std::cout << "HEYYYY\n";
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
+
 }
 
 // #include <iostream>

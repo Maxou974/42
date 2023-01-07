@@ -14,12 +14,9 @@ Data*		deserialize(uintptr_t raw)
 
 int main()
 {
-	Data data = Data();
+	Data data;
 
-	uintptr_t ptr2 = serialize(&data);
-	Data	*tmp = deserialize(ptr2);
-	std::cout << reinterpret_cast<void *>(ptr2) << '\n' << tmp << '\n';
+	std::cout << &data << '\n';
+	std::cout << deserialize(serialize(&data)) << '\n';
 
-	uintptr_t uintptr = serialize(&data);
-	std::cout << &data << '\n' << deserialize(uintptr) << '\n';
 }

@@ -4,6 +4,7 @@
 #include "C.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <unistd.h>
 
 Base *generate(void)
 {
@@ -15,11 +16,9 @@ Base *generate(void)
 		case 1:
 			std::cout << "B generated\n";
 			return new B;
-		case 2:
+		default:
 			std::cout << "C generated\n";
 			return new C;
-		default:
-			return NULL;
 	}
 }
 
@@ -28,10 +27,14 @@ void	identify(Base* p)
 	std::cout << "Pointer ";
 	if (dynamic_cast<A*>(p))
 		std::cout << "Class: A\n";
-	if (dynamic_cast<B*>(p))
+	else if (dynamic_cast<B*>(p))
 		std::cout << "Class: B\n";
-	if (dynamic_cast<C*>(p))
+	else if (dynamic_cast<C*>(p))
 		std::cout << "Class: C\n";
+	else if (!p)
+		std::cout << "Null\n";
+	else
+		std::cout << "Unknown\n";
 }
 
 void	identify(Base& p)
@@ -43,7 +46,8 @@ void	identify(Base& p)
 		std::cout << "Class: A\n";
 	}
 	catch(const std::exception& e)
-	{}// {(void)e;}
+	{(void)e;}
+
 	try
 	{
 		dynamic_cast<B&>(p);
@@ -51,6 +55,7 @@ void	identify(Base& p)
 	}
 	catch(const std::exception& e)
 	{(void)e;}
+	
 	try
 	{
 		dynamic_cast<C&>(p);
@@ -65,7 +70,8 @@ int main()
 	srand(time(NULL));
 
 	for (int i = 0; i < 5; i++)
-	{	
+	{
+		usleep(500);	
 		Base *tmp = generate();
 
 		identify(tmp);

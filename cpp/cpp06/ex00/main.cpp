@@ -161,7 +161,7 @@ int main(int argc, char **argv)
 		else if ((is_int = isInt(str)))
 			_int = atoi(str.c_str());
 		else if ((is_float = isFloat(str)))
-			_float = atof(str.c_str());
+			_float = static_cast<float>(atof(str.c_str()));
 		else if ((is_double = isDouble(str)))
 			_double = atof(str.c_str());
 		else
@@ -200,13 +200,13 @@ void itoa(int nbr, char s[])
     int i, sign;
 	unsigned int n = nbr;
 
-    if ((sign = n) < 0)        /* record sign */
-        n = -nbr;                /* make n positive */
+    if ((sign = n) < 0)      
+        n = -nbr;               
     i = 0;
 
-    do {                       /* generate digits in reverse order */
-        s[i++] = n % 10 + '0'; /* get next digit */
-    } while ((n /= 10) > 0);   /* delete it */
+    do {                       
+        s[i++] = n % 10 + '0';
+    } while ((n /= 10) > 0); 
 
     if (sign < 0)
         s[i++] = '-';

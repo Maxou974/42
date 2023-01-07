@@ -8,7 +8,7 @@ int main()
 	iter(tab, 10, &print);
 	iter(tab, 10, &add_one);
 	std::cout << '\n';
-	iter(tab, 10, &print);
+	iter(tab, 5, &print);
 	std::cout << '\n';
 	iter(t, 5, &print);
 	std::cout << '\n';
