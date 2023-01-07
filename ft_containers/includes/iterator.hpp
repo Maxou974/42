@@ -223,8 +223,8 @@ class reverse_iterator
 	reverse_iterator(const pointer& pointe)
 	{ it = pointe; }
 
-	// template<class Iter>
-	reverse_iterator&	operator=(const reverse_iterator& ref)
+	template<class Iter>
+	reverse_iterator&	operator=(const reverse_iterator<Iter>& ref)
 	{
 		if (&ref == this)
 			return *this;

@@ -7,9 +7,6 @@
 #include "iterator.hpp"
 #include <memory>
 
-#define key pair.first
-#define value pair.second
-
 namespace ft
 {
 
@@ -143,7 +140,7 @@ class bst
 		while (x != 0)
 		{
 			y = x;
-			if (comp(z->key, x->key))
+			if (comp(z->pair.first, x->pair.first))
 				x = x->left;
 			else
 				x = x->right;
@@ -151,7 +148,7 @@ class bst
 		z->parent = y;
 		if (y == 0)
 			root_ = z;
-		else if (comp(z->key, y->key))
+		else if (comp(z->pair.first, y->pair.first))
 			y->left = z;
 		else
 			y->right = z;
@@ -163,9 +160,9 @@ class bst
 	node*	search(const key_type& keyy) const
 	{
 		node*	ptr = root_;
-		while (ptr != 0 && keyy != ptr->key)
+		while (ptr != 0 && keyy != ptr->pair.first)
 		{
-			if (comp(keyy, ptr->key))
+			if (comp(keyy, ptr->pair.first))
 				ptr = ptr->left;
 			else
 				ptr = ptr->right;
@@ -312,19 +309,19 @@ class bst
 		if (x != 0)
 		{
 			s(x->left, i+1);
-			// std::cout << x->key << " level: " << i; 
-			std::cout << x->key; 
+			// std::cout << x->pair.first << " level: " << i; 
+			std::cout << x->pair.first; 
 			if (x->right)
-				std::cout << "  right:" << x->right->key; 
+				std::cout << "  right:" << x->right->pair.first; 
 			else
 				std::cout << "  right:NULL"; 
 
 			if (x->left)
-				std::cout << "  left:" << x->left->key; 
+				std::cout << "  left:" << x->left->pair.first; 
 			else
 				std::cout << "  left:NULL";
 			if (x->parent)
-				std::cout << "  parent:" << x->parent->key;
+				std::cout << "  parent:" << x->parent->pair.first;
 			else
 				std::cout << "  parent:NULL";
 			std::cout << '\n';
