@@ -25,7 +25,7 @@ public:
 class SpanException : public std::exception{
 
 	public:
-const char *what (){
+	const char * what () const throw() {
 	return "Span size is not large enough\n";
 }
 };
