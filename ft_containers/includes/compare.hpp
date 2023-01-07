@@ -57,11 +57,17 @@ bool lexicographical_compare(InputIt1 first1, InputIt1 last1,
     return (first1 == last1) && (first2 != last2);
 }
 
-template<class T>
-bool	less(const T& lhs, const T& rhs)
-{ return lhs < rhs; }
+//#include <functional>
+template <class Arg1, class Arg2, class Result>
+  struct binary_function {
+    typedef Arg1 first_argument_type;
+    typedef Arg2 second_argument_type;
+    typedef Result result_type;
+};
 
-
+template <class T> struct less : ft::binary_function <T,T,bool> {
+  bool operator() (const T& x, const T& y) const {return x<y;}
+};
 }
 
 #endif
