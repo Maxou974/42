@@ -1,5 +1,8 @@
 #include "../includes/type_traits.hpp"
-#include <type_traits>
+
+//comment this line to compile in c++98
+// #include <type_traits> 
+
 #include <iostream>
 #include <string>
 

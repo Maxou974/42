@@ -7,6 +7,7 @@
 #include "compare.hpp"
 
 namespace ft{
+	
 	template < typename T, typename Alloc = std::allocator<T> >
 	class vector
 	{

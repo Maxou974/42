@@ -14,33 +14,33 @@ public:
 	typedef size_t		size_type;
 
 protected:
-	container_type tab;
+	container_type c;
 
 public:
-	explicit stack(const container_type& chtr = container_type()) : tab(chtr)
+	explicit stack(const container_type& chtr = container_type()) : c(chtr)
 	{}
 
 	bool	empty() const
-	{ return tab.empty(); }
+	{ return c.empty(); }
 
 	size_type size() const{
-		return tab.size();
+		return c.size();
 	}
 
 	value_type& top(){
-		return tab.back();
+		return c.back();
 	}
 
 	const value_type& top() const {
-		return tab.back();
+		return c.back();
 	}
 
 	void push (const value_type& val){
-		tab.push_back(val);
+		c.push_back(val);
 	}
 
 	void	pop(){
-		tab.pop_back();
+		c.pop_back();
 	}
 
 	template <class TT, class Containerr>
@@ -54,7 +54,7 @@ public:
 template <class TT, class Containerr>
 bool operator== (const stack<TT, Containerr>& lhs, const stack<TT, Containerr>& rhs)
 {
-	return lhs.tab == rhs.tab;
+	return lhs.c == rhs.c;
 }
 
 template <class TT, class Containerr>
@@ -66,7 +66,7 @@ bool operator!= (const stack<TT, Containerr>& lhs, const stack<TT, Containerr>& 
 template <class TT, class Containerr>
 bool operator< (const stack<TT, Containerr>& lhs, const stack<TT, Containerr>& rhs)
 {
-	return lhs.tab < rhs.tab;
+	return lhs.c < rhs.c;
 }
 
 template <class TT, class Containerr>
