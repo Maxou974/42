@@ -226,9 +226,9 @@ class reverse_iterator
 	template<class Iter>
 	reverse_iterator&	operator=(const reverse_iterator<Iter>& ref)
 	{
-		if (&ref == this)
-			return *this;
-		it = ref.it;
+		// if (&ref == *this)
+		// 	return *this;
+		it = ref.base();
 		return *this;
 	}
 
