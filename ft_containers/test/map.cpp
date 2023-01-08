@@ -116,17 +116,30 @@ void	map_test()
 
 	header_test("COPY_AND_ASSIGNMENT");
 	ft::map< int, string, less<int> > bst_copy(bst);
+	ft::map< int, string, less<int> > bst_copy2;
 
 	show_map(bst_copy);
 	show_map(bst);
 
 	bst_copy.insert(ft::make_pair(SIZE + 5, "weqohfowe"));
 
+	bst_copy2.insert(ft::make_pair(25, "weqowefghfowe"));
+	bst_copy2.insert(ft::make_pair(1, "weqowe"));
+	bst_copy2.insert(ft::make_pair(-3, "weqowefghwe"));
+	bst_copy2.insert(ft::make_pair(12, "we"));
+
 	bst = bst_copy;
 
 	show_map(bst_copy);
 	show_map(bst);
-	
+
+	bst = bst_copy2;
+	bst_copy2 = bst_copy;
+
+	show_map(bst_copy);
+	show_map(bst_copy2);
+	show_map(bst);
+
 	bst.clear();
 
 	for(int i = 0; i < 10; i++)
@@ -161,7 +174,7 @@ void	map_test()
 		tabb[i] = ft::make_pair(i, "weouf");
 
 	ft::map<int, string> ran(&tabb[0], &tabb[10]);
-	
+
 	show_map(ran);
 
 	ft::map<int, string> ran2(ran);
@@ -555,12 +568,127 @@ void	map_test()
 
 	cout << l('a','b') << '\n';
 }
+{
+	header_test("COMPARE_OPERATOR");
+
+	ft::map<int, string> ma;
+	ft::map<int, string> ma2;
+
+	ma.insert(ft::make_pair(1, "wefiug"));
+	ma.insert(ft::make_pair(3, "weiug"));
+	ma.insert(ft::make_pair(2, "wefig"));
+	ma.insert(ft::make_pair(0, "weiug"));
+
+	ma2.insert(ft::make_pair(1, "wefiug"));
+	ma2.insert(ft::make_pair(3, "weiug"));
+	ma2.insert(ft::make_pair(2, "wefig"));
+	ma.insert(ft::make_pair(0, "weiug"));
+
+	//EQUAL
+
+	cout << "== " << (ma == ma2) << '\n';
+	cout << "!= " << (ma != ma2) << '\n';
+	cout << "< " << (ma < ma2) << '\n';
+	cout << "<= " << (ma <= ma2) << '\n';
+	cout << "> " << (ma > ma2) << '\n';
+	cout << ">= " << (ma >= ma2) << '\n';
+}
+{
+	ft::map<int, string> ma;
+	ft::map<int, string> ma2;
+
+	ma.insert(ft::make_pair(1, "wefiug"));
+	ma.insert(ft::make_pair(3, "weiug"));
+	ma.insert(ft::make_pair(2, "wefig"));
+	ma.insert(ft::make_pair(0, "weiug"));
+
+	ma2.insert(ft::make_pair(1, "wefiug"));
+	ma2.insert(ft::make_pair(3, "weiug"));
+	ma2.insert(ft::make_pair(2, "wefig"));
+	ma2.insert(ft::make_pair(0, "weig"));
+
+	//DIFF on last ma2
+
+	cout << "== " << (ma == ma2) << '\n';
+	cout << "!= " << (ma != ma2) << '\n';
+	cout << "< " << (ma < ma2) << '\n';
+	cout << "<= " << (ma <= ma2) << '\n';
+	cout << "> " << (ma > ma2) << '\n';
+	cout << ">= " << (ma >= ma2) << '\n';
+}
+{
+	ft::map<int, string> ma;
+	ft::map<int, string> ma2;
+
+	ma.insert(ft::make_pair(1, "wefiug"));
+	ma.insert(ft::make_pair(3, "weiug"));
+	ma.insert(ft::make_pair(2, "wefig"));
+	ma.insert(ft::make_pair(0, "weiug"));
+
+	ma2.insert(ft::make_pair(1, "wefiug"));
+	ma2.insert(ft::make_pair(3, "weiug"));
+	ma2.insert(ft::make_pair(2, "wefig"));
+	ma2.insert(ft::make_pair(0, "weiug"));
+	ma2.insert(ft::make_pair(4, "weiug"));
+
+	cout << "== " << (ma == ma2) << '\n';
+	cout << "!= " << (ma != ma2) << '\n';
+	cout << "< " << (ma < ma2) << '\n';
+	cout << "<= " << (ma <= ma2) << '\n';
+	cout << "> " << (ma > ma2) << '\n';
+	cout << ">= " << (ma >= ma2) << '\n';
+}
+{
+	ft::map<int, string> ma;
+	ft::map<int, string> ma2;
+
+	ma.insert(ft::make_pair(1, "wefiug"));
+	ma.insert(ft::make_pair(3, "weiug"));
+	ma.insert(ft::make_pair(2, "wefig"));
+	ma.insert(ft::make_pair(0, "weiug"));
+
+	ma2.insert(ft::make_pair(1, "wefiug"));
+	ma2.insert(ft::make_pair(3, "weiug"));
+	ma2.insert(ft::make_pair(2, "wefig"));
+
+	cout << "== " << (ma == ma2) << '\n';
+	cout << "!= " << (ma != ma2) << '\n';
+	cout << "< " << (ma < ma2) << '\n';
+	cout << "<= " << (ma <= ma2) << '\n';
+	cout << "> " << (ma > ma2) << '\n';
+	cout << ">= " << (ma >= ma2) << '\n';
+}
+
+{
+        ft::map<int, string> m;
+        ft::map<int, string> ft_m;
+        int arr[] = {20, 10, 100, 15, 60, 90, 65, 200, 150}; // size = 9
+        for (size_t i = 0; i < 9; ++i)
+        {
+            m.insert(ft::make_pair(arr[i], "value"));
+            ft_m.insert(ft::make_pair(arr[i], "value"));
+        }
+        ft::map<int, string> const c_m(m.begin(), m.end());
+        ft::map<int, string> const c_ft_m(ft_m.begin(), ft_m.end());
+        cout << (m.upper_bound(15)->first == ft_m.upper_bound(15)->first);
+        cout << (m.upper_bound(65)->first == ft_m.upper_bound(65)->first);
+        cout << (m.upper_bound(63)->first == ft_m.upper_bound(63)->first);
+        cout << (m.upper_bound(120)->first == ft_m.upper_bound(120)->first);
+        cout << (m.upper_bound(70)->first == ft_m.upper_bound(70)->first);
+        cout << (m.upper_bound(150)->first == ft_m.upper_bound(150)->first);
+
+        cout << (c_m.upper_bound(15)->first == c_ft_m.upper_bound(15)->first);
+        cout << (c_m.upper_bound(65)->first == c_ft_m.upper_bound(65)->first);
+        cout << (c_m.upper_bound(63)->first == c_ft_m.upper_bound(63)->first);
+        cout << (c_m.upper_bound(120)->first == c_ft_m.upper_bound(120)->first);
+        cout << (c_m.upper_bound(70)->first == c_ft_m.upper_bound(70)->first);
+        cout << (c_m.upper_bound(150)->first == c_ft_m.upper_bound(150)->first);
+}
+
 
 
 
 
 
 }
-
-
 }

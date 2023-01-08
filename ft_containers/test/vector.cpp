@@ -375,7 +375,7 @@ void vector_test()
 
 	}
 	{
-		header_test("COMPARE");
+		header_test("COMPARE_OPERATOR");
 		ft::vector<int> un;
 		ft::vector<int> deux;
 
