@@ -254,6 +254,12 @@ namespace ft{
 			while (nbr < size_ && beg < last)
 			{ beg++; nbr++; }
 
+			if (nbr == size_)
+			{
+				clear();
+				return begin();
+			}
+
 			for (iterator pos = first; pos < last; pos++)
 			{
 				alloc_.destroy(&(*pos));
@@ -337,15 +343,8 @@ namespace ft{
 			difference_type n = last - first;
 			difference_type nbr = position - begin();
 
-			// std::cout << first_dist << " " << last_dist << '\n'; 
-		//	vector<value_type>	tmp_vec;
-			// iterator	f = first;
-			// iterator	l = last;
 			if (n + size_ > capacity_)
 			{
-				// tmp_vec.assign(first, last);
-				// f = tmp_vec.begin();
-				// l = tmp_vec.end();
 				reserve(n + size_);
 			 	position = &vect_[nbr];
 			}
@@ -358,7 +357,6 @@ namespace ft{
 					vect_[i + n] = vect_[i];	
 			}
 
-			iterator en = end();
 			for (; first < last; first++, position++)
 				*position = *first;
 			size_ += n;

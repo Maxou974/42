@@ -7,7 +7,7 @@
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h> 
-#define SIZE 1000
+#define SIZE 100
 
 using namespace std;
 

@@ -6,6 +6,8 @@
 
 using namespace std;
 
+void	header_test(string msg);
+
 template< class T, class Cont >
 void	print(ft::stack<T, Cont> st)
 {
@@ -24,15 +26,20 @@ void	stack_test()
 {
 	ft::stack<int> st;
 
+
+	header_test("PUSH");
 	st.push(3);
 	st.push(2);
 	st.push(4);
 	st.push(1);
 	print(st);
 
+	header_test("COPY_CONSTRUCTOR");
 
 	ft::stack<int> copy(st);
 	print(copy);
+
+	header_test("COMPARE");
 
 	cout << (st == copy) << '\n';
 	cout << (st != copy) << '\n';

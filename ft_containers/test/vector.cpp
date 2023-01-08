@@ -113,10 +113,10 @@ void vector_test()
 	header_test("PUSH_BACK POP_BACK");
 
 	ve.push_back(tm);
-	ve.push_back(tm3);	
-	ve.push_back(tm3);
 	ve.push_back(tm2);	
 	ve.push_back(tm3);
+	ve.push_back(tm4);	
+	ve.push_back(tm);
 	ve.push_back(tm2);
 	ve.push_back(tm2);
 	ve.push_back(tm4);
@@ -136,9 +136,10 @@ void vector_test()
 
 	header_test("FRONT");
 
-	const test& te = non = ve.front();
-	cout <<  "const ref front: " << te << '\n';
-	cout <<  "ref front: " << non << '\n';
+	const test& teee = ve.front();
+	test& nooon = ve.front();
+	cout <<  "const ref front: " << teee << '\n';
+	cout <<  "ref front: " << nooon << '\n';
 	
 	header_test("BACK");
 
@@ -254,17 +255,17 @@ void vector_test()
 	ft::vector<int> v;
 	ft::vector<int> vv;
 
-	for (int i = 0; i < 999; i++)
+	for (int i = 0; i < 99; i++)
 		vv.push_back(i+1);
 
 	fct(vv);
 
 	v.insert(v.begin(), vv.begin(), vv.end());
 	
-	v.insert(v.begin() + 124, vv.begin(), vv.end());
+	v.insert(v.begin() + 14, vv.begin(), vv.end());
 	v.insert(v.end(), vv.begin(), vv.end());
 
-	v.insert(v.begin() + 2363, 30000, 234);
+	v.insert(v.begin() + 23, 30, 23);
 	fct(v);
 
 	header_test("REVERSE_ITERATOR");

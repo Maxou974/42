@@ -24,8 +24,8 @@ void	stack_test();
 
 int main()
 {
-	// printascii("VECTOR");
-	// vector_test();
+	printascii("VECTOR");
+	vector_test();
 
 	// To use the type_traits test u need to update the makefile
 	// And comment the std=c++98 to compare with std
@@ -38,8 +38,8 @@ int main()
 	printascii("MAP");
 	map_test();
 
-	// printascii("STACK");
-	// stack_test();
+	printascii("STACK");
+	stack_test();
 
 	return 0;
 }
