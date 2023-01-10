@@ -863,6 +863,8 @@ class map_iterator
 
 	value_type&	operator*() const
 	{
+		if (ptr == end)
+			return (tree.max(end->right))->pair;
 		return ptr->pair;
 	}
 
@@ -876,8 +878,6 @@ class map_iterator
 		node* tmp;
 		if ( ptr != end && (tmp = tree.successor(ptr)) )
 			ptr = tmp;
-		// else if (ptr == end)
-		// 	ptr = tree.max(end->right);
 		else
 			ptr = end;
 		return *this;
@@ -895,11 +895,9 @@ class map_iterator
 		node* tmp;
 		if ( ptr != end && (tmp = tree.predecessor(ptr)) )
 			ptr = tmp;
-		else if (ptr == end)
-			ptr = tree.max(end->right);
 		else
 			ptr = tree.max(tree.get_root_from_ptr(ptr));
-		return *this;
+	return *this;
 	}
 
 	map_iterator operator--(int)

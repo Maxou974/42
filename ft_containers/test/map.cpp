@@ -38,7 +38,7 @@ void	show_map(ft::map<KEY, T, comp>& map)
 {
 	cout << "__________________\n";
 	for (typename ft::map<KEY, T, comp>::iterator it = map.begin(); it != map.end(); it++)
-		cout << (*it).first << "|" << (*it).second << "   ";
+		cout << (*it).first << "|" << it->second << "   ";
 	cout << "\n";
 	cout << "size:" << map.size() << '\n';
 }
@@ -291,13 +291,19 @@ void	map_test()
 
 	cout << (*begi).first << " " << (*cp).first << '\n';
 
-	ft::map<int, string>::iterator b = m.end();
+
+	ft::map<int, string>::iterator b = (m.end())--;
 	b--;
 	cout << (*b).first << '\n';
 
 	ft::map<int, string>::reverse_iterator c = m.rend();
 	c--;
 	cout << (*c).first << '\n';
+
+
+	cout << c->first << c->second << '\n';
+
+
 }
 	{
 		ft::map<int, string>::const_reverse_iterator cp = m.rbegin();
