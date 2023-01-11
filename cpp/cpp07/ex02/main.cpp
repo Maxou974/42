@@ -23,9 +23,6 @@ int main()
 	print(ar);
 	print(copy);
 
-	ar = ar;
-	print(ar);
-
 	Array<char> str(3);
 
 	str[0] = 'a';
