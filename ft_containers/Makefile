@@ -46,9 +46,11 @@ test:
 time: 
 	@sed -i 's/ft::/std::/g' ${TESTTIME}
 	@${CC} ${TESTTIME} -o timestd
+	# @valgrind ./timestd
 	@/usr/bin/time --format="std:: time: %es  CPU: %P" ./timestd
 	@sed -i 's/std::/ft::/g' ${TESTTIME}
 	@${CC} ${TESTTIME} -o timeft
+	# @valgrind ./timeft
 	@/usr/bin/time --format=" ft:: time: %es  CPU: %P" ./timeft
 	@rm timeft timestd
 

@@ -42,7 +42,6 @@ class	test{
 
 };
 
-#define SIZE 20000
 
 using namespace std;
 
@@ -61,6 +60,7 @@ void	shuffle(int *tab, size_t size)
 	}
 }
 
+#define SIZE 10000
 
 void map_time()
 {
@@ -87,17 +87,18 @@ void map_time()
 			pair_tab[i] = ft::make_pair(tab[i], m);
 
 	
+		
+
 		ft::map<int, test> map3;
-		
+	// for (int i = 0; i < SIZE; i++)
+	// {
 
-		for (int i = 0; i < SIZE*SIZE; i++)
-		{
-			map2.begin();
-		}
-		
-		// map3.insert(map2.begin(), map2.end());
+	// 	map3.insert(ft::make_pair(tab[i], m));
+	// 	map3.insert(ft::make_pair(tab[i], m));
+	// 	map3.insert(&pair_tab[0], &pair_tab[SIZE]);
 
-		// map3.insert(&pair_tab[0], &pair_tab[SIZE]);
+	// }
+		map3.insert(map.begin(), map.end());
 
 		// map.clear();
 		// for (ft::map<int, test>::iterator it = map.begin(), it != map.end(); )

@@ -73,7 +73,6 @@ class bst
 
 	key_compare					comp;
 	node*					root_;
-	node*					min_;
 	node*					end;
 	node*					rend;
 	size_t					size_;
@@ -81,7 +80,7 @@ class bst
 
 	public:
 	explicit bst(const key_compare& com = key_compare(), const allocator_type &alloc = allocator_type())
-	: comp(com), root_(0), min(0), end(0), rend(0), size_(0), alloc_(alloc)
+	: comp(com), root_(0), end(0), rend(0), size_(0), alloc_(alloc)
 	{
 		alloc_ = typename allocator_type::template rebind<node>::other();
 		end = alloc_.allocate(1);
@@ -93,7 +92,7 @@ class bst
 
 
 
-	bst(const bst& ref) : root_(0), min(0), size_(0), alloc_(ref.alloc_)
+	bst(const bst& ref) : root_(0), size_(0), alloc_(ref.alloc_)
 	{
 		end = alloc_.allocate(1);
 		alloc_.construct(end, node());
@@ -108,7 +107,6 @@ class bst
 			return *this;
 		clear();
 		alloc_ = ref.alloc_;
-		min = ref.min;
 		// end = alloc_.allocate(1);
 		// rend = alloc_.allocate(1);
 		recursive_insert(ref.root_);
@@ -174,21 +172,21 @@ class bst
 		return ptr;
 	}
 
-	node*	max(node* x) const
+	static node*	max(node* x)
 	{
 		while (x && x->right != 0)
 			x = x->right;
 		return x;
 	} node*	max() const { return max(root_); }
 
-	node*	min(node* x) const
+	static node*	min(node* x)
 	{
 		while (x && x->left != 0)
 			x = x->left;
 		return x;
 	} node*	min() const { return min(root_); }
 
-	node*	successor(node*	x) const
+	static node*	successor(node*	x)
 	{
 		if (x->right)
 			return min(x->right);
@@ -201,7 +199,7 @@ class bst
 		return y;
 	}
 
-	node*	predecessor(node*	x) const
+	static node*	predecessor(node*	x)
 	{
 
 		if (x->left)
@@ -342,7 +340,7 @@ class bst
 		std::cout << '\n';
 	}
 
-	node* get_root_from_ptr(node* x) const
+	static node* get_root_from_ptr(node* x)
 	{
 		while (x->parent)
 			x = x->parent;
@@ -583,8 +581,14 @@ template<
 	template<class InputIterator>
 	void	insert(InputIterator first, InputIterator last)
 	{
+		// while( first != last )
+		// 	tree_.insert(*first++);
 		while( first != last )
-			tree_.insert(*first++);
+		{
+			tree_.insert(*first);
+			++first;
+		}	
+
 	}
 
 
@@ -820,7 +824,6 @@ void swap(ft::map<Key,T,Compare,Alloc>& lhs, ft::map<Key,T,Compare,Alloc>& rhs)
 //   #      #    #      # #    #   #    #    #   #  # #    
 // #####    #    #####  #  #   #   #    #    #####  #  # 
 
-
 template<class Key, class T, class Value_Type>
 class map_iterator
 {
@@ -837,7 +840,6 @@ class map_iterator
 	
 	node*	ptr;
 	node*	end;
-	bst<Key, T, std::less<Key>, std::allocator<Key> > tree;
 	
 	public:
 	map_iterator() : ptr(0), end(0)
@@ -868,7 +870,7 @@ class map_iterator
 	value_type&	operator*() const
 	{
 		if (ptr == end)
-			return (tree.max(end->right))->pair;
+			return (bst<Key, T, ft::less<Key>,  std::allocator<int> >::max(end->right))->pair;
 		return ptr->pair;
 	}
 
@@ -880,10 +882,12 @@ class map_iterator
 	map_iterator& operator++()
 	{
 		node* tmp;
-		if ( ptr != end && (tmp = tree.successor(ptr)) )
+
+		if ( ptr != end && (tmp = bst<Key, T, ft::less<Key>,  std::allocator<int> >::successor(ptr)) )
 			ptr = tmp;
 		else
 			ptr = end;
+		
 		return *this;
 	}
 
@@ -897,10 +901,10 @@ class map_iterator
 	map_iterator& operator--()
 	{
 		node* tmp;
-		if ( ptr != end && (tmp = tree.predecessor(ptr)) )
+		if ( ptr != end && (tmp = bst<Key, T, ft::less<Key>,  std::allocator<int> >::predecessor(ptr)) )
 			ptr = tmp;
 		else
-			ptr = tree.max(tree.get_root_from_ptr(ptr));
+			ptr = bst<Key, T, ft::less<Key>,  std::allocator<int> >::max(end->right);
 	return *this;
 	}
 

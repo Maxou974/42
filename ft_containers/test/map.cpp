@@ -136,6 +136,9 @@ void	map_test()
 	bst = bst_copy2;
 	bst_copy2 = bst_copy;
 
+	bst_copy2.insert(ft::make_pair(13, "we"));
+
+
 	show_map(bst_copy);
 	show_map(bst_copy2);
 	show_map(bst);
@@ -691,10 +694,35 @@ void	map_test()
         cout << (c_m.upper_bound(150)->first == c_ft_m.upper_bound(150)->first);
 }
 
-
-
+}
 
 
 
 }
-}
+
+
+
+// void	map_test()
+// {
+// 	header_test("HELLO");
+// 	ft::map<int, string> map;
+// 	ft::map<int, string> map2;
+	
+// 	show_map(map);
+
+// 	map.insert(ft::make_pair(1, "heelo"));
+// 	map.insert(ft::make_pair(2, "heelo"));
+// 	map.insert(ft::make_pair(5, "heelo"));
+// 	map.insert(ft::make_pair(-1, "heelo"));
+// 	map.insert(ft::make_pair(4, "heelo"));
+// 	map.insert(ft::make_pair(-3, "heelo"));
+
+// 	show_map(map);
+// 	(void)map2;
+
+// 	map2 = map;
+// 	show_map(map);
+// 	show_map(map2);
+
+
+// }
