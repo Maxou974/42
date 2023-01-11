@@ -2,7 +2,8 @@ NAME = a.out
 
 SRCS = main.cpp test/alphabet.cpp ${TESTFCT}
 TESTFCT = test/stack.cpp test/vector.cpp test/map.cpp test/pair.cpp #test/type_traits.cpp
-TESTTIME = test/vector_time.cpp
+
+TESTTIME = test/vector_time.cpp test/time.cpp test/map_time.cpp 
 
 TESTTIMEOBJS = ${TESTTIME:.cpp=.o}
 OBJS = ${SRCS:.cpp=.o}
@@ -42,13 +43,13 @@ ftt:
 test: 
 	@./.script.sh
 
-time:
+time: 
 	@sed -i 's/ft::/std::/g' ${TESTTIME}
-	@${CC} ${FLAGS} ${TESTTIME} -o timestd
-	# @/usr/bin/time --format="std:: time: %es  CPU: %P" ./timestd
+	@${CC} ${TESTTIME} -o timestd
+	@/usr/bin/time --format="std:: time: %es  CPU: %P" ./timestd
 	@sed -i 's/std::/ft::/g' ${TESTTIME}
-	@${CC} ${FLAGS} ${TESTTIME} -o timeft
-	# @/usr/bin/time --format=" ft:: time: %es  CPU: %P" ./timeft
-	# rm timeft timestd
+	@${CC} ${TESTTIME} -o timeft
+	@/usr/bin/time --format=" ft:: time: %es  CPU: %P" ./timeft
+	@rm timeft timestd
 
 .PHONY: all fclean clean re stdd ftt test time

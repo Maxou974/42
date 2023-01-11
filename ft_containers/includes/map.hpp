@@ -86,6 +86,8 @@ class bst
 		end = alloc_.allocate(1);
 		alloc_.construct(end, node());
 		rend = alloc_.allocate(1);
+		alloc_.construct(rend, node());
+
 	}
 
 
@@ -96,6 +98,7 @@ class bst
 		end = alloc_.allocate(1);
 		alloc_.construct(end, node());
 		rend = alloc_.allocate(1);
+		alloc_.construct(rend, node());
 		recursive_insert(ref.root_);
 	}
 
@@ -122,9 +125,9 @@ class bst
 	~bst()
 	{
 		clear();
-		// alloc_.destroy(end);
+		alloc_.destroy(end);
 		alloc_.deallocate(end, 1);
-		// alloc_.destroy(rend);
+		alloc_.destroy(rend);
 		alloc_.deallocate(rend, 1);
 	}
 
@@ -579,8 +582,8 @@ template<
 	template<class InputIterator>
 	void	insert(InputIterator first, InputIterator last)
 	{
-		for(; first != last; first++)
-			tree_.insert(*first);
+		while( first != last )
+			tree_.insert(*first++);
 	}
 
 

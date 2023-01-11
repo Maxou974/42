@@ -41,7 +41,7 @@ class	test{
 
 #define SIZE 1000000
 
-int main()
+void vector_time()
 {
 
 	test b(strdup("hello"));
