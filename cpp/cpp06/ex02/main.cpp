@@ -42,7 +42,7 @@ void	identify(Base& p)
 	std::cout << "Reference ";
 	try
 	{
-		dynamic_cast<A&>(p);
+		(void)dynamic_cast<A&>(p);
 		std::cout << "Class: A\n";
 	}
 	catch(const std::exception& e)
@@ -50,7 +50,7 @@ void	identify(Base& p)
 
 	try
 	{
-		dynamic_cast<B&>(p);
+		(void)dynamic_cast<B&>(p);
 		std::cout << "Class: B\n";
 	}
 	catch(const std::exception& e)
@@ -58,7 +58,7 @@ void	identify(Base& p)
 	
 	try
 	{
-		dynamic_cast<C&>(p);
+		(void)dynamic_cast<C&>(p);
 		std::cout << "Class: C\n";
 	}
 	catch(const std::exception& e)

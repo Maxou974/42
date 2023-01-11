@@ -5,10 +5,10 @@
 #include <cstdio>
 #include <cstdlib>
 
-bool	is_int;
-bool	is_char;
-bool	is_float;
-bool	is_double;
+bool	is_int = 0;
+bool	is_char = 0;
+bool	is_float = 0;
+bool	is_double = 0;
 bool	iof = 0;
 
 char *reverse(char *str);
@@ -150,10 +150,10 @@ int main(int argc, char **argv)
 {
 	if (argc == 2)
 	{
-		char	_char;
-		int		_int;
-		float	_float;
-		double	_double;
+		char	_char = 0;
+		int		_int = 0;
+		float	_float = 0;
+		double	_double = 0;
 		std::string str = argv[1];
 
 		if ((is_char = isChar(str)))
