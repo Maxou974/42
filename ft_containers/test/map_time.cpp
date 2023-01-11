@@ -89,8 +89,13 @@ void map_time()
 	
 		ft::map<int, test> map3;
 		
+
+		for (int i = 0; i < SIZE*SIZE; i++)
+		{
+			map2.begin();
+		}
 		
-		map3.insert(map2.begin(), map2.end());
+		// map3.insert(map2.begin(), map2.end());
 
 		// map3.insert(&pair_tab[0], &pair_tab[SIZE]);
 

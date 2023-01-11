@@ -73,27 +73,27 @@ class bst
 
 	key_compare					comp;
 	node*					root_;
+	node*					min_;
 	node*					end;
 	node*					rend;
 	size_t					size_;
-	std::allocator<node>	alloc_;
+	typename allocator_type::template rebind<node>::other	alloc_;
 
 	public:
 	explicit bst(const key_compare& com = key_compare(), const allocator_type &alloc = allocator_type())
-	: comp(com), root_(0), end(0), rend(0), size_(0), alloc_(alloc)
+	: comp(com), root_(0), min(0), end(0), rend(0), size_(0), alloc_(alloc)
 	{
 		alloc_ = typename allocator_type::template rebind<node>::other();
 		end = alloc_.allocate(1);
 		alloc_.construct(end, node());
 		rend = alloc_.allocate(1);
 		alloc_.construct(rend, node());
-
 	}
 
 
 
 
-	bst(const bst& ref) : root_(0), size_(0), alloc_(ref.alloc_)
+	bst(const bst& ref) : root_(0), min(0), size_(0), alloc_(ref.alloc_)
 	{
 		end = alloc_.allocate(1);
 		alloc_.construct(end, node());
@@ -108,6 +108,7 @@ class bst
 			return *this;
 		clear();
 		alloc_ = ref.alloc_;
+		min = ref.min;
 		// end = alloc_.allocate(1);
 		// rend = alloc_.allocate(1);
 		recursive_insert(ref.root_);
