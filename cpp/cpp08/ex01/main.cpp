@@ -53,5 +53,5 @@ int main()
 		std::cout << "TEST\n";
 	}
 	catch (SpanException &e)
-	{ std::cout << e.what(); }
+	{ std::cout << e.what() << "\n"; }
 }
