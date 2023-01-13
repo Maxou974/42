@@ -298,40 +298,6 @@ class bst
 
 	size_t	get_size() const { return size_; }
 
-	void	s(node* x, int i) const
-	{
-		if (x != 0)
-		{
-			s(x->left, i+1);
-			// std::cout << x->pair.first << " level: " << i; 
-			std::cout << x->pair.first; 
-			if (x->right)
-				std::cout << "  right:" << x->right->pair.first; 
-			else
-				std::cout << "  right:NULL"; 
-
-			if (x->left)
-				std::cout << "  left:" << x->left->pair.first; 
-			else
-				std::cout << "  left:NULL";
-			if (x->parent)
-				std::cout << "  parent:" << x->parent->pair.first;
-			else
-				std::cout << "  parent:NULL";
-			std::cout << '\n';
-			s(x->right, i+1);
-		}
-	}
-
-	void	show() const
-	{
-		if (root_ == 0 || size_ == 0)
-			std::cout << "EMPTY TREE";
-		else
-			s(root_, 0);
-		std::cout << '\n';
-	}
-
 	static node* get_root_from_ptr(node* x)
 	{
 		while (x->parent)
