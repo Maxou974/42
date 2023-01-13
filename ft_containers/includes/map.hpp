@@ -74,19 +74,17 @@ class bst
 	key_compare					comp;
 	node*					root_;
 	node*					end;
-	node*					rend;
 	size_t					size_;
 	typename allocator_type::template rebind<node>::other	alloc_;
 
 	public:
 	explicit bst(const key_compare& com = key_compare(), const allocator_type &alloc = allocator_type())
-	: comp(com), root_(0), end(0), rend(0), size_(0), alloc_(alloc)
+	: comp(com), root_(0), end(0), size_(0), alloc_(alloc)
 	{
 		alloc_ = typename allocator_type::template rebind<node>::other();
 		end = alloc_.allocate(1);
 		alloc_.construct(end, node());
-		rend = alloc_.allocate(1);
-		alloc_.construct(rend, node());
+
 	}
 
 
@@ -96,8 +94,6 @@ class bst
 	{
 		end = alloc_.allocate(1);
 		alloc_.construct(end, node());
-		rend = alloc_.allocate(1);
-		alloc_.construct(rend, node());
 		recursive_insert(ref.root_);
 	}
 
@@ -107,8 +103,6 @@ class bst
 			return *this;
 		clear();
 		alloc_ = ref.alloc_;
-		// end = alloc_.allocate(1);
-		// rend = alloc_.allocate(1);
 		recursive_insert(ref.root_);
 		end->right = root_;
 		return *this;
@@ -126,8 +120,6 @@ class bst
 		clear();
 		alloc_.destroy(end);
 		alloc_.deallocate(end, 1);
-		alloc_.destroy(rend);
-		alloc_.deallocate(rend, 1);
 	}
 
 	node* insert(const value_type pairr)
@@ -357,8 +349,6 @@ class bst
 	{ return end; }
 	node*	get_root() const
 	{ return root_; }
-	node*	get_rend() const
-	{return rend;}
 
 	size_t max_size() const
 	{ return alloc_.max_size(); }

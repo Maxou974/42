@@ -696,16 +696,6 @@ void	map_test()
 
 }
 
-
-{
-	ft::map<int, string> map;
-
-	for (int i = 0; i < 1000; i++)
-		map.insert(ft::make_pair(i, "wef"));
-	show_map(map);
-}
-
-
 }
 
 

@@ -38,4 +38,14 @@ ftt:
 test: 
 	@./.script.sh
 
-.PHONY: all fclean clean re stdd ftt test time
+mand_test:
+	@echo "STL"
+	@c++ ${FLAGS} -D STL=1 mand_main.cpp
+	@/usr/bin/time --format="time: %es  CPU: %P" ./a.out $(seed)
+	@echo "FT"
+	@c++ ${FLAGS} -D STL=0 mand_main.cpp
+	@/usr/bin/time --format="time: %es  CPU: %P" ./a.out $(seed)
+	@rm a.out
+
+
+.PHONY: all fclean clean re stdd ftt test time mand_test

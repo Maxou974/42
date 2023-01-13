@@ -479,12 +479,7 @@ void vector_test()
 		cout << (un <= deux) << '\n';
 		cout << (un >= deux) << '\n';
 	}
-	{
-		ft::vector<int> ev;
-		for (int i = 0; i < 10000; i++)
-			ev.push_back(i);
-		fct(ev);
-	}
+
 
 	cout << "\n\n\nve\n";
 	fct(ve);
