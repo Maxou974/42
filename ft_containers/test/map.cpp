@@ -34,10 +34,10 @@ void	shuffle(int *tab)
 }
 
 template<class KEY, class T, class comp>
-void	show_map(ft::map<KEY, T, comp>& map)
+void	show_map(std::map<KEY, T, comp>& map)
 {
 	cout << "__________________\n";
-	for (typename ft::map<KEY, T, comp>::iterator it = map.begin(); it != map.end(); it++)
+	for (typename std::map<KEY, T, comp>::iterator it = map.begin(); it != map.end(); it++)
 		cout << (*it).first << "|" << it->second << "   ";
 	cout << "\n";
 	cout << "size:" << map.size() << '\n';
@@ -47,7 +47,7 @@ void	show_map(ft::map<KEY, T, comp>& map)
 void	map_test()
 {
 {
-	ft::map< int, string, less<int> > bst;
+	std::map< int, string, less<int> > bst;
 
 	int tab[SIZE];
 
@@ -60,19 +60,19 @@ void	map_test()
 	header_test("AAAH_INSER_LE_BOUTON_INSER");
 	for (int i = 0; i < SIZE; i++)
 	{
-		bst.insert(ft::make_pair(tab[i], "ewfrwgtgjukyt8we"));
+		bst.insert(std::make_pair(tab[i], "ewfrwgtgjukyt8we"));
 	}
 
-	ft::map< int, string, less<int> >::iterator it = bst.begin();
+	std::map< int, string, less<int> >::iterator it = bst.begin();
 
 	show_map(bst);
 
 	cout << bst.size() << '\n';
 
-	ft::pair<ft::map< int, string, less<int> >::iterator, bool> pair;
+	std::pair<std::map< int, string, less<int> >::iterator, bool> pair;
 
 	//inserting something that already exist in the map
-	pair = bst.insert(ft::make_pair(SIZE / 2, "hjtm,tetgfbt"));
+	pair = bst.insert(std::make_pair(SIZE / 2, "hjtm,tetgfbt"));
 
 	it = pair.first;
 	
@@ -86,7 +86,7 @@ void	map_test()
 	cout << bst.size() << '\n';
 
 	// //insert something greater than everything in the map
-	pair = bst.insert(ft::make_pair(SIZE, "acsderh,"));
+	pair = bst.insert(std::make_pair(SIZE, "acsderh,"));
 	
 	it = pair.first;
 
@@ -100,7 +100,7 @@ void	map_test()
 	cout << bst.size() << '\n';
 
 	// //insert something smaller than everything in the map
-	pair = bst.insert(ft::make_pair(-1, "ethbeth"));
+	pair = bst.insert(std::make_pair(-1, "ethbeth"));
 
 	it = pair.first;
 	
@@ -115,18 +115,18 @@ void	map_test()
 
 
 	header_test("COPY_AND_ASSIGNMENT");
-	ft::map< int, string, less<int> > bst_copy(bst);
-	ft::map< int, string, less<int> > bst_copy2;
+	std::map< int, string, less<int> > bst_copy(bst);
+	std::map< int, string, less<int> > bst_copy2;
 
 	show_map(bst_copy);
 	show_map(bst);
 
-	bst_copy.insert(ft::make_pair(SIZE + 5, "weqohfowe"));
+	bst_copy.insert(std::make_pair(SIZE + 5, "weqohfowe"));
 
-	bst_copy2.insert(ft::make_pair(25, "weqowefghfowe"));
-	bst_copy2.insert(ft::make_pair(1, "weqowe"));
-	bst_copy2.insert(ft::make_pair(-3, "weqowefghwe"));
-	bst_copy2.insert(ft::make_pair(12, "we"));
+	bst_copy2.insert(std::make_pair(25, "weqowefghfowe"));
+	bst_copy2.insert(std::make_pair(1, "weqowe"));
+	bst_copy2.insert(std::make_pair(-3, "weqowefghwe"));
+	bst_copy2.insert(std::make_pair(12, "we"));
 
 	bst = bst_copy;
 
@@ -136,7 +136,7 @@ void	map_test()
 	bst = bst_copy2;
 	bst_copy2 = bst_copy;
 
-	bst_copy2.insert(ft::make_pair(13, "we"));
+	bst_copy2.insert(std::make_pair(13, "we"));
 
 
 	show_map(bst_copy);
@@ -146,7 +146,7 @@ void	map_test()
 	bst.clear();
 
 	for(int i = 0; i < 10; i++)
-		bst.insert(ft::make_pair(i, "whueof"));
+		bst.insert(std::make_pair(i, "whueof"));
 	
 	show_map(bst_copy);
 	show_map(bst);
@@ -164,24 +164,24 @@ void	map_test()
 {
 	header_test("CONSTRUCTOR");
 
-	ft::map<int, string, greater<int> > rand;
+	std::map<int, string, greater<int> > rand;
 
 	for(int i = 0; i < 10; i++)
-		rand.insert(ft::make_pair(i, "wefgiu"));
+		rand.insert(std::make_pair(i, "wefgiu"));
 
 	show_map(rand);
 
-	ft::pair<int, string> tabb[10];
+	std::pair<int, string> tabb[10];
 
 	for (int i = 0; i < 10; i++)
-		tabb[i] = ft::make_pair(i, "weouf");
+		tabb[i] = std::make_pair(i, "weouf");
 
-	ft::map<int, string> ran(&tabb[0], &tabb[10]);
+	std::map<int, string> ran(&tabb[0], &tabb[10]);
 
 	show_map(ran);
 
-	ft::map<int, string> ran2(ran);
-	ft::map<int, string, greater<int> > rand2(rand);
+	std::map<int, string> ran2(ran);
+	std::map<int, string, greater<int> > rand2(rand);
 
 	cout << "here:" <<(*(ran.begin())).first << '\n';
 
@@ -195,15 +195,15 @@ void	map_test()
 {
 	header_test("ITERATOR");
 
-	ft::map<int, string> m;
+	std::map<int, string> m;
 
-	m.insert(ft::make_pair(1,"wef"));
-	m.insert(ft::make_pair(2,"wef"));
-	m.insert(ft::make_pair(3,"wef"));
-	m.insert(ft::make_pair(4,"wef"));
+	m.insert(std::make_pair(1,"wef"));
+	m.insert(std::make_pair(2,"wef"));
+	m.insert(std::make_pair(3,"wef"));
+	m.insert(std::make_pair(4,"wef"));
 
-	ft::map<int, string>::iterator it;
-	ft::map<int, string>::const_iterator cit;
+	std::map<int, string>::iterator it;
+	std::map<int, string>::const_iterator cit;
 
 	it = m.begin();
 
@@ -238,7 +238,7 @@ void	map_test()
 	cit++;
 	cout << (*cit).first << '\n';
 
-	ft::map<int, string> m2;
+	std::map<int, string> m2;
 
 	it = m2.begin();
 	cit = m2.end();
@@ -260,15 +260,15 @@ void	map_test()
 	else
 		cout << "same\n";
 
-	ft::map<int, string>::reverse_iterator rit = m.rbegin();
+	std::map<int, string>::reverse_iterator rit = m.rbegin();
 
 	cout << (*rit).first << '\n';
 	cout << (*(++rit)).first << '\n';
 	cout << (*(rit++)).first << '\n';
 	cout << (*(rit)).first << '\n';
 {	
-	ft::map<int, string>::reverse_iterator rbeg = m.rbegin();
-	ft::map<int, string>::reverse_iterator rend = m.rend();
+	std::map<int, string>::reverse_iterator rbeg = m.rbegin();
+	std::map<int, string>::reverse_iterator rend = m.rend();
 
 	for(; rbeg != rend; rbeg++)
 		cout << (*rbeg).first << " ";
@@ -277,29 +277,29 @@ void	map_test()
 
 }
 {
-	ft::map<int, string> m3;
+	std::map<int, string> m3;
 	cout << m3.empty() << '\n';
 
-	ft::map<int, string>::reverse_iterator rbeg = m3.rbegin();
-	ft::map<int, string>::reverse_iterator rend = m3.rend();
+	std::map<int, string>::reverse_iterator rbeg = m3.rbegin();
+	std::map<int, string>::reverse_iterator rend = m3.rend();
 
 	for(; rbeg != rend; rbeg++)
 		cout << (*rbeg).first << " ";
 	cout << '\n';
 
-	ft::map<int, string>::iterator begi = m.begin();
+	std::map<int, string>::iterator begi = m.begin();
 	begi++;
 	begi++;
-	ft::map<int, string>::reverse_iterator cp(begi);
+	std::map<int, string>::reverse_iterator cp(begi);
 
 	cout << (*begi).first << " " << (*cp).first << '\n';
 
 
-	ft::map<int, string>::iterator b = (m.end())--;
+	std::map<int, string>::iterator b = (m.end())--;
 	b--;
 	cout << (*b).first << '\n';
 
-	ft::map<int, string>::reverse_iterator c = m.rend();
+	std::map<int, string>::reverse_iterator c = m.rend();
 	c--;
 	cout << (*c).first << '\n';
 
@@ -309,15 +309,15 @@ void	map_test()
 
 }
 	{
-		ft::map<int, string>::const_reverse_iterator cp = m.rbegin();
+		std::map<int, string>::const_reverse_iterator cp = m.rbegin();
 
 		cout << (*cp).first << " " << (*cp).first << '\n';
 
-		ft::map<int, string>::const_iterator b = m.end();
+		std::map<int, string>::const_iterator b = m.end();
 		b--;
 		cout << (*b).first << '\n';
 
-		ft::map<int, string>::const_reverse_iterator c = m.rend();
+		std::map<int, string>::const_reverse_iterator c = m.rend();
 		c--;
 		cout << (*c).first << '\n';
 	}
@@ -325,7 +325,7 @@ void	map_test()
 
 {
 	header_test("ELEMENT_ACCESS");
-	ft::map<int, string> map;
+	std::map<int, string> map;
 
 	map[1] = "qwedbo";
 	map[2] = "qweovfioc";
@@ -351,26 +351,26 @@ void	map_test()
 {
 	header_test("INSERT SUITE");
 
-	ft::map<int, string> map;
-	ft::map<int, string>::iterator it;
+	std::map<int, string> map;
+	std::map<int, string>::iterator it;
 
-	it = map.insert(map.end(), ft::make_pair(1, "wecy"));
+	it = map.insert(map.end(), std::make_pair(1, "wecy"));
 	cout << (*it).first << "  " << (*it).second << '\n';
-	it = map.insert(map.begin(), ft::make_pair(3, "wecegvwy"));
+	it = map.insert(map.begin(), std::make_pair(3, "wecegvwy"));
 	cout << (*it).first << "  " << (*it).second << '\n';
-	it = map.insert(map.begin(), ft::make_pair(2, "wethcy"));
+	it = map.insert(map.begin(), std::make_pair(2, "wethcy"));
 	cout << (*it).first << "  " << (*it).second << '\n';
-	it = map.insert(map.begin(), ft::make_pair(4, "wentuykcy"));
+	it = map.insert(map.begin(), std::make_pair(4, "wentuykcy"));
 	cout << (*it).first << "  " << (*it).second << '\n';
 
 	show_map(map);
 
-	ft::pair<int, string> ta[5];
+	std::pair<int, string> ta[5];
 
-	ta[0] = ft::make_pair(3, "wedfuewfhhtrhe");
-	ta[2] = ft::make_pair(-1, "wfpethhtrhe");
-	ta[1] = ft::make_pair(7, "wedfuewfpethe");
-	ta[3] = ft::make_pair(87, "wedfuethhtrhe");
+	ta[0] = std::make_pair(3, "wedfuewfhhtrhe");
+	ta[2] = std::make_pair(-1, "wfpethhtrhe");
+	ta[1] = std::make_pair(7, "wedfuewfpethe");
+	ta[3] = std::make_pair(87, "wedfuethhtrhe");
 
 	map.insert(&ta[0], &ta[4]);
 
@@ -381,7 +381,7 @@ void	map_test()
 	map.erase(map.begin());
 	map.erase(--(map.end()));
 
-	ft::map<int, string>::iterator itt = map.begin();
+	std::map<int, string>::iterator itt = map.begin();
 
 	itt++;
 	itt++;
@@ -404,7 +404,7 @@ void	map_test()
 	// map[14] = "cwbsfdvrwerb";
 
 
-	ft::map<int, string>::iterator itttt = map.end();
+	std::map<int, string>::iterator itttt = map.end();
 
 	itttt--;
 	map.erase(map.begin(), itttt);
@@ -418,16 +418,16 @@ void	map_test()
 	
 {
 	header_test("SWAP");
-	ft::map<int, string> un;
-	ft::map<int, string> deux;
+	std::map<int, string> un;
+	std::map<int, string> deux;
 
-	un.insert(ft::make_pair(1, "wefowe"));
-	un.insert(ft::make_pair(2, "weofqfq"));
+	un.insert(std::make_pair(1, "wefowe"));
+	un.insert(std::make_pair(2, "weofqfq"));
 
-	deux.insert(ft::make_pair(232, "weofqewffefq"));
-	deux.insert(ft::make_pair(2232, "weofqewffefq"));
-	deux.insert(ft::make_pair(22332, "weofqegrrberbewffefq"));
-	deux.insert(ft::make_pair(23212, "weofwegweggqewegwegwegwegffefq"));
+	deux.insert(std::make_pair(232, "weofqewffefq"));
+	deux.insert(std::make_pair(2232, "weofqewffefq"));
+	deux.insert(std::make_pair(22332, "weofqegrrberbewffefq"));
+	deux.insert(std::make_pair(23212, "weofwegweggqewegwegwegwegffefq"));
 
 	show_map(un);
 	show_map(deux);
@@ -439,19 +439,19 @@ void	map_test()
 
 }
 {
-	ft::map<int, string> un;
+	std::map<int, string> un;
 
 	un.clear();
 	show_map(un);
 
-	un.insert(ft::make_pair(1, "wefowe"));
+	un.insert(std::make_pair(1, "wefowe"));
 	show_map(un);
 	un.clear();
 	show_map(un);
 
-	un.insert(ft::make_pair(1, "wefowe"));
-	un.insert(ft::make_pair(2, "wefowe"));
-	un.insert(ft::make_pair(-1, "wefowe"));
+	un.insert(std::make_pair(1, "wefowe"));
+	un.insert(std::make_pair(2, "wefowe"));
+	un.insert(std::make_pair(-1, "wefowe"));
 	show_map(un);
 	un.clear();
 	show_map(un);
@@ -461,13 +461,13 @@ void	map_test()
 
 {
 	header_test("COUNT_AND_FIND");
-	ft::map<int, string> un;
+	std::map<int, string> un;
 
-	un.insert(ft::make_pair(1, "wefohr3gwrhtykwe"));
-	un.insert(ft::make_pair(-2, "wefwegowe"));
-	un.insert(ft::make_pair(4, "wefowegthethwe"));
-	un.insert(ft::make_pair(0, "wefovghthwe"));
-	un.insert(ft::make_pair(-1, "wefowtheherhee"));
+	un.insert(std::make_pair(1, "wefohr3gwrhtykwe"));
+	un.insert(std::make_pair(-2, "wefwegowe"));
+	un.insert(std::make_pair(4, "wefowegthethwe"));
+	un.insert(std::make_pair(0, "wefovghthwe"));
+	un.insert(std::make_pair(-1, "wefowtheherhee"));
 
 	for(int i = -4; i < 5; i++)
 		cout << un.count(i) << " ";
@@ -475,8 +475,8 @@ void	map_test()
 
 	show_map(un);
 
-	ft::map<int, string>::iterator ite;
-	ft::map<int, string>::const_iterator c_ite;
+	std::map<int, string>::iterator ite;
+	std::map<int, string>::const_iterator c_ite;
 	for(int i = -4; i < 5; i++)
 	{
 		if (un.end() != (ite = un.find(i)))
@@ -495,16 +495,16 @@ void	map_test()
 {
 	header_test("LOWER_BOUND");
 
-	ft::map<int, string> un;
+	std::map<int, string> un;
 
-	un.insert(ft::make_pair(1, "wefohr3gwrhtykwe"));
-	un.insert(ft::make_pair(-2, "wefwegowe"));
-	un.insert(ft::make_pair(4, "wefowegthethwe"));
-	un.insert(ft::make_pair(0, "wefovghthwe"));
-	un.insert(ft::make_pair(-1, "wefowtheherhee"));
+	un.insert(std::make_pair(1, "wefohr3gwrhtykwe"));
+	un.insert(std::make_pair(-2, "wefwegowe"));
+	un.insert(std::make_pair(4, "wefowegthethwe"));
+	un.insert(std::make_pair(0, "wefovghthwe"));
+	un.insert(std::make_pair(-1, "wefowtheherhee"));
 
-	ft::map<int, string>::iterator ite;
-	ft::map<int, string>::const_iterator c_ite;
+	std::map<int, string>::iterator ite;
+	std::map<int, string>::const_iterator c_ite;
 	for(int i = -4; i <= 5; i++)
 	{
 		if (un.end() != (ite = un.lower_bound(i)))
@@ -535,8 +535,8 @@ void	map_test()
 
 	header_test("EQUAL_RANGE");
 	
-	ft::pair<ft::map<int, string>::const_iterator, ft::map<int, string>::const_iterator> c_pa;
-	ft::pair<ft::map<int, string>::iterator, ft::map<int, string>::iterator> pa;
+	std::pair<std::map<int, string>::const_iterator, std::map<int, string>::const_iterator> c_pa;
+	std::pair<std::map<int, string>::iterator, std::map<int, string>::iterator> pa;
 
 	for(int i = -4; i <= 5; i++)
 	{
@@ -556,7 +556,7 @@ void	map_test()
 }
 {
 	header_test("VALUE_COMPARE");
-	ft::map<char,int> mymap;
+	std::map<char,int> mymap;
 
 	mymap['x']=1001;
 	mymap['y']=2002;
@@ -564,8 +564,8 @@ void	map_test()
 
 	cout << "mymap contains:\n";	
 	
-	ft::pair<char,int> highest = *mymap.rbegin();          // last element	
-	ft::map<char,int>::iterator ite = mymap.begin();
+	std::pair<char,int> highest = *mymap.rbegin();          // last element	
+	std::map<char,int>::iterator ite = mymap.begin();
 	
 	do {
 		cout << ite->first << " => " << ite->second << '\n';
@@ -573,25 +573,25 @@ void	map_test()
 }
 {
 	header_test("KEY_COMPARE");
-	ft::map<char,int>::key_compare l;
+	std::map<char,int>::key_compare l;
 
 	cout << l('a','b') << '\n';
 }
 {
 	header_test("COMPARE_OPERATOR");
 
-	ft::map<int, string> ma;
-	ft::map<int, string> ma2;
+	std::map<int, string> ma;
+	std::map<int, string> ma2;
 
-	ma.insert(ft::make_pair(1, "wefiug"));
-	ma.insert(ft::make_pair(3, "weiug"));
-	ma.insert(ft::make_pair(2, "wefig"));
-	ma.insert(ft::make_pair(0, "weiug"));
+	ma.insert(std::make_pair(1, "wefiug"));
+	ma.insert(std::make_pair(3, "weiug"));
+	ma.insert(std::make_pair(2, "wefig"));
+	ma.insert(std::make_pair(0, "weiug"));
 
-	ma2.insert(ft::make_pair(1, "wefiug"));
-	ma2.insert(ft::make_pair(3, "weiug"));
-	ma2.insert(ft::make_pair(2, "wefig"));
-	ma.insert(ft::make_pair(0, "weiug"));
+	ma2.insert(std::make_pair(1, "wefiug"));
+	ma2.insert(std::make_pair(3, "weiug"));
+	ma2.insert(std::make_pair(2, "wefig"));
+	ma.insert(std::make_pair(0, "weiug"));
 
 	//EQUAL
 
@@ -603,18 +603,18 @@ void	map_test()
 	cout << ">= " << (ma >= ma2) << '\n';
 }
 {
-	ft::map<int, string> ma;
-	ft::map<int, string> ma2;
+	std::map<int, string> ma;
+	std::map<int, string> ma2;
 
-	ma.insert(ft::make_pair(1, "wefiug"));
-	ma.insert(ft::make_pair(3, "weiug"));
-	ma.insert(ft::make_pair(2, "wefig"));
-	ma.insert(ft::make_pair(0, "weiug"));
+	ma.insert(std::make_pair(1, "wefiug"));
+	ma.insert(std::make_pair(3, "weiug"));
+	ma.insert(std::make_pair(2, "wefig"));
+	ma.insert(std::make_pair(0, "weiug"));
 
-	ma2.insert(ft::make_pair(1, "wefiug"));
-	ma2.insert(ft::make_pair(3, "weiug"));
-	ma2.insert(ft::make_pair(2, "wefig"));
-	ma2.insert(ft::make_pair(0, "weig"));
+	ma2.insert(std::make_pair(1, "wefiug"));
+	ma2.insert(std::make_pair(3, "weiug"));
+	ma2.insert(std::make_pair(2, "wefig"));
+	ma2.insert(std::make_pair(0, "weig"));
 
 	//DIFF on last ma2
 
@@ -626,19 +626,19 @@ void	map_test()
 	cout << ">= " << (ma >= ma2) << '\n';
 }
 {
-	ft::map<int, string> ma;
-	ft::map<int, string> ma2;
+	std::map<int, string> ma;
+	std::map<int, string> ma2;
 
-	ma.insert(ft::make_pair(1, "wefiug"));
-	ma.insert(ft::make_pair(3, "weiug"));
-	ma.insert(ft::make_pair(2, "wefig"));
-	ma.insert(ft::make_pair(0, "weiug"));
+	ma.insert(std::make_pair(1, "wefiug"));
+	ma.insert(std::make_pair(3, "weiug"));
+	ma.insert(std::make_pair(2, "wefig"));
+	ma.insert(std::make_pair(0, "weiug"));
 
-	ma2.insert(ft::make_pair(1, "wefiug"));
-	ma2.insert(ft::make_pair(3, "weiug"));
-	ma2.insert(ft::make_pair(2, "wefig"));
-	ma2.insert(ft::make_pair(0, "weiug"));
-	ma2.insert(ft::make_pair(4, "weiug"));
+	ma2.insert(std::make_pair(1, "wefiug"));
+	ma2.insert(std::make_pair(3, "weiug"));
+	ma2.insert(std::make_pair(2, "wefig"));
+	ma2.insert(std::make_pair(0, "weiug"));
+	ma2.insert(std::make_pair(4, "weiug"));
 
 	cout << "== " << (ma == ma2) << '\n';
 	cout << "!= " << (ma != ma2) << '\n';
@@ -648,17 +648,17 @@ void	map_test()
 	cout << ">= " << (ma >= ma2) << '\n';
 }
 {
-	ft::map<int, string> ma;
-	ft::map<int, string> ma2;
+	std::map<int, string> ma;
+	std::map<int, string> ma2;
 
-	ma.insert(ft::make_pair(1, "wefiug"));
-	ma.insert(ft::make_pair(3, "weiug"));
-	ma.insert(ft::make_pair(2, "wefig"));
-	ma.insert(ft::make_pair(0, "weiug"));
+	ma.insert(std::make_pair(1, "wefiug"));
+	ma.insert(std::make_pair(3, "weiug"));
+	ma.insert(std::make_pair(2, "wefig"));
+	ma.insert(std::make_pair(0, "weiug"));
 
-	ma2.insert(ft::make_pair(1, "wefiug"));
-	ma2.insert(ft::make_pair(3, "weiug"));
-	ma2.insert(ft::make_pair(2, "wefig"));
+	ma2.insert(std::make_pair(1, "wefiug"));
+	ma2.insert(std::make_pair(3, "weiug"));
+	ma2.insert(std::make_pair(2, "wefig"));
 
 	cout << "== " << (ma == ma2) << '\n';
 	cout << "!= " << (ma != ma2) << '\n';
@@ -669,16 +669,16 @@ void	map_test()
 }
 
 {
-        ft::map<int, string> m;
-        ft::map<int, string> ft_m;
+        std::map<int, string> m;
+        std::map<int, string> ft_m;
         int arr[] = {20, 10, 100, 15, 60, 90, 65, 200, 150}; // size = 9
         for (size_t i = 0; i < 9; ++i)
         {
-            m.insert(ft::make_pair(arr[i], "value"));
-            ft_m.insert(ft::make_pair(arr[i], "value"));
+            m.insert(std::make_pair(arr[i], "value"));
+            ft_m.insert(std::make_pair(arr[i], "value"));
         }
-        ft::map<int, string> const c_m(m.begin(), m.end());
-        ft::map<int, string> const c_ft_m(ft_m.begin(), ft_m.end());
+        std::map<int, string> const c_m(m.begin(), m.end());
+        std::map<int, string> const c_ft_m(ft_m.begin(), ft_m.end());
         cout << (m.upper_bound(15)->first == ft_m.upper_bound(15)->first);
         cout << (m.upper_bound(65)->first == ft_m.upper_bound(65)->first);
         cout << (m.upper_bound(63)->first == ft_m.upper_bound(63)->first);
@@ -703,17 +703,17 @@ void	map_test()
 // void	map_test()
 // {
 // 	header_test("HELLO");
-// 	ft::map<int, string> map;
-// 	ft::map<int, string> map2;
+// 	std::map<int, string> map;
+// 	std::map<int, string> map2;
 	
 // 	show_map(map);
 
-// 	map.insert(ft::make_pair(1, "heelo"));
-// 	map.insert(ft::make_pair(2, "heelo"));
-// 	map.insert(ft::make_pair(5, "heelo"));
-// 	map.insert(ft::make_pair(-1, "heelo"));
-// 	map.insert(ft::make_pair(4, "heelo"));
-// 	map.insert(ft::make_pair(-3, "heelo"));
+// 	map.insert(std::make_pair(1, "heelo"));
+// 	map.insert(std::make_pair(2, "heelo"));
+// 	map.insert(std::make_pair(5, "heelo"));
+// 	map.insert(std::make_pair(-1, "heelo"));
+// 	map.insert(std::make_pair(4, "heelo"));
+// 	map.insert(std::make_pair(-3, "heelo"));
 
 // 	show_map(map);
 // 	(void)map2;

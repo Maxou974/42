@@ -9,16 +9,16 @@
 // #include "cont/containers/vector.hpp"
 // #include "contt/includes/vector.hpp"
 
-#define NL ft::cout << '\n';
+#define NL std::cout << '\n';
 using namespace std;
 
 template<typename T>
-void fct(ft::vector<T>& vect)
+void fct(std::vector<T>& vect)
 {
-	for (typename ft::vector<T>::size_type i = 0; i < vect.size(); i++)
+	for (typename std::vector<T>::size_type i = 0; i < vect.size(); i++)
 		cout << vect[i] << " | ";
 	cout << '\n';
-	cout << "ft::capacity: " << vect.capacity() << "  ft::size: " << vect.size() << '\n';
+	cout << "capacity: " << vect.capacity() << "  size: " << vect.size() << '\n';
 }
 
 void	header_test(string msg)
@@ -75,11 +75,11 @@ void vector_test()
 
 	header_test("CONSTRUCTOR OPERATOR=");
 
-	ft::vector<test> ve; fct(ve);
-	ft::vector<test> vee(1, tm); fct(vee);
-	ft::vector<test> veee(5, tm); fct(veee);
-	ft::vector<test> veeee(5); fct(veeee);
-	ft::vector<test> veeeee(1); fct(veeeee);
+	std::vector<test> ve; fct(ve);
+	std::vector<test> vee(1, tm); fct(vee);
+	std::vector<test> veee(5, tm); fct(veee);
+	std::vector<test> veeee(5); fct(veeee);
+	std::vector<test> veeeee(1); fct(veeeee);
 
 	veee = ve = veeee;
 	fct(veee);
@@ -149,21 +149,28 @@ void vector_test()
 
 	header_test("DATA");
 
-	ft::vector<test>::value_type *vect = ve.data();
+	std::vector<test>::value_type *vect = ve.data();
 	cout << "ve.data[0]: " << vect[0] << "\nve.data[2]: " << vect[2] << '\n';
 
-	const ft::vector<test>::value_type *vectt = ve.data();
+	const std::vector<test>::value_type *vectt = ve.data();
 	cout << "const ve.data[0]: " << vectt[0];
 	cout << "\nconst ve.data[2]: " << vectt[2] << '\n';
 
 
 	header_test("ASSIGN");
-	ft::vector<test>::const_iterator begg;
+	std::vector<test>::const_iterator begg;
 
-	ft::vector<test>::iterator beg = ve.begin();
-	ft::vector<test>::iterator end = ve.end();
+	std::vector<test>::iterator beg = ve.begin();
+	std::vector<test>::iterator end = ve.end();
 	
 	begg = beg;
+
+	cout << (beg == begg) << '\n';
+	// cout << (beg != begg) << '\n';
+	// cout << (beg < begg) << '\n';
+	// cout << (beg > begg) << '\n';
+	// cout << (beg >= begg) << '\n';
+	// cout << (beg <= begg) << '\n';
 
 	cout << *begg << '\n';
 
@@ -252,8 +259,8 @@ void vector_test()
 
 
 
-	ft::vector<int> v;
-	ft::vector<int> vv;
+	std::vector<int> v;
+	std::vector<int> vv;
 
 	for (int i = 0; i < 99; i++)
 		vv.push_back(i+1);
@@ -279,10 +286,10 @@ void vector_test()
 	ve.push_back(tm3);
 	ve.push_back(tm4);
 	{
-	ft::vector<test>::reverse_iterator rit = ve.rbegin() ;
+	std::vector<test>::reverse_iterator rit = ve.rbegin() ;
 
 	// rit += 100;
-	ft::vector<test>::reverse_iterator ritt(rit);
+	std::vector<test>::reverse_iterator ritt(rit);
 
 	fct(ve);
 	cout << *ritt << '\n';
@@ -328,9 +335,9 @@ void vector_test()
 	}
 	header_test("ITERATOR");
 	{
-	ft::vector<test>::iterator rit = ve.begin();
-	ft::vector<test>::iterator ritt = ve.begin() + 3;
-	ft::vector<test>::reverse_iterator rittt(ritt);
+	std::vector<test>::iterator rit = ve.begin();
+	std::vector<test>::iterator ritt = ve.begin() + 3;
+	std::vector<test>::reverse_iterator rittt(ritt);
 	cout << *rit << *(rit + 3)<< '\n';
 	cout  << *rit << "  " << *ritt << "  " << *rittt << '\n';
 	fct(ve);
@@ -377,8 +384,8 @@ void vector_test()
 	}
 	{
 		header_test("COMPARE_OPERATOR");
-		ft::vector<int> un;
-		ft::vector<int> deux;
+		std::vector<int> un;
+		std::vector<int> deux;
 
 		un.push_back(3);
 		un.push_back(3);
@@ -393,7 +400,7 @@ void vector_test()
 		cout << (un <= deux) << '\n';
 		cout << (un >= deux) << '\n';
 
-		ft::swap(un, deux);
+		std::swap(un, deux);
 		
 		cout << (un < deux) << '\n';
 		cout << (un > deux) << '\n';
@@ -496,4 +503,30 @@ void vector_test()
 	free(tm2);
 	free(tm3);
 	free(tm4);
+
+
+	std::vector<int> v_i;
+	std::vector<int> v_f;
+
+
+	v_i.push_back(123);
+	v_i.push_back(13);
+	v_i.push_back(1223);
+
+	v_f.push_back(123);
+	v_f.push_back(123);
+	v_f.push_back(12);
+
+	std::vector<int>::const_iterator c_it = v_f.begin();
+	std::vector<int>::iterator it = v_i.begin();
+
+	cout << "herre\n";
+	c_it.base();
+	cout << (it == c_it) <<  "\n";
+	cout << (it != c_it) <<  "\n";
+	cout << (it <= c_it) <<  "\n";
+	cout << (it >= c_it) <<  "\n";
+	cout << (it >  c_it)  << "\n";
+	cout << (it <  c_it)  << "\n";
+
 }

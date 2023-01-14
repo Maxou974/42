@@ -9,7 +9,7 @@ using namespace std;
 void	header_test(string msg);
 
 template< class T, class Cont >
-void	print(ft::stack<T, Cont> st)
+void	print(std::stack<T, Cont> st)
 {
 	cout << "size: " << st.size() << "  empty:" << st.empty() << '\n';
 	cout << "-- top of stack\n";
@@ -24,7 +24,7 @@ void	print(ft::stack<T, Cont> st)
 
 void	stack_test()
 {
-	ft::stack<int> st;
+	std::stack<int> st;
 
 
 	header_test("PUSH");
@@ -36,7 +36,7 @@ void	stack_test()
 
 	header_test("COPY_CONSTRUCTOR");
 
-	ft::stack<int> copy(st);
+	std::stack<int> copy(st);
 	print(copy);
 
 	header_test("COMPARE");
@@ -57,8 +57,8 @@ void	stack_test()
 	cout << (st < copy) << '\n';
 	cout << (st > copy) << '\n';
 {
-	ft::stack<string, vector<string> > str_st;
-	ft::stack<string, vector<string> > str_st2;
+	std::stack<string, vector<string> > str_st;
+	std::stack<string, vector<string> > str_st2;
 
 	str_st.push("wefhoiu");
 	str_st.push("wfegou");
@@ -77,8 +77,8 @@ void	stack_test()
 	cout << (str_st >  str_st2) << '\n';
 }
 {
-	ft::stack<string, vector<string> > str_st;
-	ft::stack<string, vector<string> > str_st2;
+	std::stack<string, vector<string> > str_st;
+	std::stack<string, vector<string> > str_st2;
 
 	str_st.push("hello");
 	str_st.push("bye");
@@ -98,8 +98,8 @@ void	stack_test()
 }
 
 {
-	ft::stack<string, list<string> > str_st;
-	ft::stack<string, list<string> > str_st2;
+	std::stack<string, list<string> > str_st;
+	std::stack<string, list<string> > str_st2;
 
 	str_st.push("hello");
 	str_st.push("bye");

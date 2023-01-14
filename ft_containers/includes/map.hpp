@@ -87,9 +87,6 @@ class bst
 
 	}
 
-
-
-
 	bst(const bst& ref) : root_(0), size_(0), alloc_(ref.alloc_)
 	{
 		end = alloc_.allocate(1);
@@ -392,11 +389,11 @@ template<
 	
 	public:
 	class value_compare : binary_function<value_type, value_type, bool>
-	{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+	{
 	  friend class map<Key, T, Compare, Allocator>;
 	protected:
 	  Compare comp;
-	  value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+	  value_compare (Compare c) : comp(c) {}
 	public:
 	  typedef bool result_type;
 	  typedef value_type first_argument_type;

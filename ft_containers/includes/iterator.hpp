@@ -93,11 +93,11 @@ template <class T>
 
 		~random_access_iterator(){}
 
-		bool	operator==(const rai& rhs)
-		{ return (ptr == rhs.ptr); }
+		// bool	operator==(const rai& rhs)
+		// { return (ptr == rhs.ptr); }
 
-		bool	operator!=(const rai& rhs)
-		{ return !(ptr == rhs.ptr); }
+		// bool	operator!=(const rai& rhs)
+		// { return !(ptr == rhs.ptr); }
 
 		value_type&	operator*()
 		{ return *ptr; }
@@ -134,6 +134,8 @@ template <class T>
 
 		pointer	base() const
 		{ return ptr; }
+
+
 };
 
 template<typename T>
@@ -154,26 +156,39 @@ typename random_access_iterator<T>::difference_type operator-(const ft::random_a
 	return ret;
 }
 
-template<typename T>
-bool operator <(const random_access_iterator<T> &a, const random_access_iterator<T> &b)
+template<typename T, typename U>
+bool operator <(const random_access_iterator<T> &a, const random_access_iterator<U> &b)
 {
 	return (a.base() < b.base());
 }
 
-template<typename T>
-bool operator >(const random_access_iterator<T> &a, const random_access_iterator<T> &b)
+template<typename T, typename U>
+bool operator >(const random_access_iterator<T> &a, const random_access_iterator<U> &b)
 {
 	return (a.base() > b.base());
 }
 
-template<typename T>
-bool operator <=(const random_access_iterator<T> &a, const random_access_iterator<T> &b)
+template<typename T, typename U>
+bool operator !=(const random_access_iterator<T> &a, const random_access_iterator<U> &b)
+{
+	return !(a.base() == b.base());
+}
+
+template<typename T, typename U>
+bool operator ==(const random_access_iterator<T> &a, const random_access_iterator<U> &b)
+{
+	return (a.base() == b.base());
+}
+
+
+template<typename T, typename U>
+bool operator <=(const random_access_iterator<T> &a, const random_access_iterator<U> &b)
 {
 	return (a.base() <= b.base());
 }
 
-template<typename T>
-bool operator >=(const random_access_iterator<T> &a, const random_access_iterator<T> &b)
+template<typename T, typename U>
+bool operator >=(const random_access_iterator<T> &a, const random_access_iterator<U> &b)
 {
 	return (a.base() >= b.base());
 }
