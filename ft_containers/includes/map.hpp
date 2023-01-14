@@ -263,9 +263,9 @@ class bst
 			{
 				y->left = x->left;
 				y->parent = x->parent;
-				if (x->parent->right == x)
+				if (x->parent != 0 && x->parent->right == x)
 					x->parent->right = y;
-				else
+				else if (x->parent != 0)
 					x->parent->left = y;
 				x->left->parent = y;
 			}
@@ -388,20 +388,20 @@ template<
 	key_compare										comp;
 	
 	public:
-	class value_compare : binary_function<value_type, value_type, bool>
+	class value_compare : ft::binary_function<value_type, value_type, bool>
 	{
-	  friend class map<Key, T, Compare, Allocator>;
+		friend class map<Key, T, Compare, Allocator>;
 	protected:
-	  Compare comp;
-	  value_compare (Compare c) : comp(c) {}
+		Compare comp;
+		value_compare (Compare c) : comp(c) {}
 	public:
-	  typedef bool result_type;
-	  typedef value_type first_argument_type;
-	  typedef value_type second_argument_type;
-	  bool operator() (const value_type& x, const value_type& y) const
-	  {
-	    return comp(x.first, y.first);
-	  }
+		typedef bool result_type;
+		typedef value_type first_argument_type;
+		typedef value_type second_argument_type;
+		bool operator() (const value_type& x, const value_type& y) const
+		{
+		  return comp(x.first, y.first);
+		}
 	};
 
 	//Constructor

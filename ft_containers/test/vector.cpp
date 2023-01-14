@@ -9,13 +9,13 @@
 // #include "cont/containers/vector.hpp"
 // #include "contt/includes/vector.hpp"
 
-#define NL std::cout << '\n';
+#define NL ft::cout << '\n';
 using namespace std;
 
 template<typename T>
-void fct(std::vector<T>& vect)
+void fct(ft::vector<T>& vect)
 {
-	for (typename std::vector<T>::size_type i = 0; i < vect.size(); i++)
+	for (typename ft::vector<T>::size_type i = 0; i < vect.size(); i++)
 		cout << vect[i] << " | ";
 	cout << '\n';
 	cout << "capacity: " << vect.capacity() << "  size: " << vect.size() << '\n';
@@ -75,11 +75,11 @@ void vector_test()
 
 	header_test("CONSTRUCTOR OPERATOR=");
 
-	std::vector<test> ve; fct(ve);
-	std::vector<test> vee(1, tm); fct(vee);
-	std::vector<test> veee(5, tm); fct(veee);
-	std::vector<test> veeee(5); fct(veeee);
-	std::vector<test> veeeee(1); fct(veeeee);
+	ft::vector<test> ve; fct(ve);
+	ft::vector<test> vee(1, tm); fct(vee);
+	ft::vector<test> veee(5, tm); fct(veee);
+	ft::vector<test> veeee(5); fct(veeee);
+	ft::vector<test> veeeee(1); fct(veeeee);
 
 	veee = ve = veeee;
 	fct(veee);
@@ -149,19 +149,19 @@ void vector_test()
 
 	header_test("DATA");
 
-	std::vector<test>::value_type *vect = ve.data();
+	ft::vector<test>::value_type *vect = ve.data();
 	cout << "ve.data[0]: " << vect[0] << "\nve.data[2]: " << vect[2] << '\n';
 
-	const std::vector<test>::value_type *vectt = ve.data();
+	const ft::vector<test>::value_type *vectt = ve.data();
 	cout << "const ve.data[0]: " << vectt[0];
 	cout << "\nconst ve.data[2]: " << vectt[2] << '\n';
 
 
 	header_test("ASSIGN");
-	std::vector<test>::const_iterator begg;
+	ft::vector<test>::const_iterator begg;
 
-	std::vector<test>::iterator beg = ve.begin();
-	std::vector<test>::iterator end = ve.end();
+	ft::vector<test>::iterator beg = ve.begin();
+	ft::vector<test>::iterator end = ve.end();
 	
 	begg = beg;
 
@@ -192,14 +192,34 @@ void vector_test()
 
 
 	header_test("SWAP");
+	ft::vector<test>::iterator rand = ve.begin();
+	ft::vector<test>::iterator rande = vee.begin();
 
 	cout << "ve before:" << '\n'; fct(ve);
 	cout << "vee before:" << '\n'; fct(vee);
+	cout << *rand << '\n';
+	cout << *rande << '\n';
 	ve.swap(vee);
 	cout << "ve.swap(vee)\n";
+	cout << *rand << '\n';
+	cout << *rande << '\n';
+	rand++; rande++;
+	cout << *rand << '\n';
+	cout << *rande << '\n';
 	cout << "ve after:" << '\n'; fct(ve);
 	cout << "vee after:" << '\n'; fct(vee);
 
+	cout << *rand << '\n';
+	cout << *rande << '\n';
+	ft::swap(vee, ve);
+	cout << "ve.swap(vee)\n";
+	cout << *rand << '\n';
+	cout << *rande << '\n';
+
+
+	ve.swap(vee);
+
+	//carefull swaping here may invalidate vector for insert test
 
 	header_test("INSERT");
 	cout << "ve before:" << '\n'; fct(ve);
@@ -259,8 +279,8 @@ void vector_test()
 
 
 
-	std::vector<int> v;
-	std::vector<int> vv;
+	ft::vector<int> v;
+	ft::vector<int> vv;
 
 	for (int i = 0; i < 99; i++)
 		vv.push_back(i+1);
@@ -286,10 +306,10 @@ void vector_test()
 	ve.push_back(tm3);
 	ve.push_back(tm4);
 	{
-	std::vector<test>::reverse_iterator rit = ve.rbegin() ;
+	ft::vector<test>::reverse_iterator rit = ve.rbegin() ;
 
 	// rit += 100;
-	std::vector<test>::reverse_iterator ritt(rit);
+	ft::vector<test>::reverse_iterator ritt(rit);
 
 	fct(ve);
 	cout << *ritt << '\n';
@@ -335,9 +355,9 @@ void vector_test()
 	}
 	header_test("ITERATOR");
 	{
-	std::vector<test>::iterator rit = ve.begin();
-	std::vector<test>::iterator ritt = ve.begin() + 3;
-	std::vector<test>::reverse_iterator rittt(ritt);
+	ft::vector<test>::iterator rit = ve.begin();
+	ft::vector<test>::iterator ritt = ve.begin() + 3;
+	ft::vector<test>::reverse_iterator rittt(ritt);
 	cout << *rit << *(rit + 3)<< '\n';
 	cout  << *rit << "  " << *ritt << "  " << *rittt << '\n';
 	fct(ve);
@@ -384,8 +404,8 @@ void vector_test()
 	}
 	{
 		header_test("COMPARE_OPERATOR");
-		std::vector<int> un;
-		std::vector<int> deux;
+		ft::vector<int> un;
+		ft::vector<int> deux;
 
 		un.push_back(3);
 		un.push_back(3);
@@ -400,7 +420,7 @@ void vector_test()
 		cout << (un <= deux) << '\n';
 		cout << (un >= deux) << '\n';
 
-		std::swap(un, deux);
+		ft::swap(un, deux);
 		
 		cout << (un < deux) << '\n';
 		cout << (un > deux) << '\n';
@@ -504,29 +524,61 @@ void vector_test()
 	free(tm3);
 	free(tm4);
 
-
-	std::vector<int> v_i;
-	std::vector<int> v_f;
-
+	header_test("ITERATOR");
+{
+	ft::vector<int> v_i;
 
 	v_i.push_back(123);
 	v_i.push_back(13);
 	v_i.push_back(1223);
 
-	v_f.push_back(123);
-	v_f.push_back(123);
-	v_f.push_back(12);
+	ft::vector<int>::iterator it = v_i.begin();
+	ft::vector<int>::const_iterator c_it = v_i.begin();
 
-	std::vector<int>::const_iterator c_it = v_f.begin();
-	std::vector<int>::iterator it = v_i.begin();
-
-	cout << "herre\n";
-	c_it.base();
 	cout << (it == c_it) <<  "\n";
 	cout << (it != c_it) <<  "\n";
 	cout << (it <= c_it) <<  "\n";
 	cout << (it >= c_it) <<  "\n";
 	cout << (it >  c_it)  << "\n";
 	cout << (it <  c_it)  << "\n";
+
+	it++;
+
+	cout << (it == c_it) <<  "\n";
+	cout << (it != c_it) <<  "\n";
+	cout << (it <= c_it) <<  "\n";
+	cout << (it >= c_it) <<  "\n";
+	cout << (it >  c_it)  << "\n";
+	cout << (it <  c_it)  << "\n";
+}
+{
+	header_test("REVERSE_ITERATOR");
+	ft::vector<int> v_i;
+
+	v_i.push_back(123);
+	v_i.push_back(13);
+	v_i.push_back(1223);
+
+	ft::vector<int>::reverse_iterator it = v_i.rbegin();
+	ft::vector<int>::const_reverse_iterator c_it = v_i.rbegin();
+
+	cout << "==" << (it == c_it) <<  "\n";
+	cout << "!=" << (it != c_it) <<  "\n";
+	cout << "<=" << (it <= c_it) <<  "\n";
+	cout << ">=" << (it >= c_it) <<  "\n";
+	cout << ">" << (it >  c_it)  << "\n";
+	cout << "<" << (it <  c_it)  << "\n";
+
+	it = 2 + it;
+
+	cout << "==" << (it == c_it) <<  "\n";
+	cout << "!=" << (it != c_it) <<  "\n";
+	cout << "<=" << (it <= c_it) <<  "\n";
+	cout << ">=" << (it >= c_it) <<  "\n";
+	cout << ">" << (it >  c_it)  << "\n";
+	cout << "<" << (it <  c_it)  << "\n";
+
+	cout << *it << '\n';
+}
 
 }
