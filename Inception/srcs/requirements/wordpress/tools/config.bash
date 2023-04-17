@@ -1,16 +1,5 @@
 #!/bin/bash
 
-DB_NAME="nom_de_la_base_de_donnees"
-DB_USER="nom_de_l_utilisateur"
-DB_USER_PASSWORD="mot_de_passe_de_l_utilisateur"
-DB_ROOT_PASSWORD="rootpassword"
-
-WORDPRESS_URL="mabriel.42.fr"
-WORDPRESS_TITLE="mysite"
-WORDPRESS_ADMIN_USER="maxime"
-WORDPRESS_ADMIN_PASSWORD="maximepassword"
-WORDPRESS_ADMIN_EMAIL="maximeabriel974@gmail.com"
-
 if [ ! -e /var/www/wordpress/wp-config.php ]; then
 mkdir -p /var/www/wordpress
 
