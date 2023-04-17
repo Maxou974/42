@@ -2,9 +2,9 @@ YML=srcs/docker-compose.yml
 COMP= HOME=$${HOME} docker compose -f ${YML}
 
 all: 
-	mkdir -p $${HOME}/volume
-	mkdir -p $${HOME}/volume/db_volume
-	mkdir -p $${HOME}/volume/wp_volume
+	mkdir -p $${HOME}/data
+	mkdir -p $${HOME}/data/db_volume
+	mkdir -p $${HOME}/data/wp_volume
 	${COMP} up --build -d
 
 start: all
@@ -18,6 +18,6 @@ clean:
 	docker rmi -f $$(docker images -qa); \
 	docker volume rm $$(docker volume ls -q); \
 	docker network rm $$(docker network ls -q) 2>/dev/null; return 0
-	sudo rm -rf $${HOME}/volume/*
+	sudo rm -rf $${HOME}/data/*
 
 .PHONY: all start clean stop

@@ -54,12 +54,12 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ${HOME}/volume/db_volume
+      device: ${HOME}/data/db_volume
   wordpress:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ${HOME}/volume/wp_volume
+      device: ${HOME}/data/wp_volume
 networks:
   inception:
