@@ -20,4 +20,6 @@ clean:
 	docker network rm $$(docker network ls -q) 2>/dev/null; return 0
 	sudo rm -rf $${HOME}/data/*
 
-.PHONY: all start clean stop
+re: stop all
+
+.PHONY: all start re clean stop

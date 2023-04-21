@@ -13,4 +13,4 @@ wp user create $WORDPRESS_DFT_USER $WORDPRESS_DFT_EMAIL --role=author --user_pas
 fi
 
 mkdir -p /run/php
-/usr/sbin/php-fpm7.3 -F
+exec /usr/sbin/php-fpm7.3 -F
