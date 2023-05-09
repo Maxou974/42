@@ -1,9 +1,8 @@
 #!/bin/bash
 
 if [ ! -e /var/www/wordpress/wp-config.php ]; then
-mkdir -p /var/www/wordpress
 
-wp core download --allow-root --path=/var/www/wordpress
+wp core download --allow-root
 
 wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_USER_PASSWORD --dbhost="mariadb:3306" --path="/var/www/wordpress/" --allow-root --skip-check
 
@@ -12,5 +11,4 @@ wp core install --url=$WORDPRESS_URL --title=$WORDPRESS_TITLE --admin_user=$WORD
 wp user create $WORDPRESS_DFT_USER $WORDPRESS_DFT_EMAIL --role=author --user_pass=$WORDPRESS_DFT_PASSWORD --allow-root
 fi
 
-mkdir -p /run/php
 exec /usr/sbin/php-fpm7.3 -F
