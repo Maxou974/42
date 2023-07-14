@@ -15,6 +15,12 @@ services:
     tty: true
     networks:
       - inception
+    healthcheck:
+     test: ["CMD", "mysqladmin", "ping", "--silent"]
+     retries: 20
+     timeout: 2s
+     interval: 5s
+
   nginx:
     image: nginx
     depends_on:
@@ -31,11 +37,13 @@ services:
     tty: true
     networks:
       - inception
+
     
   wordpress:
     image: wordpress
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     container_name: wordpress
     build: ./requirements/wordpress
     restart: always
@@ -54,12 +62,12 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ${HOME}/data/db_volume
+      device: ${HOME}/data/DB
   wordpress:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ${HOME}/data/wp_volume
+      device: ${HOME}/data/WordPress
 networks:
   inception:
