@@ -2,9 +2,10 @@ YML=srcs/docker-compose.yml
 COMP= HOME=$${HOME} docker compose -f ${YML}
 
 all: 
+	cp ../.env_inception srcs/.env
 	mkdir -p $${HOME}/data
-	mkdir -p $${HOME}/data/db_volume
-	mkdir -p $${HOME}/data/wp_volume
+	mkdir -p $${HOME}/data/DB
+	mkdir -p $${HOME}/data/WordPress
 	${COMP} up --build -d
 
 start: all
