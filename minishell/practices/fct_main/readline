@@ -1,8 +1,0 @@
-#include "minishell.h"
-#include "/usr/include/readline/readline.h"
-
-int main()
-{
-	char *s = readline(">$");
-	printf("%s", s);
-}
