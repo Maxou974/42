@@ -1,0 +1,26 @@
+#include <stdio.h> //printf, perror
+#include <unistd.h>
+
+int main(void)
+{
+  char *ret;
+
+  ret = ttyname(STDIN_FILENO);
+
+  if (ret == NULL)
+    perror("ttyname() error");
+  else
+  {
+	printf("isatty: %d\n", isatty(STDIN_FILENO));//isatty: 1
+    printf("ttyname: %s\n", ret); //ttyname: /dev/ttys003
+	/* ttyslot() : https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/ttyslot.3.html
+	 * Legacy function, i don't know when i have to use this...
+	 * see also : https://man7.org/linux/man-pages/man3/ttyslot.3.html
+	 * function returns the unit number of the device file if found;
+	 * otherwise, the value zero is returned.
+	 */
+	printf("ttyslot: %d\n", ttyslot()); // ttyslot: 0
+  }
+  
+  return (0);
+}

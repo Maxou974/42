@@ -1,0 +1,47 @@
+/*#include "../../include/minishell.h"
+
+int main()
+{
+	DIR *dir = opendir("testdir");
+	if (!dir)
+		perror("");
+
+	struct dirent *d = readdir(dir);
+
+	if (!d)
+		perror("");
+
+	printf("%d\n", d->d_reclen);
+}*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <errno.h>
+
+int main(int argc, char *argv[])
+{
+    DIR *dp;
+    struct dirent *dirp;
+
+    if (argc != 2) {
+        fprintf(stderr, "Usage: ./program directory_name\n");
+        exit(EXIT_FAILURE);
+    }
+
+    dp = opendir(argv[1]);
+
+    while ((dirp = readdir(dp)) != NULL)
+    {
+        printf("name = %s\n", dirp->d_name);
+        printf("type = %d\n", dirp->d_type);
+        printf("reclen = %d\n", dirp->d_reclen);
+        printf("off = %ld\n", dirp->d_off);
+        printf("ino = %ld\n", dirp->d_ino);
+        printf("\n");
+    }
+
+    closedir(dp);
+    exit(EXIT_SUCCESS);
+}
+

@@ -1,0 +1,933 @@
+/* with full str and index (ex:str[i]) */
+	while (ft_isspace(str[i]))
+		++i;
+	while (str && str[i])
+	{
+		if (_cmd->name || is_redir_op(str[i]))
+		{
+			i += get_op(&str[i], &_cmd->redirs);
+		}
+		else
+		{
+			i += get_cmd(_cmd, &str[i]);
+		}
+		while (str[i] && ft_isspace(str[i]))
+			++i;
+	}
+
+
+int	get_cmd(t_cmd *cmd, char *str)
+{
+	int		start;
+	char	_quote;
+	int	i;
+
+	i = 0;
+	_quote = 0;
+	if (str[i] == '\'' || str[i] == '"')
+	{
+		_quote = str[i];
+		start = ++i;
+
+		while (str[i] && str[i] != _quote)
+			++i;
+		if (!cmd->name)
+			cmd->name = ft_strndup(&str[start], i - start);
+		_quote = 0;
+		++i;
+	}
+	else 
+	{
+		start = i;
+		while (str[i] && !ft_isspace(str[i]) && !is_redir_op(str[i]))
+			++i;
+		if (!cmd->name)
+			cmd->name = ft_strndup(&str[start], i - start);
+	}
+	return (i);
+}
+
+
+
+int	get_op(char *str, t_redir ***redirs)
+{
+	int		_len;
+	int		i;
+
+	_len = count_el((void **) *redirs);
+	// *r_idx = _len;
+	// printf("len:%d\n", _len);
+	if (_len == 0)
+		*redirs = ft_calloc(2, sizeof(t_redir *));
+	else
+		*redirs = ft_realloc(*redirs, (_len + 1) * P_SIZE, (_len + 2) * P_SIZE);
+	(*redirs)[_len] = ft_calloc(1, sizeof(t_redir));
+	if (ft_strncmp(str, ">>", 2) == 0)
+		(*redirs)[_len]->op = APPEND;
+	else if (ft_strncmp(str, "<<", 2) == 0)
+		(*redirs)[_len]->op = HEREDOC;
+	// else if (str[0] == '<')
+	// 	(*redirs)[_len]->op = IN;
+	else if (str[0] == '>')
+		(*redirs)[_len]->op = OUT;
+	else
+		(*redirs)[_len]->op = IN;
+	
+	char _quote = 0;
+	i = 1;
+	if ((*redirs)[_len]->op == APPEND || (*redirs)[_len]->op == HEREDOC)
+		++i;
+	else if (!is_redir_op(str[0]))
+		i = 0;
+
+
+	while (ft_isspace(str[i]))
+		++i;
+	int	start = i;
+	if (str[i] == '\'' || str[i] == '"')
+	{
+		_quote = str[i];
+		start = ++i;
+		while (str[i] && str[i] != _quote)
+			++i;
+		(*redirs)[_len]->file = ft_strndup(&str[start], i - start);
+		_quote = 0;
+		++i;
+	}
+	else
+	{
+		start = i;
+		while (str[i] && !ft_isspace(str[i]))
+			++i;
+		if (!(*redirs)[_len]->file)
+			(*redirs)[_len]->file = ft_strndup(&str[start], i - start);
+	}
+	while (ft_isspace(str[i]))
+		++i;
+
+
+	// if ((*redirs)[_len]->op == APPEND || (*redirs)[_len]->op == HEREDOC)
+	// 	return (2);
+	return (i);
+}
+
+//put space between redir operator and word : this code is to have same split result between `<input` and `< input`(or `<'input'`)
+//FIXME: bug: < input <'< input2'
+static char *put_space_after_op(char *str)
+{
+	int		i;
+	int		j;
+	int		count;
+	char	*new;
+	char	_quote;
+
+	count = 0;
+	i = -1;
+	_quote = 0;
+	while (str && str[++i])
+	{
+		if (!_quote && (str[i] == '\'' || str[i] == '"'))
+		{
+			_quote = str[i++];
+			while (str[i] && str[i] != _quote)
+				++i;
+			_quote = 0;
+		}
+		if (i > 0 && is_redir_op(str[i - 1]) && is_namable(str[i]))
+			++count;
+	}
+	printf("count:%d\n", count);
+	new = ft_calloc(ft_strlen(str) + count + 1, sizeof(char));
+	i = -1;
+	j = 0;
+	while (str && str[++i])
+	{
+		if (!_quote && (str[i] == '\'' || str[i] == '"'))
+		{
+			_quote = str[i++];
+			while (str[i] && str[i] != _quote)
+				++i;
+			_quote = 0;
+		}
+		if (i > 0 && is_redir_op(str[i - 1]) && is_namable(str[i]))
+			new[i + j++] = 32;
+		new[i + j] = str[i];
+	}
+	new[i + j] = 0;
+	return (new);
+}
+
+//TODO:put static function for replace $VAR via envp
+
+//replace all quote -> -32
+static char *replace_all_quote_space(char *str, char **envp)
+{
+	int		i;
+	char	_quote;
+	(void)envp;// replace $VAR in parsing by finding env_var in envp because there is no way(or complicate) to know if that '$' is in double quote...
+
+	_quote = 0;
+	i = 0;
+	while (str && str[i])
+	{
+		if (!_quote && (str[i] == '\'' || str[i] == '"'))
+		{
+			_quote = str[i];
+			str[i] = M_SPACE;
+			while (str[i] && str[i] != _quote)
+			{
+				++i;
+			}
+			_quote = 0;
+			str[i] = M_SPACE;
+		}
+		if (ft_isspace(str[i]))
+			str[i] = M_SPACE;
+		if (str[i])
+			++i;
+	}
+	return (str);
+}
+
+char	**tokenize_cmd(char *str, char **envp)
+{
+	char	*new_str;
+	char	**_strs;
+	(void)envp;// replace $VAR in parsing by finding env_var in envp because there is no way(or complicate) to know if that '$' is in double quote...
+
+	printf("origin	:%s\n", str);
+	new_str = put_space_after_op(str);
+	printf("replace1:%s\n", new_str);
+	new_str = replace_all_quote_space(new_str, envp);
+	printf("replace	:%s\n", new_str);
+	_strs = ft_split(new_str, -32);
+	free(new_str);
+	return (_strs);
+}
+
+
+
+	_len = count_el((void **) *redirs);
+	if (_len == 0)
+		*redirs = ft_calloc(2, sizeof(t_redir *));
+	else
+		*redirs = ft_realloc(*redirs, (_len + 1) * P_SIZE, (_len + 2) * P_SIZE);
+	(*redirs)[_len] = ft_calloc(1, sizeof(t_redir));
+	if (ft_strncmp(str, ">>", 2) == 0)
+		(*redirs)[_len]->op = APPEND;
+	else if (ft_strncmp(str, "<<", 2) == 0)
+		(*redirs)[_len]->op = HEREDOC;
+	else if (str[0] == '>')
+		(*redirs)[_len]->op = OUT;
+	else
+		(*redirs)[_len]->op = IN;
+	i = 1;
+	if ((*redirs)[_len]->op == APPEND || (*redirs)[_len]->op == HEREDOC)
+		++i;
+	else if (!is_redir_op(str[0]))
+		i = 0;
+	while (str[i] < 0)
+		++i;
+	int	start = i;
+	while (str[i] > 0)
+		++i;
+	(*redirs)[_len]->file = ft_strndup(&str[start], i -start);
+	return (i);
+
+
+
+// Version 1 : put all redir op && file
+int	get_op(t_cmd *cmd, char *str)
+{
+	int	_len;
+
+	_len = count_el((void **) cmd->redirs);
+	if (_len == 0)
+		cmd->redirs = ft_calloc(2, sizeof(t_redir *));
+	else
+		cmd->redirs = ft_realloc(cmd->redirs,
+				(_len + 1) * P_SIZE, (_len + 2) * P_SIZE);
+	cmd->redirs[_len] = ft_calloc(1, sizeof(t_redir));
+	if (ft_strncmp(str, ">>", 2) == 0)
+		cmd->redirs[_len]->op = APPEND;
+	else if (ft_strncmp(str, "<<", 2) == 0)
+		cmd->redirs[_len]->op = HEREDOC;
+	else if (str[0] == '>')
+		cmd->redirs[_len]->op = OUT;
+	else
+		cmd->redirs[_len]->op = IN;
+	return (get_file(cmd->redirs[_len], str));
+}
+
+//version2 : only last op && file
+static	t_redir	*init_redir(char *str)
+{
+	t_redir	*res;
+
+	res = ft_calloc(1, sizeof(t_redir));
+	if (ft_strncmp(str, ">>", 2) == 0)
+		res->op = APPEND;
+	else if (ft_strncmp(str, "<<", 2) == 0)
+		res->op = HEREDOC;
+	else if (str[0] == '>')
+		res->op = OUT;
+	else
+		res->op = IN;
+	return (res);
+}
+
+int	get_op(t_cmd *cmd, char *str)
+{
+	t_redir	*tmp;
+	int		i;
+
+	tmp = init_redir(str);
+	i = 0;
+	if (cmd->redirs == NULL)
+		cmd->redirs = ft_calloc(2, P_SIZE);
+	else
+	{
+		while (cmd->redirs[i] && cmd->redirs[i]->op != tmp->op)
+			++i;
+		if (cmd->redirs[i] && cmd->redirs[i]->op == tmp->op)
+			free(cmd->redirs[i]);
+		else
+			cmd->redirs = ft_realloc(cmd->redirs,
+					(i + 1) * P_SIZE, (i + 2) * P_SIZE);
+	}
+	cmd->redirs[i] = tmp;
+	return (get_file(cmd->redirs[i], str));
+}
+
+
+
+int	index_of(const char *s, int start_idx, int c)
+{
+	int	i;
+
+	if (!s)
+		return (-1);
+	i = start_idx;
+	while (*(s + i) != (char) c)
+	{
+		if (i == (int)strlen((char *)s))
+			return (-1);
+		++i;
+	}
+	return (i);
+}
+
+// int	index_of(const char *s, int start_idx, int c)
+// {
+// 	int	i;
+
+// 	if (!s || start_idx > (int) ft_strlen(s))
+// 		return (-1);
+// 	i = start_idx;
+// 	while (s && s[i])
+// 	{
+// 		if (s[i] == c)
+// 			return (i);
+// 		++i;
+// 	}
+// 	return (-1);
+// }
+
+static	int	have_to_manage(char *str, int i, char quote)
+{
+	if (str[i] == '$' && str[i + 1] 
+		&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+		if ((quote != 0 && quote == '"') || quote == 0)
+			return (1);
+	return (0);
+}
+
+//Backup index version
+
+static	int	manage_dollar(int dollar_idx, char **strp)
+{
+	int		i;
+	int		res_i;
+	char	*_key;
+	char	*tmp[3];
+	//tmp[0]:prev, tmp[1]:prev+$var, tmp[2]:next
+	i = dollar_idx + 1;
+	while (*strp && (*strp)[i] && (*strp)[i] != ' ' && (*strp)[i] != '"')
+		++i;
+	_key = ft_substr(*strp, dollar_idx + 1, i - dollar_idx - 1);
+	tmp[0] = ft_substr(*strp, 0, dollar_idx);
+	tmp[1] = ft_strjoin(tmp[0], getenv(_key));
+	res_i = ft_strlen(getenv(_key)) - 1;
+	free(_key);
+	free(tmp[0]);
+	tmp[2] = ft_substr(*strp, i, ft_strlen(*strp) - i);
+	// printf("tmp[1]:%s\n", tmp[1]);
+	// printf("tmp[2]:%s\n", tmp[2]);
+	*strp = ft_strjoin(tmp[1], tmp[2]);
+	free(tmp[1]);
+	free(tmp[2]);
+	return (res_i);
+}
+
+/*
+ * Function:  replace_quote_space
+ * --------------------------------------------------------------------------
+ * Manage quote(single and double) and white space
+ * Replace all seperators(quotes, spaces) by minus character.
+ * This minus character will be seperator in parsing.
+ * 
+ * TODO: manage '$' in double quote by using envp
+ *
+ * str:	string
+ */
+static	char	*replace_quote_space(char *str)
+{
+	int		i;
+	char	_quote;
+
+	_quote = 0;
+	i = -1;
+	while (str && str[++i])
+	{
+		if (!_quote && (str[i] == '\'' || str[i] == '"'))
+		{
+			_quote = str[i];
+			str[i] *= -1;
+			while (str[i] && str[i] != _quote)
+			{
+				if (_quote == '"' && str[i] == '$' && str[i + 1]
+					&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+					i += manage_dollar(i, &str);
+				if (str[i])
+					++i;
+			}
+			_quote = 0;
+			str[i] *= -1;
+		}
+		else if (str[i] == '$' && str[i + 1] 
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+			i += manage_dollar(i, &str);
+		else if (ft_isspace(str[i]))
+			str[i] *= -1;
+	}
+	return (str);
+}
+
+static t_cmd	*init_cmd(char *str, char **envp)
+{
+	t_cmd	*_cmd;
+	char	*new_line;
+	int		i;
+	(void)envp;
+
+	_cmd = ft_calloc(1, sizeof(t_cmd));
+	if (_cmd == NULL)
+		return (NULL);
+	new_line = replace_quote_space(str);
+	printf("newline:%s\n", new_line);
+	i = 0;
+	while (new_line && new_line[i])
+	{
+		while (new_line[i] && new_line[i] < 0)
+			++i;
+		if (_cmd->name && new_line[i + 1] && new_line[i] == '-'
+			&& ft_isalpha(new_line[i + 1]))
+			i += get_args(_cmd, &new_line[i]);
+		else if (_cmd->name || is_redir_op(new_line[i]))
+			i += get_op(_cmd, &new_line[i]);
+		else
+			i += get_name(_cmd, &new_line[i]);
+		while (new_line[i] && new_line[i] < 0)
+			++i;
+	}
+	return (_cmd);
+}
+
+/*
+ * Function:  get_args
+ * --------------------------------------------------------------------------
+ * Get agrs from string given and put it on cmd->args.
+ *
+ * If cmd->args exist already,
+ * 	Free old args[1] and replace it by new args[1]
+ * Else
+ *	Mallocate array of char * has 3 elements like:
+ *  	char **args = [char *cmd_name, char *flag, NULL];
+ *
+ * Then returns length of args(flags) which is char *
+ * 
+ * cmd: t_cmd pointer
+ * str: string
+ * returns: strlen(cmd->args[1])
+ */
+int	get_args(t_cmd *cmd, char *str)
+{
+	int	start;
+	int	i;
+
+	i = 0;
+	start = i;
+	while (str[i] > 0)
+		++i;
+	if (cmd->args[1])
+		free(cmd->args[1]);
+	cmd->args[1] = ft_strndup(&str[start], i - start);
+	return (i);
+}
+
+/*
+ * Function:  init_cmd
+ * --------------------------------------------------------------------------
+ * Mallocate t_cmd * and replace quote and space by calling replace_quote_space
+ * Step through the str replaced given by while loop.
+ * In loop, call getter functions by need to put elements of t_cmd.
+ *
+ * str:	string
+ * envp: char ** composed by environment variable which is char *
+ * returns:	NULL | [t_cmd *c1, t_cmd *c2..., NULL]
+ */
+static t_cmd	*init_cmd(char *str, char **envp)
+{
+	t_cmd	*_cmd;
+	char	*new_line;
+	int		i;
+	(void)envp;
+
+	_cmd = ft_calloc(1, sizeof(t_cmd));
+	if (_cmd == NULL)
+		return (NULL);
+	new_line = replace_quote_space(str);
+	printf("newline:%s\n", new_line);
+	ft_split(new_line, ' ');
+	i = 0;
+	while (new_line && new_line[i])
+	{
+		if (is_redir_op(new_line[i]))
+			i += get_op(_cmd, &new_line[i]);
+		else
+			i += get_name(_cmd, &new_line[i]);
+		while (str[i] && str[i] == ' ')
+			++i;
+	}
+	return (_cmd);
+}
+
+/*
+ * Function:  get_op
+ * --------------------------------------------------------------------------
+ * Get redirection operator from string given.
+ *
+ * If cmd->redirs is NULL,
+ * 	Mallocate a [t_redir *, NULL]; 
+ * Else
+ *	Re-allocate cmd->redirs to add like [t_redir *r1, t_redir *r2 ..., NULL];
+ *
+ * Then call get_file() to have all length of (REDIR_OPERATOR + FILE_NAME)
+ * 
+ * cmd: t_cmd pointer
+ * str: string
+ * returns: strlen(REDIR_OPERATOR + FILE_NAME)
+ */
+
+int	get_op(t_cmd *cmd, char *str)
+{
+	int	_len;
+
+	_len = count_el((void **) cmd->redirs);
+	if (_len == 0)
+		cmd->redirs = ft_calloc(2, P_SIZE);
+	else
+		cmd->redirs = ft_realloc(cmd->redirs,
+				(_len + 1) * P_SIZE, (_len + 2) * P_SIZE);
+	cmd->redirs[_len] = ft_calloc(1, sizeof(t_redir));
+	if (ft_strncmp(str, ">>", 2) == 0)
+		cmd->redirs[_len]->op = APPEND;
+	else if (ft_strncmp(str, "<<", 2) == 0)
+		cmd->redirs[_len]->op = HEREDOC;
+	else if (str[0] == '>')
+		cmd->redirs[_len]->op = OUT;
+	else
+		cmd->redirs[_len]->op = IN;
+	return (get_file(cmd->redirs[_len], str));
+}
+
+/*
+ * Function:  get_name
+ * --------------------------------------------------------------------------
+ * Get name of command and put it on cmd->name
+ * Then returns length of CMD_NAME
+ * 
+ * cmd: t_cmd pointer
+ * str: string
+ * returns: length of (cmd->name)
+ */
+int	get_name(t_cmd *cmd, char *str)
+{
+	int	start;
+	int	i;
+
+	i = 0;
+	start = i;
+	while (str[i] && !is_redir_op(str[i]))
+		++i;
+	if (!cmd->name)
+		cmd->name = ft_strndup(&str[start], i - start);
+	if (!cmd->args)
+	{
+		cmd->args = ft_calloc(3, sizeof(char *));
+		cmd->args[0] = cmd->name;
+		cmd->args[2] = NULL;
+	}
+	return (i);
+}
+
+
+/*
+ * Function:  get_file
+ * --------------------------------------------------------------------------
+ * Get file name in string given and put it on redir->file.
+ * Then return length of (REDIR_OPERATOR + FILE_NAME)
+ * 
+ * redir: t_redir pointer
+ * str: string
+ * returns: strlen(REDIR_OPERATOR + FILE_NAME)
+ */
+static int	get_file(t_redir *redir, char *str)
+{
+	int	start;
+	int	i;
+
+	i = 1;
+	if (redir->op == APPEND || redir->op == HEREDOC)
+		++i;
+	else if (!is_redir_op(str[0]))
+		i = 0;
+	while (str[i] && str[i] == ' ')
+		++i;
+	start = i;
+	while (str[i] && str[i] != ' ' && !is_redir_op(str[i]))
+		++i;
+	redir->file = ft_strndup(&str[start], i - start);
+	return (i);
+}
+//End index version
+
+	// res = (char *)ft_realloc(res, len + 1, len + 2);
+	// if (!res)
+	// 	break ;
+	// res[len++] = str[i];
+
+static	char	*generate_newline(char *str)
+{
+	int		i;
+	char	*res;
+	int		len;
+
+	res = (char *)ft_calloc(1, sizeof(char));
+	i = 0;
+	len = 0;
+	while (str && str[i])
+	{
+		if (str[i] == M_QUOTE_D || str[i] == M_QUOTE_S)
+		{
+			if (str[i + 1] && str[i] == str[i + 1])
+				add_char_in_str(&res, &len, str[i]);
+			++i;
+		}
+		else
+		{
+			if (is_redir_op(str[i]) && res[len - 1] && (res[len - 1] != -32 && !is_redir_op(res[len - 1])))
+				add_char_in_str(&res, &len, M_SPACE);
+			add_char_in_str(&res, &len, str[i]);
+			if (str[i] && is_redir_op(str[i]))
+			{
+				++i;
+				while (str[i] && str[i] == M_SPACE)
+					++i;
+			}
+			else if (str[i])
+				++i;
+		}
+	}
+	return (res);
+}
+
+char	*manage_quote_dollar(char *str, char **envp)
+{
+	int		i;
+	char	_quote;
+
+	_quote = 0;
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+			str[i] *= -1;
+		++i;
+	}
+	i = 0;
+	while (str && str[i])
+	{
+		if (!_quote && (str[i] == M_QUOTE_D || str[i] == M_QUOTE_S))
+		{
+			_quote = str[i];
+			++i;
+			while (str[i] && str[i] != _quote)
+			{
+				// i += manage_quote(_quote, i, &str, envp);
+				if (_quote == M_QUOTE_D && str[i] == '$' && str[i + 1]
+					&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+					i += manage_dollar(i, &str, envp);
+				if (str[i])
+					++i;
+			}
+			_quote = 0;
+		}
+		else if (isspace(str[i]))
+			str[i] *= -1;
+		else if (str[i] == '$' && str[i + 1]
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+			i += manage_dollar(i, &str, envp);
+		++i;
+	}
+	return (str);
+}
+
+
+static	void	manage_quote(char *quote, int *i_ptr, char **strp, char **envp)
+{
+	int	i;
+
+	i = *i_ptr;
+	*quote = (*strp)[i];
+	++i;
+	while ((*strp)[i] && (*strp)[i] != *quote)
+	{
+		if (*quote == M_QUOTE_D && (*strp)[i] == M_QUOTE_S)
+			(*strp)[i] *= -1;
+		if (*quote == M_QUOTE_D && is_dollar_to_manage((*strp)[i], (*strp)[i + 1]))
+			manage_dollar(&i, strp, envp);
+		// if (*quote == M_QUOTE_D && (*strp)[i] == '$' && (*strp)[i + 1]
+		// 	&& ((*strp)[i + 1] == '?' || ft_isalnum((*strp)[i + 1]) || (*strp)[i + 1] == '_'))
+		// 	manage_dollar(&i, strp, envp);
+		if ((*strp)[i])
+			++i;
+	}
+	*quote = 0;
+	*i_ptr = i;
+}
+
+static void	fuck_norminette(char *str, char **res, int i, int len)
+{
+	while (str && str[i])
+	{
+		if (str[i] == M_QUOTE_D || str[i] == M_QUOTE_S)
+		{
+			if (str[i + 1] && str[i] == str[i + 1])
+				add_char_in_str(res, &len, str[i]);
+			++i;
+		}
+		else
+		{
+			if (is_redir_op(str[i]) && (*res)[len - 1]
+				&& ((*res)[len - 1] != M_SPACE
+					&& !is_redir_op((*res)[len - 1])))
+				add_char_in_str(res, &len, M_SPACE);
+			add_char_in_str(res, &len, str[i]);
+			if (str[i] && is_redir_op(str[i]))
+			{
+				++i;
+				while (str[i] && str[i] == M_SPACE)
+					++i;
+			}
+			else if (str[i])
+				++i;
+		}
+	}
+}
+
+
+static void	wait_children(t_cmd **cmds)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	while (cmds[i])
+	{
+		if (cmds[i + 1])
+			waitpid(cmds[i]->pid, NULL, 0);
+		else
+		{
+			waitpid(cmds[i]->pid, &status, 0);
+			if (WIFEXITED(status))
+			{
+				g_exit_status = WEXITSTATUS(status);
+				return ;
+			}
+		}
+		i++;
+	}
+	if (g_exit_status == 0)
+		g_exit_status = cmds[0]->exit;
+}
+
+char	*manage_quote_dollar(char *str, char **envp)
+{
+	int		i;
+	char	_quote;
+
+	make_quotes_non_printable(&str);
+	_quote = 0;
+	i = 0;
+	while (str && str[i])
+	{
+		if (!_quote && (str[i] == M_QUOTE_D || str[i] == M_QUOTE_S))
+			manage_quote(&_quote, &i, &str, envp);
+		else if (isspace(str[i]))
+			str[i] *= -1;
+		else if (is_d_to_manage(str[i], str[i + 1]))
+			manage_dollar(&i, &str, envp);
+		if (str[i])
+			++i;
+	}
+	return (str);
+}
+
+//FIXME: here je dois manage le cas $? avec exit_status
+static	void	manage_dollar(int *dollar_idx, char **strp, char **envp)
+{
+	int		i;
+	char	*_key;
+	char	*_value;
+	char	*tmp[3];
+
+	i = (*dollar_idx) + 1;
+	if ((*strp)[i] == '?')
+	{
+		_value = ft_itoa(g_exit_status);
+		++i;
+	}
+	else
+	{
+		while (*strp && (*strp)[i] && (*strp)[i] > 0
+			&& (ft_isalnum((*strp)[i]) || (*strp)[i] == '_'))
+			++i;
+		_key = ft_substr(*strp, (*dollar_idx) + 1, i - (*dollar_idx) - 1);
+		_value = ft_strdup(spec_get_env(envp, _key));
+		free(_key);
+	}
+	tmp[0] = ft_substr(*strp, 0, *dollar_idx);
+	*dollar_idx += (int) ft_strlen(_value) - 1;
+	tmp[1] = ft_strjoin_free_all(tmp[0], _value);
+	// free(_value);
+	tmp[2] = ft_substr(*strp, i, ft_strlen(*strp) - i);
+	*strp = ft_strjoin_free_all(tmp[1], tmp[2]);
+	// free(tmp[0]);
+	// free(tmp[1]);
+	// free(tmp[2]);
+}
+
+int	err_space_btw_op(char *line, char *e_char)
+{
+	int		i;
+	char	_op;
+
+	i = -1;
+	while (line && line[++i])
+	{
+		if (is_redir_op(line[i]))
+		{
+			_op = line[i];
+			if (line[i + 1] && line[i] == line[i + 1])
+				++i;
+			++i;
+			if (line[i] == ' ')
+			{
+				while (line[i] == ' ')
+					++i;
+				if (is_redir_op(line[i]) && _op != '|')
+				{
+					ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+					*e_char = line[i];
+					return (1);
+				}
+			}
+		}
+	}
+	return (0);
+}
+void	put_header(void)
+{
+	printf(COLOR_PURPLE);
+	printf("/* ********************************************************* */\n");
+	printf("                                                               \n");
+	printf("     .^. .  _    \n");
+	printf("    /: ||`\\/ \\\\~  ,       \n");
+	printf("  , [   &    / \\ y'   \n");
+	printf(" {v':   `\\   / `&~-,  \n");
+	printf("'y. '    |`   .  ' /   \n");
+	printf(" \\   '  .       , y   \n");
+	printf(" v .        '     v   \n");
+	printf(" V  .~.      .~.  V   \n");
+	printf(" : (  0)    (  0) :   \n");
+	printf("  i `'`      `'` j     \n");
+	printf("   i     __    ,j     \n");
+	printf("    `\\%%`~....~'&         \n");
+	printf(" <~o' /  \\/` \\-s,        \n");
+	printf("  o.~'.  )(  r  .o ,.  \n");
+	printf(" o',  %%``\\/``& : 'bF  \n");
+	printf("d', ,ri.~~-~.ri , +h  \n");
+	printf("`oso' d`~..~`b 'sos`  \n");
+	printf("     d`+ II +`b              \n");
+	printf("     i_:_yi_;_y  \n");
+	printf("                                                               \n");
+	printf("/* ********************************************************* */\n");
+}
+
+static	void	manage_quote(char *quote, int *i_ptr, char **strp, char **envp)
+{
+	int	i;
+
+	i = *i_ptr;
+	*quote = (*strp)[i];
+	++i;
+	while ((*strp)[i] && (*strp)[i] != *quote)
+	{
+		if (*quote == M_QUOTE_D && (*strp)[i] == M_QUOTE_S)
+			(*strp)[i] *= -1;
+		if (*quote == M_QUOTE_D && is_d_to_manage((*strp)[i], (*strp)[i + 1]))
+			manage_dollar(&i, strp, envp);
+		if ((*strp)[i])
+			++i;
+	}
+	*quote = 0;
+	*i_ptr = i;
+}
+
+void	put_header(void)
+{
+	printf("/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */\n");
+	printf("                                                               \n");
+	printf("     .^. .  _    \n");
+	printf("    /: ||`\\/ \\\\~  ,       \n");
+	printf("  , [   &    / \\ y'      ###   ###  ####   ###    #  ####   \n");
+	printf(" {v':   `\\   / `&~-,    #  # #  #    #    #  #   #    #    \n");
+	printf("'y. '    |`   .  ' /   #   #   #    #    #   #  #    # \n");
+	printf(" \\   '  .       , y   #       #   ####  #    ###   #### \n");
+	printf(" v .        '     v   \n");
+	printf(" V  .~.      .~.  V    ######   #    # #####  #      # \n");
+	printf(" : (  0)    (  0) :   /_____   #____# #____  #      # \n");
+	printf("  i `'`      `'` j         /  #    # #      #      # \n");
+	printf("   i     __    ,j    ######  #    # ###### ###### ###### \n");
+	printf("    `\\%%`~....~'&         \n");
+	printf(" <~o' /  \\/` \\-s,                This is NOT a big shell \n");
+	printf("  o.~'.  )(  r  .o ,.  \n");
+	printf(" o',  %%``\\/``& : 'bF  \n");
+	printf("d', ,ri.~~-~.ri , +h  \n");
+	printf("`oso' d`~..~`b 'sos`                          Created by \n");
+	printf("     d`+ II +`b                       mabriel and kychoi \n");
+	printf("     i_:_yi_;_y                              at 42 Paris \n");
+	printf("                                                               \n");
+	printf("/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */\n");
+}

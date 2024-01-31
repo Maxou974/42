@@ -1,0 +1,16 @@
+#include "minishell.h"
+
+int main()
+{
+	char *s;
+	unsigned int	size = 50;
+
+	s = getcwd(NULL, 40);
+	while (!s)
+	{
+		size += 10;
+		s = getcwd(NULL, size);
+	}
+	printf("%s\n", s);
+	free(s);
+}
