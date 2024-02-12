@@ -1,27 +1,29 @@
 [Ft_transcendence](ft_transcendence) - Make a single page app where users can play Pong games, chat and create channels with other users.
 
-Webserv - This project is here to make you write your own HTTP server.
+[Webserv](webserv) - This project is here to make you write your own HTTP server.
 
-Inception - Set up an infrastructure composed of different services under specific rules using Docker.
+[Inception](Inception) - Set up an infrastructure composed of different services under specific rules using Docker.
 
-Cub3D - This project is inspired by the world-famous Wolfenstein 3D, which was the first FPS ever.
+[Cub3D](cub3d) - This project is inspired by the world-famous Wolfenstein 3D, which was the first FPS ever.
 
-CPP - This project is about learning C++ through different modules.
+[Ft_containers](ft_containers) - This project is about recoding containers of the C++98 STL.
 
-Philosophers - This project is about learning how threads work by precisely timing a group of philosophers on when to pick up forks and eat spaghetti without dying from hunger.
+[CPP](cpp) - This project is about learning C++ through different modules.
 
-Minishell - The objective of this project is for you to create a simple shell.
+[Philosophers](Philo/philo) - This project is about learning how threads work by precisely timing a group of philosophers on when to pick up forks and eat spaghetti without dying from hunger.
 
-Push_swap - This project involves sorting data on a stack, with a limited set of instructions, and the smallest number of moves.
+[Minishell](minishell) - The objective of this project is for you to create a simple shell.
 
-Pipex - This project aims to deepen your understanding of redirections and pipes.
+[Push_swap](push_swap) - This project involves sorting data on a stack, with a limited set of instructions, and the smallest number of moves.
 
-So_long - This project is a small 2D game with minilibx.
+[Pipex](pipex) - This project aims to deepen your understanding of redirections and pipes.
 
-Get_next_line - This project is pretty straightforward, you have to recode readline/getline.
+[So_long](so_long) - This project is a small 2D game with minilibx.
 
-Born2beroot - This project aims to introduce you to virtualization.
+[Get_next_line](get_next_line) - This project is pretty straightforward, you have to recode readline/getline.
 
-Ft_printf - This project is pretty straightforward, you have to recode printf.
+[Born2beroot](Born2beroot) - This project aims to introduce you to virtualization.
 
-Libft - This project is your very first project as a student at 42. You will need to recode a few functions of the C standard library as well as some other utility functions.
+[Ft_printf](ft_printf) - This project is pretty straightforward, you have to recode printf.
+
+[Libft](libft) - This project is your very first project as a student at 42. You will need to recode a few functions of the C standard library as well as some other utility functions.
