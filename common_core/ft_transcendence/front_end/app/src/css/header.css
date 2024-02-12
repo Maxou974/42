@@ -1,0 +1,12 @@
+.header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    z-index: 100;
+}
+
+.header button {
+    margin-right: 10px;
+    margin-top: 10px;
+}

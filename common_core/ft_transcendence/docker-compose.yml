@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres
+    volumes:
+      - database_vol:/var/lib/postgresql/data
+    networks:
+      - transc_netw
+    ports:
+      - ${PORT_POSTGRES}:${PORT_POSTGRES}
+    build: ./postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGUSER: ${DB_USER}
+      PGPASSWORD: ${DB_PASSWORD}
+      PGDATABASE: ${DB_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 2s
+      timeout: 60s
+      retries: 20
+    restart: always
+
+
+  front_end:
+    depends_on:
+      back_end:
+        condition: service_healthy
+    container_name: front_end
+    volumes:
+    - html_vol:/usr/src/app/frontend
+    networks:
+      - transc_netw
+    build: 
+      context: ./front_end
+      args:
+        backurl: ${BACKEND_URL}
+    environment:
+      - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING}
+      - WATCHPACK_POLLING=${WATCHPACK_POLLING}
+      - BACKEND_URL=${BACKEND_URL}
+    ports:
+      - ${PORT_FRONT}:${PORT_FRONT}
+    healthcheck:
+      test: curl --fail http://front_end:3000 || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    restart: always
+
+
+  back_end:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    container_name: back_end
+    volumes:
+      - htm:/usr/src/app/backend
+    networks:
+      - transc_netw
+    ports:
+      - ${PORT_BACK}:${PORT_BACK}
+      - "5555:5555"
+    build: ./back_end
+    env_file:
+      - .env
+    healthcheck:
+      test: "curl --fail http://localhost:${PORT_BACK}/auth || exit 1"
+      interval: 2s
+      timeout: 60s
+      retries: 20
+    restart: always
+
+volumes:
+  database_vol:
+  html_vol:
+  htm:
+
+networks:
+  transc_netw:
+    driver: bridge

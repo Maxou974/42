@@ -1,0 +1,25 @@
+.RetroGamePad {
+	--position: 50;
+	
+	position: absolute;
+	top: calc(var(--position) * 1%);
+	transform: translate(-50%, -50%);
+	left: 5%;
+		
+	height: 10%;
+	width: 2%;
+	background-color: #ffffff;
+}
+
+.RetroOpponentPad {
+	--position: 50;
+	
+	position: absolute;
+	top: calc(var(--position) * 1%);
+	transform: translate(50%, -50%);
+	right: 5%;
+	
+	height: 10%;
+	width: 2%;
+	background-color: #ffffff;
+}
