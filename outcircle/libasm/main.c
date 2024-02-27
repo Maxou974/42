@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <errno.h>
 #include "includes/libasm.h"
+// #include "includes/libasm_bonus.h"
+int ft_atoi_base(const char *src, const char *base);
 
 void	test_strcmp(const char *s1, const char* s2) {
 	int t = strcmp(s1, s2);
@@ -55,6 +57,8 @@ void test_write(int fd, const void *buf, size_t count) {
 
 }
 
+// void test_itoa
+
 int main() {
 	test_strcmp("", "");
 	test_strcmp("A", "A");
@@ -92,6 +96,8 @@ int main() {
 	test_write(1, "This is working\n", -1);
 	test_write(3, "This is working\n", 17);
 	test_write(-1, "This is working\n", 17);
+
+	printf("%d", ft_atoi_base("124", "0123456789"));
 
     return 0;
 }
