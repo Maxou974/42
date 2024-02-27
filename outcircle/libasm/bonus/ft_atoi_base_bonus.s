@@ -12,7 +12,11 @@ ft_atoi_base:
 	xor rax, rax
 	xor r8, r8
 	xor r9, r9
+	xor r10, r10
 	xor r11, r11
+	xor r12, r12
+	xor r13, r13
+	xor r14, r14
 	xor r15, r15
 	cmp rsi, 0
 	jz error
@@ -84,9 +88,9 @@ skip_src_space: ; r8 is i
 	je error
 
 check_sign:
-	cmp byte [rsi + r8], 43		; '+'
+	cmp byte [rdi + r8], 43		; '+'
 	je incr_r8
-	cmp byte [rsi + r8], 45		; '-'
+	cmp byte [rdi + r8], 45		; '-'
 	je set_negative
 	jmp continue
 
@@ -99,46 +103,52 @@ set_negative: ;r15 = 1 negative; r15 = 0 positive;
 	jmp incr_r8
 
 continue:
-	mov r9, r8
+	mov r9, r8  			; j = i
 get_r9_to_src_end:
-	cmp byte [rdi + r9], 0
-	je con
+	cmp byte [rdi + r9], 0  
+	je init_loop
 	inc r9
 	jmp get_r9_to_src_end
 
-con:
-	sub r9, r8; r9 is now the power for the first number ("+653" r9 = 2 cause six is base power of 2)
+init_loop:
+	sub r9, r8; ; r9(index of '\0') - r8 = len of the number r9=3 if "+321" 
 
 find_index_set:
-	dec r9 ; r9 is last digit index
-	xor rcx, rcx
+	dec r9 ; 	("+653" r9 = 2 cause six is base power of 2)
+	xor rcx, rcx	; rcx is counter to find occurence in base
 	mov r12b, [rdi + r8]		; r12 = src[i]
 find_index_in_base:
-	cmp byte [rsi + rcx], 0
+	cmp byte [rsi + rcx], 0     ; we did not find in base
 	je error
 	cmp [rsi + rcx], r12b	; base[j] == src[i]
 	je index_found
 	inc rcx
 	jmp find_index_in_base 
-
-index_found:
-	mov r11, rcx
-	mov rcx, r9
+					; in n x base^rank,
+index_found:		; r11 is n, r9 is rank, and base is len(base) wich is r10
+ 	mov r11, rcx	; rcx holds the index in base wich is n in the calculus
+	mov rcx, r9		; we put r9 in rcx, cause rcx will count the power_loop
 	jmp to_power
-after_power:
-	mul r11
-	add r14, rax
-	inc r8
-	cmp byte [rdi + r8], 0
-	jne find_index_set
-	je set_rax
+after_power:		; after to_power rax, hold the base^rank 
+	mul r11			; mul r11 equivalent to rax *= r11 so rax hold the result for the actual rank
+	add r14, rax	; r14 will hold the full sum
+	inc r8			
+	cmp byte [rdi + r8], 0	; check if end of string
+	jne find_index_set		; if not repeat with r8++
+	je set_rax				; else set rax
 
 error:
 	mov rax, 0
 	jmp return
 
+negate_rax:
+	neg rax
+	jmp return
+
 set_rax:
-	mov rax, r14 
+	mov rax, r14	; r14 was holding the hole sum
+	cmp r15, 1		; r15 = 1 negative; r15 = 0 positive; 
+	je negate_rax
 
 return:
 	pop r15
