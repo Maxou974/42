@@ -166,8 +166,8 @@ const Profil: React.FC = () => {
               <>
                 <hr />
                 About me : <br />
-                <div style={{ paddingLeft: "5%", wordBreak: "break-all" }}>
-                  {profilInfo.description}
+                <div id="helloXSS" style={{ paddingLeft: "5%", wordBreak: "break-all" }}>
+                  {/* profilInfo.description */}
                 </div>
               </>
             ) : (
