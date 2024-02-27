@@ -5,8 +5,8 @@ NAME = libasm.a
 TEST = test
 OBJS = ${SRCS:.s=.o}
 
-%.o: %.asm
-		nasm -felf64 -o ${<:.asm=.o} $<
+%.o: %.s
+		nasm -felf64 -o ${<:.s=.o} $<
 
 ${NAME}: ${OBJS}
 		ar -rcs ${NAME} ${OBJS}
@@ -23,7 +23,7 @@ fclean: clean
 re: fclean all
 
 test: ${NAME} clean
-	gcc -Wall -Werror -Wextra -L . -lasm -o ${TEST} main.c ${NAME}
+	gcc -Wall -Werror -Wextra -no-pie -L . -lasm -o ${TEST} main.c ${NAME}
 	./${TEST}
 
 .PHONY: all clean fclean re
