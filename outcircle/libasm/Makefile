@@ -1,15 +1,15 @@
 
-SRCS = ft_strlen.asm ft_strcpy.asm ft_strcmp.asm ft_strdup.asm
+SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_strdup.s ft_write.s ft_read.s
 
 NAME = libasm.a
 TEST = test
-OBJS = ${SRCS:.asm=.o}
+OBJS = ${SRCS:.s=.o}
 
 %.o: %.asm
 		nasm -felf64 -o ${<:.asm=.o} $<
 
 ${NAME}: ${OBJS}
-		ar rcs ${NAME} ${OBJS}
+		ar -rcs ${NAME} ${OBJS}
 
 all: ${NAME}
 
@@ -23,7 +23,7 @@ fclean: clean
 re: fclean all
 
 test: ${NAME} clean
-	gcc -Wall -Werror -Wextra -no-pie -o ${TEST} main.c ${NAME}
+	gcc -Wall -Werror -Wextra -L . -lasm -o ${TEST} main.c ${NAME}
 	./${TEST}
 
 .PHONY: all clean fclean re

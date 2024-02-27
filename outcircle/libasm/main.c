@@ -3,11 +3,15 @@
 #include <inttypes.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
 
 size_t	ft_strlen(const char *s);
 char*	ft_strcpy(char *dst, const char *src);
 int		ft_strcmp(const char *s1, const char* s2);
 char*	ft_strdup(const char *s);
+ssize_t	ft_write(int fd, const void *buf, size_t count);
+ssize_t	ft_read(int fd, void *buf, size_t count);
 
 void	test_strcmp(const char *s1, const char* s2) {
 	int t = strcmp(s1, s2);
@@ -44,7 +48,16 @@ void test_strdup(const char *src) {
 			printf("strdup with src: %s output \"%s\"", src, t);
 		free(t);
 	}
+}
 
+void test_write(int fd, const void *buf, size_t count) {
+	ft_write(fd, buf, count);
+	int o = errno;
+	write(fd, buf, count);
+	int t = errno;
+
+	if (o != t)
+		printf("errno diff on fd: %d, buf:\"%s\", count: %ld", fd, (char *)buf, count);
 
 }
 
@@ -81,7 +94,10 @@ int main() {
 	test_strdup("H");
 	test_strdup("Hello World!");
 
-
+	test_write(1, "This is working\n", 17);
+	test_write(1, "This is working\n", -1);
+	test_write(3, "This is working\n", 17);
+	test_write(-1, "This is working\n", 17);
 
     return 0;
 }
