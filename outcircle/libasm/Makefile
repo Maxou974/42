@@ -1,6 +1,6 @@
 
 SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_strdup.s ft_write.s ft_read.s
-BONUS_SRCS =  ft_atoi_base_bonus.s
+BONUS_SRCS =  ft_atoi_base_bonus.s ft_list_size_bonus.s ft_list_push_front_bonus.s ft_list_sort_bonus.s
 NAME = libasm.a
 TEST = test
 
@@ -37,7 +37,7 @@ fclean: clean
 re: fclean all
 
 test: bonus
-	gcc -g3 -Wall -Werror -Wextra -no-pie -L . -lasm -o ${TEST} main.c ${NAME}
+	gcc -g -Wall -Wextra -no-pie -L . -lasm -o ${TEST} main.c ${NAME}
 	./${TEST}
 
 .PHONY: all clean fclean re test bonus
