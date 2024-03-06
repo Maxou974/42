@@ -61,111 +61,56 @@ void test_write(int fd, const void *buf, size_t count)
 		printf("errno diff on fd: %d, buf:\"%s\", count: %ld", fd, (char *)buf, count);
 }
 
-int cmp(void *a, void *b)
-{
-	if ((long long)a > (long long)b)
-		return 1;
-	return 0;
-}
+void	mandatory();
+void	bonus();
 
 int main()
 {
-	// test_strcmp("", "");
-	// test_strcmp("A", "A");
-	// test_strcmp("A", "Z");
-	// test_strcmp("Z", "A");
-	// test_strcmp("z", "a");
-	// test_strcmp("a", "z");
-	// test_strcmp("A", "z");
-	// test_strcmp("z", "A");
-	// test_strcmp("Z", "a");
-	// test_strcmp("a", "Z");
-	// test_strcmp("Hello World", "Hello Mom");
-	// test_strcmp("Hello Mom", "Hello World");
-	// test_strcmp("Hello", "Hello");
-	// test_strcmp("whoeif", "ascno");
-	// test_strcmp("whoeif", "Qscno");
-	// test_strcmp("Qscno", "whoeif" );
-
-	// test_strlen("");
-	// test_strlen("Hello");
-	// test_strlen("H");
-	// test_strlen("wehjfoiwehfoiwehfowhefowhefuwefwuiefwiuefui");
-
-	// test_strcpy(dst, "Hello World!");
-	// test_strcpy(dst, "");
-	// test_strcpy(dst, "H");
-
-	// test_strdup("");
-	// test_strdup("H");
-	// test_strdup("Hello World!");
-
-	// test_write(1, "This is working\n", 17);
-	// test_write(1, "This is working\n", -1);
-	// test_write(3, "This is working\n", 17);
-	// test_write(-1, "This is working\n", 17);
-
-
-	t_list *list = NULL;
-	// ft_list_push_front(&list, (void*)4);
-	// ft_list_push_front(&list, (void*)-2);
-	// ft_list_push_front(&list, (void*)1);
-	// ft_list_push_front(&list, (void*)3);
-	// ft_list_push_front(&list, (void*)-1);
-	// ft_list_push_front(&list, (void*)5);
-	// ft_list_push_front(&list, (void*)-2);
-	// ft_list_push_front(&list, (void*)6);
-	ft_list_push_front(&list, (void*)-3);
-	ft_list_push_front(&list, (void*)0);
-
-		printf("\n%d\n", ft_list_size(list));
-	
-
-	ft_list_sort(&list, &cmp);
-
-	while (list) {
-		printf("%lld", (long long)list->data);
-		list = list->next;
-	}
-	printf("\n");
-
-	// int i = 0;
-	// char dst[20] = "wef";
-
-	// while (++i < 100)
-	// {
-	// 	test_write(1, "This is working\n", 17);
-	// 	test_write(1, "This is working\n", -1);
-	// 	test_write(3, "This is working\n", 17);
-	// 	test_write(-1, "This is working\n", 17);
-	// 	test_strdup("");
-	// 	test_strdup("H");
-	// 	test_strdup("Hello World!");
-	// 	test_strcpy(dst, "Hello World!");
-	// 	test_strcpy(dst, "");
-	// 	test_strcpy(dst, "H");
-	// 	test_strlen("");
-	// 	test_strlen("Hello");
-	// 	test_strlen("H");
-	// 	test_strlen("wehjfoiwehfoiwehfowhefowhefuwefwuiefwiuefui");
-	// 	test_strcmp("", "");
-	// 	test_strcmp("A", "A");
-	// 	test_strcmp("A", "Z");
-	// 	test_strcmp("Z", "A");
-	// 	test_strcmp("z", "a");
-	// 	test_strcmp("a", "z");
-	// 	test_strcmp("A", "z");
-	// 	test_strcmp("z", "A");
-	// 	test_strcmp("Z", "a");
-	// 	test_strcmp("a", "Z");
-	// 	test_strcmp("Hello World", "Hello Mom");
-	// 	test_strcmp("Hello Mom", "Hello World");
-	// 	test_strcmp("Hello", "Hello");
-	// 	test_strcmp("whoeif", "ascno");
-	// 	test_strcmp("whoeif", "Qscno");
-	// 	test_strcmp("Qscno", "whoeif" );
-	// 	ft_list_size(&list);
-	// 	ft_list_sort(&list, &cmp);
-	// }
+	mandatory();
+	// bonus();
 	return 0;
+}
+
+void bonus() {
+
+}
+
+
+void	mandatory() {
+	char dst[20];
+
+	test_strcmp("", "");
+	test_strcmp("A", "A");
+	test_strcmp("A", "Z");
+	test_strcmp("Z", "A");
+	test_strcmp("z", "a");
+	test_strcmp("a", "z");
+	test_strcmp("A", "z");
+	test_strcmp("z", "A");
+	test_strcmp("Z", "a");
+	test_strcmp("a", "Z");
+	test_strcmp("Hello World", "Hello Mom");
+	test_strcmp("Hello Mom", "Hello World");
+	test_strcmp("Hello", "Hello");
+	test_strcmp("whoeif", "ascno");
+	test_strcmp("whoeif", "Qscno");
+	test_strcmp("Qscno", "whoeif" );
+
+	test_strlen("");
+	test_strlen("Hello");
+	test_strlen("H");
+	test_strlen("wehjfoiwehfoiwehfowhefowhefuwefwuiefwiuefui");
+
+	test_strcpy(dst, "Hello World!");
+	test_strcpy(dst, "");
+	test_strcpy(dst, "H");
+
+	test_strdup("");
+	test_strdup("H");
+	test_strdup("Hello World!");
+
+	test_write(1, "This is working\n", 17);
+	// test_write(1, "This is working\n", -1);
+	test_write(3, "This is working\n", 17);
+	// test_write(-1, "This is working\n", 17);
 }
