@@ -24,46 +24,43 @@ ft_list_remove_if:
 	mov rbp, rsp
 	sub rsp, 40
 
+	push r15
+	push r12
+
 	mov [rbp - 8], rsi ; store the *data
 	mov [rbp - 16], rdx ; store the *cmp
 	mov [rbp - 32], rcx	; store the *free
 	mov [rbp - 40], rdi ; store the *next that we need to change 
-	mov r9, [rdi]	; r9 store the head of the node that we need to compare
-
-	push r12
+	mov r15, [rdi]	; r15 store the head of the node that we need to compare
 
 compare:
-	cmp r9, 0
+	cmp r15, 0
 	je return
-	mov rdi, [r9]
+	mov rdi, [r15]
 	mov rsi, [rbp - 8]
-	push r9
 	call [rbp - 16]
-	pop r9
 	cmp rax, 0
 	jz delete
 	jmp move_next
 
 delete:
-	mov rdi, [r9]
-	mov r12, r9
+	mov rdi, [r15]
+	mov r12, r15
 	add r12, 8
 	mov r12, [r12]
-	push r9
 	call [rbp - 32]
-	pop r9
-	mov rdi, r9
+	mov rdi, r15
 	call free
-	mov r9, r12
+	mov r15, r12
 	mov r8, [rbp - 40]
-	mov [r8], r9
+	mov [r8], r15
 	jmp compare
 
 move_next:
-	mov r8, r9
+	mov r8, r15
 	add r8, 8
 	mov [rbp - 40], r8
-	mov r9, [r8]
+	mov r15, [r8]
 	jmp compare
 
 return:

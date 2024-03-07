@@ -66,7 +66,7 @@ void	bonus();
 
 int main()
 {
-	// mandatory();
+	mandatory();
 	bonus();
 	return 0;
 }
