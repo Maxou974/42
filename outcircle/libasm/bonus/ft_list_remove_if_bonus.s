@@ -65,6 +65,7 @@ move_next:
 
 return:
 	pop r12
+	pop r15
 	mov rsp, rbp
 	pop rbp
 	ret
