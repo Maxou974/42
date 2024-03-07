@@ -36,7 +36,7 @@ ${NAME}: ${OBJS}
 all: ${NAME}
 
 bonus: ${OBJS_BONUS}
-		ar -rcs ${NAME} ${OBJS_BONUS}
+		@ar -rcs ${NAME} ${OBJS_BONUS}
 
 clean: 
 	rm -rf ${OBJS_PATH}
@@ -48,7 +48,7 @@ fclean: clean
 re: fclean all
 
 test: bonus
-	gcc -g -Wall -Wextra -no-pie -L . -lasm -o ${TEST} main.c ${NAME}
+	@gcc -g -Wall -Wextra -no-pie -L . -lasm -o ${TEST} main.c ${NAME}
 	./${TEST}
 
 .PHONY: all clean fclean re test bonus
