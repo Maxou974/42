@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include <fcntl.h>
 #include "includes/libasm.h"
 #include "includes/libasm_bonus.h"
 
@@ -238,5 +239,16 @@ void	mandatory() {
 	test_write(1, "This is working\n", 17);
 	// test_write(1, "This is working\n", -1);
 	test_write(3, "This is working\n", 17);
-	// test_write(-1, "This is working\n", 17);
+	test_write(-1, "This is working\n", 17);
+	printf("%s\n", strerror(errno));
+
+	int fd = open("./file", O_RDONLY);
+	char buf[20];
+	int readed = ft_read(fd, buf, 20);
+	buf[readed] = 0;
+	printf("%s\n", buf);
+
+	ft_read(23, buf, 23);
+	printf("%s\n", strerror(errno));
+
 }
