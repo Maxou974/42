@@ -9,7 +9,7 @@ ft_strdup:
 	push rdi			; save rdi wich is the src of strdup
 	mov rdi, rax		; put in rdi the len of src
 	inc rdi				; inc the len of src for NULL byte
-	call malloc			; rax = 0 if malloc failed, adress otherwise
+	call malloc	wrt ..plt		; rax = 0 if malloc failed, adress otherwise
 	cmp rax, 0			
 	jz return			; Jump if Zero to return (malloc failed)
 	mov rdi, rax		; rdi = adress from malloc

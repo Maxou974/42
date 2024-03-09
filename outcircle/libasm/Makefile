@@ -48,7 +48,7 @@ fclean: clean
 re: fclean all
 
 test: bonus
-	@gcc -g -Wall -Wextra -no-pie -L . -lasm -o ${TEST} main.c ${NAME}
+	@gcc -g -Wall -Wextra -L . -o ${TEST} main.c ${NAME}
 	./${TEST}
 
 .PHONY: all clean fclean re test bonus

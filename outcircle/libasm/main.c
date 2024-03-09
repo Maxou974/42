@@ -64,6 +64,8 @@ void test_write(int fd, const void *buf, size_t count)
 void	mandatory();
 void	bonus();
 
+char *strcat_list(t_list *list);
+
 int main()
 {
 	mandatory();
@@ -112,7 +114,7 @@ void bonus() {
 	atoi_base_test("-10", "01", -2);
 	
 	atoi_base_test("10", "0123456789", 10);
-	atoi_base_test("12e31", "0123456789", 0);
+	atoi_base_test("12e31", "0123456789", 12);
 	
 	atoi_base_test("ea", "abcdefhijk", 40);
 	atoi_base_test("    -ea", "abcdefhijk", -40);

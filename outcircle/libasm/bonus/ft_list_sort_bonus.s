@@ -29,10 +29,12 @@ start_loop:
 	push rsi
 	push r8
 	push r9
+	push r9
 	mov r10, rsi	; will hold the rsi function ptr
 	mov rdi, [r8]
 	mov rsi, [r9]
 	call r10
+	pop r9
 	pop r9
 	pop r8
 	pop rsi

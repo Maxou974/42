@@ -87,31 +87,46 @@ skip_src_space: ; r8 is i
 	cmp byte [rdi + r8], 0		; '\0'
 	je error
 
+	jmp check_sign
+
+skip_sign_incr:
+	inc r8
 check_sign:
 	cmp byte [rdi + r8], 43		; '+'
-	je incr_r8
+	je skip_sign_incr
 	cmp byte [rdi + r8], 45		; '-'
-	je set_negative
+	je incr_negative
+
 	jmp continue
 
-incr_r8:
-	inc r8
-	jmp continue
-
-set_negative: ;r15 = 1 negative; r15 = 0 positive; 
+incr_negative:
 	inc r15
-	jmp incr_r8
+	jmp skip_sign_incr
 
 continue:
 	mov r9, r8  			; j = i
 get_r9_to_src_end:
-	cmp byte [rdi + r9], 0  
+	cmp byte [rdi + r9], 0
 	je init_loop
+
+	xor rcx, rcx
+weif:
+	cmp byte [rsi + rcx], 0
+	je init_loop
+	push r9
+	mov r9b, [rdi + r9]
+	cmp byte [rsi + rcx], r9b
+	pop r9
+	je incr_r9_to_end
+	inc rcx
+	jmp weif
+
+incr_r9_to_end:
 	inc r9
 	jmp get_r9_to_src_end
 
 init_loop:
-	sub r9, r8; ; r9(index of '\0') - r8 = len of the number r9=3 if "+321" 
+	sub r9, r8; ; r9(index of '\0') - r8 = len of the number r9=3 if "+321"
 
 find_index_set:
 	dec r9 ; 	("+653" r9 = 2 cause six is base power of 2)
@@ -138,8 +153,8 @@ after_power:		; after to_power rax, hold the base^rank
 	je set_rax				; else set rax
 
 error:
-	mov rax, 0
-	jmp return
+	; mov rax, 0
+	jmp set_rax
 
 negate_rax:
 	neg rax
@@ -147,7 +162,8 @@ negate_rax:
 
 set_rax:
 	mov rax, r14	; r14 was holding the hole sum
-	cmp r15, 1		; r15 = 1 negative; r15 = 0 positive; 
+	and r15, 1 
+	cmp r15, 1		; r15 = 1 negative; r15 = 0 positive;
 	je negate_rax
 
 return:
@@ -171,3 +187,5 @@ to_power_bis:
 set_rax_1:
 	mov rax, 1
 	je 	after_power		; find continue
+
+

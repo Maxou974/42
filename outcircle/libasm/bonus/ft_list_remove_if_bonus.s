@@ -50,7 +50,7 @@ delete:
 	mov r12, [r12]
 	call [rbp - 32]
 	mov rdi, r15
-	call free
+	call free wrt ..plt
 	mov r15, r12
 	mov r8, [rbp - 40]
 	mov [r8], r15

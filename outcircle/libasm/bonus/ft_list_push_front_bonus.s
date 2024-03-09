@@ -7,7 +7,7 @@ ft_list_push_front:
 	push rdi
 	push rsi
 	mov rdi, 0x10
-	call malloc		; malloc 16B
+	call malloc	wrt ..plt	; malloc 16B
 	pop rsi
 	pop rdi
 	cmp rax, 0

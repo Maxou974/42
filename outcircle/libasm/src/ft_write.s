@@ -8,7 +8,7 @@ ft_write:
 	jge return
 	mov r8, rax
 	neg r8
-	call __errno_location
+	call __errno_location wrt ..plt
 	mov [rax], r8
 	mov rax, -1
 
